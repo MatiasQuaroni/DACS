@@ -7,5 +7,9 @@ namespace Server
 {
     public class Itinerary
     {
+        private int numberId;
+        private Boolean isComplete;
+        private DateTime startDate;
+        private DateTime endDate;
     }
 }
