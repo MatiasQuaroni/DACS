@@ -13,6 +13,6 @@ namespace Server
         public string Precautions { get; set; }
         public DateTime ArrivalDate { get; set; }
         public DateTime EstimatedArrivalDate { get; set; }
-        private IEnumerable<ShipmentState> State;
+        private IEnumerable<ShipmentState> States;
     }
 }
