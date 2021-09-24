@@ -15,6 +15,8 @@ namespace Server.DAL.EF
         protected override void OnModelCreating(ModelBuilder pModelBuilder)
         {
             pModelBuilder.ApplyConfiguration(new ShipmentEntityConfiguration());
+            pModelBuilder.ApplyConfiguration(new ItineraryEntityConfiguration());
+
         }
     }
 }

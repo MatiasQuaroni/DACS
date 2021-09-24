@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Server.DAL.EF
 {
-    public class ShipmentRepository : Repository<Shipment, ProgramDbContext> , IShipmentRepository 
+    public class ShipmentRepository : Repository<Shipment, ShipmentDbContext> , IShipmentRepository 
     {
-        public ShipmentRepository(ProgramDbContext pDbContext) : base(pDbContext)
+        public ShipmentRepository(ShipmentDbContext pDbContext) : base(pDbContext)
         {
 
         }
