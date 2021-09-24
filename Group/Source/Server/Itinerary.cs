@@ -7,11 +7,11 @@ namespace Server
 {
     public class Itinerary
     {
-        public int numberId { get; set; }
-        public Boolean isComplete { get; set; }
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
-        private IEnumerable<Shipment> shipments;
-        private IEnumerable<Leg> legs;
+        public Guid NumberId { get; set; }
+        public Boolean IsComplete { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        private IEnumerable<Shipment> Shipments;
+        private IEnumerable<Leg> Legs;
     }
 }

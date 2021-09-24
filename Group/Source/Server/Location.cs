@@ -2,8 +2,8 @@
 
 public class Location
 {
-    private int id;
-    private string coordinates;
+    public Guid Id { get; set; }
+    public string Coordinates{ get; set; }
     public int PostalCode { get; set; }
     public string Address { get; set; }
     public string Floor { get; set; }

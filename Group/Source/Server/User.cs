@@ -7,6 +7,7 @@ namespace Server
 {
     public class User
     {
+        public Guid Id { get; set; }
         public String userName { get; set; }
         public String password { get; set; }
         public UserState userState { get; set; }

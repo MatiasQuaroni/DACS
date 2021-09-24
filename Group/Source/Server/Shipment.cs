@@ -7,7 +7,7 @@ namespace Server
 {
     public class Shipment
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public int TrackingNumber { get; set; }
         public int Weight { get; set; }
         public string Precautions { get; set; }

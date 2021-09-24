@@ -7,11 +7,12 @@ namespace Server
 {
     public class CustomerInfo
     {
-        public String dni { get; set; }
-        public String name { get; set; }
-        public String email { get; set; }
-        public String phoneNumber { get; set; }
-        private IEnumerable<Location> registeredAddresses { get; set; }
+        public Guid Id { get; set; }
+        public String Dni { get; set; }
+        public String Name { get; set; }
+        public String Email { get; set; }
+        public String PhoneNumber { get; set; }
+        private IEnumerable<Location> RegisteredAddresses { get; set; }
 
     }
 }

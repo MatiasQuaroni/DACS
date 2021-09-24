@@ -7,8 +7,8 @@ namespace Server
 {
     public class ProfileInfo
     {
-        public string displayName { get; set; }
-        public string emailAddress { get; set; }
-        public string phoneNumber { get; set; }
+        public string DisplayName { get; set; }
+        public string EmailAddress { get; set; }
+        public string PhoneNumber { get; set; }
     }
 }
