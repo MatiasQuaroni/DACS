@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Server.DAL.EF
 {
     public abstract class Repository<TEntity, TDbContext> : IRepository<TEntity> where TEntity : class
-                                                                                 where TDbContext : DbContext
+                                                                                 where TDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
 
         protected readonly TDbContext iDbContext;

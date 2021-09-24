@@ -8,10 +8,16 @@ namespace Server
     public class Itinerary
     {
         public Guid Id { get; set; }
-        public Boolean IsComplete { get; set; }
+        public bool IsComplete { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         private IEnumerable<Shipment> Shipments;
         private IEnumerable<Leg> Legs;
+
+        public Itinerary()
+        {
+
+        }
+
     }
 }

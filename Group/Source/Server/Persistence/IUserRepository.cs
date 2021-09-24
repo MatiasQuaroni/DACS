@@ -7,6 +7,6 @@ namespace Server.DAL
 {
     interface IUserRepository : IRepository<User>
     {
-        IEnumerable<User> GetByFilter(string pUsername, string pEmail, int pStatus);
+        IEnumerable<User> GetByFilter();
     }
 }

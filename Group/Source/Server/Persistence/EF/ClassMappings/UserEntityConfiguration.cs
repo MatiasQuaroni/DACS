@@ -13,8 +13,8 @@ namespace Server.DAL.EF
         {
             builder.ToTable("UserInfo");                                     
             builder.HasKey(u => u.Id);
-            builder.Property(u => u.UserName).HasColumnName("Username")
-            builder.Property(p => p.Password).HasColumnName("Password");
+            builder.Property(u => u.UserName);
+            builder.Property(p => p.Password);
             builder.HasMany<UserState>(u => (ICollection<UserState>)u.UserState);
         }
     }

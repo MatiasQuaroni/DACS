@@ -7,12 +7,12 @@ namespace Server.DAL.EF
     {
         public void Configure(EntityTypeBuilder<CustomerInfo> builder)
         {
-            builder.ToTable("CustomerInfor");
+            builder.ToTable("CustomerInfo");
             builder.HasKey(ci => ci.Id);
-            builder.Property(ci=> ci.Name).HasColumnName("Name");
-            builder.Property(ci => ci.Dni).HasColumnName("DNI");
-            builder.Property(ci => ci.Email).HasColumnName("Email");
-            builder.Property(ci => ci.PhoneNumber).HasColumnName("PhoneNumber");
+            builder.Property(ci=> ci.Name);
+            builder.Property(ci => ci.Dni);
+            builder.Property(ci => ci.Email);
+            builder.Property(ci => ci.PhoneNumber);
         }
     }
 }

@@ -8,8 +8,8 @@ namespace Server.DAL.EF
         public void Configure(EntityTypeBuilder<Leg> builder)
         {
             builder.HasKey(l => l.Id);
-            builder.Property(l => l.StartLocation).HasColumnName("StartLocation");
-            builder.Property(l => l.EndLocation).HasColumnName("EndLocation");
+            builder.Property(l => l.StartLocation);
+            builder.Property(l => l.EndLocation);
         }
     }
 }

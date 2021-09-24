@@ -6,13 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Server.DAL.EF
 {
-    public class ShipmentDbContext : DbContext
+    public class RoadsDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        public DbSet<Shipment> Shipments { get; set; }
-        public DbSet<Itinerary> Itineraries { get; set; }
-        public DbSet<Leg> Legs { get; set; }
-        public DbSet<Location> Locations { get; set; }
-        public DbSet<CustomerInfo> Customers { get; set; }
+ 
         protected override void OnModelCreating(ModelBuilder pModelBuilder)
         {
             pModelBuilder.ApplyConfiguration(new ShipmentEntityConfiguration());
@@ -20,6 +16,8 @@ namespace Server.DAL.EF
             pModelBuilder.ApplyConfiguration(new LegEntityConfiguration());
             pModelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
             pModelBuilder.ApplyConfiguration(new CustomerInfoEntityConfiguration());
+            pModelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+            pModelBuilder.ApplyConfiguration(new ProfileInfoEntityConfiguration());
 
         }
     }

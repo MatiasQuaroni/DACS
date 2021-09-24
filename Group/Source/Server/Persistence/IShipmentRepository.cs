@@ -7,6 +7,6 @@ namespace Server.DAL
 {
     interface IShipmentRepository : IRepository<Shipment>
     {
-        IEnumerable<Shipment> GetByFilter(string pArrivalDate,string pPostalCode, int pStatus);
+        IEnumerable<Shipment> GetByFilter();
     }
 }

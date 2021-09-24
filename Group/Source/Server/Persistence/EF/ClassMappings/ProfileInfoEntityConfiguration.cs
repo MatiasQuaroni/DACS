@@ -11,9 +11,9 @@ namespace Server.DAL.EF
     {
         public void Configure(EntityTypeBuilder<ProfileInfo> builder)
         {
-            builder.Property(p => p.DisplayName).HasColumnName("Displayname");
-            builder.Property(p => p.EmailAddress).HasColumnName("Email");
-            builder.Property(p => p.PhoneNumber).HasColumnName("Phone number");
+            builder.Property(p => p.DisplayName);
+            builder.Property(p => p.EmailAddress);
+            builder.Property(p => p.PhoneNumber);
 
         }
     }

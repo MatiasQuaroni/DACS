@@ -13,9 +13,9 @@ namespace Server.DAL.EF
         {
             builder.ToTable("ItineraryInfo");
             builder.HasKey(i => i.Id);
-            builder.Property(i => i.IsComplete).HasColumnName("IsComplete");
-            builder.Property(i => i.StartDate).HasColumnName("StartDate");
-            builder.Property(i => i.EndDate).HasColumnName("EndDate");
+            builder.Property(i => i.IsComplete);
+            builder.Property(i => i.StartDate);
+            builder.Property(i => i.EndDate);
         }
     }
 }
