@@ -16,6 +16,8 @@ namespace Server.DAL.EF
         {
             pModelBuilder.ApplyConfiguration(new ShipmentEntityConfiguration());
             pModelBuilder.ApplyConfiguration(new ItineraryEntityConfiguration());
+            pModelBuilder.ApplyConfiguration(new LegEntityConfiguration());
+            pModelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
 
         }
     }
