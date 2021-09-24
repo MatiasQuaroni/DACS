@@ -7,13 +7,9 @@ namespace Server
 {
     internal class ShipmentState
     {
-        public State CurrentState { get; set; }
+        public ShipmentStatus CurrentState { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
 
-       public enum State 
-        {inPreparation = 0,
-        delivered = 1,
-        ongoing = 2}
     }
 }
