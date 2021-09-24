@@ -7,8 +7,8 @@ namespace Server
 {
     public class Leg
     {
-        public int numberId { get; set; }
-        public Location startLocation { get; set; }
-        public Location endLocation { get; set; }
+        public Guid NumberId { get; set; }
+        public Location StartLocation { get; set; }
+        public Location EndLocation { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace Server
 {
     public class UserState
     {
-        public DateTime date { get; set; }
-        public UserStatus status { get; set; }
+        public DateTime Date { get; set; }
+        public UserStatus Status { get; set; }
     }
 }
