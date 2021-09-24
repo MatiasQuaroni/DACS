@@ -8,10 +8,10 @@ namespace Server
     public class User
     {
         public Guid Id { get; set; }
-        public String userName { get; set; }
-        public String password { get; set; }
-        public UserState userState { get; set; }
-        public ProfileInfo profileInfo { get; set; }
+        public String UserName { get; set; }
+        public String Password { get; set; }
+        public UserState UserState { get; set; }
+        public ProfileInfo ProfileInfo { get; set; }
 
     }
 }
