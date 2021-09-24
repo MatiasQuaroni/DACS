@@ -14,6 +14,7 @@ namespace Server.DAL.EF
         public DbSet<Location> Locations { get; set; }
         protected override void OnModelCreating(ModelBuilder pModelBuilder)
         {
+            pModelBuilder.ApplyConfiguration(new ShipmentEntityConfiguration());
         }
     }
 }
