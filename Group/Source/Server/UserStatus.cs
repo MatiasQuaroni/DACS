@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    public class UserState
+    public enum UserStatus
     {
-        public DateTime date { get; set; }
-        public UserStatus status { get; set; }
+        Administrator = 0,
+        Transportist = 1,
+        BaseUser = 2
     }
 }
