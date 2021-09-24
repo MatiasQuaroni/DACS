@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Server.Domain;
 
-namespace Server.DAL.EF
+namespace Server.Persistence.EF.Repositories
 {
     public class ShipmentRepository : Repository<Shipment, RoadsDbContext> , IShipmentRepository 
     {

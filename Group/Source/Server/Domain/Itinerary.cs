@@ -11,12 +11,13 @@ namespace Server
         public bool IsComplete { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        private IEnumerable<Shipment> Shipments;
-        private IEnumerable<Leg> Legs;
+        public IEnumerable<Shipment> Shipments { get; set; }
+        public IEnumerable<Leg> Legs { get; set; }
 
         public Itinerary()
         {
-
+            this.Shipments = new List<Shipment>();
+            this.Legs = new List<Leg>();
         }
 
     }

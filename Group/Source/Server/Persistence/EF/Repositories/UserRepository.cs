@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Server.Domain;
 
-namespace Server.DAL.EF
+namespace Server.Persistence.EF.Repositories
 
 {
     public class UserRepository : Repository<User, RoadsDbContext> , IUserRepository

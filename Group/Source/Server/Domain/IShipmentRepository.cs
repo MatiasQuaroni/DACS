@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Server.DAL
+namespace Server.Domain
 {
     interface IShipmentRepository : IRepository<Shipment>
     {

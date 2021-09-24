@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Server.DAL.EF
+namespace Server.Persistence.EF.ClassMappings
 {
     internal class LegEntityConfiguration : IEntityTypeConfiguration<Leg>
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Server.DAL.EF
+namespace Server.Persistence.EF.ClassMappings
 {
     public class ShipmentEntityConfiguration : IEntityTypeConfiguration<Shipment>
     {

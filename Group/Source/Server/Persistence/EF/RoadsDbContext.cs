@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Server.Persistence.EF.ClassMappings;
 
-namespace Server.DAL.EF
+namespace Server.Persistence.EF
 {
     public class RoadsDbContext : Microsoft.EntityFrameworkCore.DbContext
     {

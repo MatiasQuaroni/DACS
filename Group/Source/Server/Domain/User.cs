@@ -8,8 +8,8 @@ namespace Server
     public class User
     {
         public Guid Id { get; set; }
-        public String UserName { get; set; }
-        public String Password { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
         public UserState UserState { get; set; }
         public ProfileInfo ProfileInfo { get; set; }
 

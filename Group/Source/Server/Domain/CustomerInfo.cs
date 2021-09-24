@@ -8,11 +8,16 @@ namespace Server
     public class CustomerInfo
     {
         public Guid Id { get; set; }
-        public String Dni { get; set; }
-        public String Name { get; set; }
-        public String Email { get; set; }
-        public String PhoneNumber { get; set; }
+        public string Dni { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
         private IEnumerable<Location> RegisteredAddresses { get; set; }
+
+        public CustomerInfo()
+        {
+            this.RegisteredAddresses = new List<Location>();
+        }
 
     }
 }
