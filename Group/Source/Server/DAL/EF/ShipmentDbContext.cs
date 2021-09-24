@@ -12,12 +12,14 @@ namespace Server.DAL.EF
         public DbSet<Itinerary> Itineraries { get; set; }
         public DbSet<Leg> Legs { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<CustomerInfo> Customers { get; set; }
         protected override void OnModelCreating(ModelBuilder pModelBuilder)
         {
             pModelBuilder.ApplyConfiguration(new ShipmentEntityConfiguration());
             pModelBuilder.ApplyConfiguration(new ItineraryEntityConfiguration());
             pModelBuilder.ApplyConfiguration(new LegEntityConfiguration());
             pModelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
+            pModelBuilder.ApplyConfiguration(new CustomerInfoEntityConfiguration());
 
         }
     }
