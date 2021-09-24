@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    public enum ShipmentStatus
+    public enum ShipmentStateEnum
     {
         InPreparation = 0,
         Delivered = 1,

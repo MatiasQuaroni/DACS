@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    internal class ShipmentState
+    public class ShipmentState
     {
-        public ShipmentStatus CurrentState { get; set; }
+        public ShipmentStateEnum CurrentState { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
 
