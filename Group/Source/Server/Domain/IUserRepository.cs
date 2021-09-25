@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Server.Domain
 {
-    interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IRepository<User>
     {
         IEnumerable<User> GetByFilter();
     }

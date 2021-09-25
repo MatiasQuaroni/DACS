@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Server.Domain
 {
-    interface IShipmentRepository : IRepository<Shipment>
+   public interface IShipmentRepository : IRepository<Shipment>
     {
         IEnumerable<Shipment> GetByFilter();
     }
