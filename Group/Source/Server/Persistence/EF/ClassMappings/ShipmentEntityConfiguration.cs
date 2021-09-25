@@ -19,7 +19,8 @@ namespace Server.Persistence.EF.ClassMappings
             builder.Property(s => s.Precautions);
             builder.Property(s => s.EstimatedArrivalDate);
             builder.Property(s => s.ArrivalDate);
-            builder.HasMany<ShipmentState>(s => (ICollection<ShipmentState>)s.States);
+            builder.Ignore(s => s.States);
+            //builder.HasMany<ShipmentState>(s => (ICollection<ShipmentState>)s.States);
         }
     }
 }

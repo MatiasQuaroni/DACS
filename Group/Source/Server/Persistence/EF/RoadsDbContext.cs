@@ -7,19 +7,24 @@ using Server.Persistence.EF.ClassMappings;
 
 namespace Server.Persistence.EF
 {
-    public class RoadsDbContext : Microsoft.EntityFrameworkCore.DbContext
+    public class RoadsDbContext : DbContext
     {
- 
-        protected override void OnModelCreating(ModelBuilder pModelBuilder)
-        {
-            pModelBuilder.ApplyConfiguration(new ShipmentEntityConfiguration());
-            pModelBuilder.ApplyConfiguration(new ItineraryEntityConfiguration());
-            pModelBuilder.ApplyConfiguration(new LegEntityConfiguration());
-            pModelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
-            pModelBuilder.ApplyConfiguration(new CustomerInfoEntityConfiguration());
-            pModelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-            pModelBuilder.ApplyConfiguration(new ProfileInfoEntityConfiguration());
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(@"Server = (localdb)\MSSQLLocalDB; Database=RoadsDB; User Id=sa; Password=dacs2021!");
+        } 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new ShipmentEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ItineraryEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new LegEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerInfoEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ProfileInfoEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new ShipmentStateEntityConfiguration());
         }
+
     }
 }

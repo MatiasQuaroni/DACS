@@ -11,6 +11,7 @@ namespace Server.Persistence.EF.ClassMappings
     {
         public void Configure(EntityTypeBuilder<ProfileInfo> builder)
         {
+            builder.HasNoKey();
             builder.Property(p => p.DisplayName);
             builder.Property(p => p.EmailAddress);
             builder.Property(p => p.PhoneNumber);
