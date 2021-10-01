@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Server.Domain;
 
-namespace Server.Persistence.EF.ClassMappings
+namespace Server.Persistence.ClassMappings
 {
     internal class CustomerInfoEntityConfiguration : IEntityTypeConfiguration<CustomerInfo>
     {

@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Server.Domain;
 
-namespace Server.Persistence.EF.ClassMappings
+namespace Server.Persistence.ClassMappings
 {
     public class UserEntityConfiguration : IEntityTypeConfiguration<User>
     {

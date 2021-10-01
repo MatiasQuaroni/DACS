@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Server.Domain;
 using Server.Persistence;
 
-namespace Server.Persistence.EF.Repositories
+namespace Server.Persistence.Repositories
 {
     public class UnitOfWork: IUnitOfWork 
     {

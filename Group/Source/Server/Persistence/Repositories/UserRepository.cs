@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Server.Domain;
 
-namespace Server.Persistence.EF.Repositories
+namespace Server.Persistence.Repositories
 
 {
     public class UserRepository : Repository<User, RoadsDbContext> , IUserRepository

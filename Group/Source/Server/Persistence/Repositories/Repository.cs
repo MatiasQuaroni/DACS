@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Server.Domain;
 
-namespace Server.Persistence.EF.Repositories
+namespace Server.Persistence.Repositories
 {
     public abstract class Repository<TEntity, TDbContext> : IRepository<TEntity> where TEntity : class
                                                                                  where TDbContext : DbContext
