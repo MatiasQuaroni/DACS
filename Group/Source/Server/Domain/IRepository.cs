@@ -10,6 +10,7 @@ namespace Server.Domain
         void Add(TEntity pEntity);
         void Remove(TEntity pEntity);
         TEntity Get(int pId);
+        TEntity Get(Guid pId);
         IEnumerable<TEntity> GetAll();
     }
 }

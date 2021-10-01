@@ -6,7 +6,7 @@ using Server.Domain;
 namespace Server.Persistence.EF.Repositories
 {
     public abstract class Repository<TEntity, TDbContext> : IRepository<TEntity> where TEntity : class
-                                                                                 where TDbContext : Microsoft.EntityFrameworkCore.DbContext
+                                                                                 where TDbContext : DbContext
     {
 
         protected readonly TDbContext iDbContext;
@@ -32,6 +32,10 @@ namespace Server.Persistence.EF.Repositories
         }
 
         public TEntity Get(int pId)
+        {
+            return this.iDbContext.Set<TEntity>().Find(pId);
+        }
+        public TEntity Get(Guid pId)
         {
             return this.iDbContext.Set<TEntity>().Find(pId);
         }

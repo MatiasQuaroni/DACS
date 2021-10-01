@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server;
 using Server.Persistence.EF;
+using Server.Persistence.EF.Repositories;
 
 namespace Server.Application.Controllers
 {
@@ -14,25 +15,24 @@ namespace Server.Application.Controllers
     [ApiController]
     public class ShipmentsController : ControllerBase
     {
-        private readonly RoadsDbContext _context;
-
+        private UnitOfWork _unit;
         public ShipmentsController(RoadsDbContext context)
         {
-            _context = context;
+            _unit = new UnitOfWork(context);  
         }
 
         // GET: api/Shipments/all
         [HttpGet("all")]
-        public async Task<ActionResult<IEnumerable<Shipment>>> GetShipment()
+        public IEnumerable<Shipment> GetShipment()
         {
-            return await _context.Shipment.ToListAsync();
+            return _unit.ShipmentRepository.GetAll();
         }
 
         // GET: api/Shipments/byId/id
         [HttpGet("/byId/{id}")]
-        public async Task<ActionResult<Shipment>> GetShipment(Guid id)
+        public ActionResult<Shipment> GetShipment(Guid id)
         {
-            var shipment = await _context.Shipment.FindAsync(id);
+            var shipment = _unit.ShipmentRepository.Get(id);
 
             if (shipment == null)
             {
@@ -42,7 +42,7 @@ namespace Server.Application.Controllers
             return shipment;
         }
 
-        // PUT: api/Shipments/update/id
+       /*  // PUT: api/Shipments/update/id
         [HttpPut("update/{id}")]
         public async Task<IActionResult> PutShipment(Guid id, Shipment shipment)
         {
@@ -70,38 +70,37 @@ namespace Server.Application.Controllers
             }
 
             return NoContent();
-        }
+        } */
 
         // POST: api/Shipments/create
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost("create")]
-        public async Task<ActionResult<Shipment>> PostShipment(Shipment shipment)
+        public ActionResult<Shipment> PostShipment(Shipment shipment)
         {
-            _context.Shipment.Add(shipment);
-            await _context.SaveChangesAsync();
+            _unit.ShipmentRepository.Add(shipment);
+            _unit.Complete();
 
             return CreatedAtAction("GetShipment", new { id = shipment.Id }, shipment);
         }
 
         // DELETE: api/Shipments/delete/id
         [HttpDelete("delete/{id}")]
-        public async Task<IActionResult> DeleteShipment(Guid id)
+        public IActionResult DeleteShipment(Guid id)
         {
-            var shipment = await _context.Shipment.FindAsync(id);
+            var shipment = _unit.ShipmentRepository.Get(id);
             if (shipment == null)
             {
                 return NotFound();
             }
 
-            _context.Shipment.Remove(shipment);
-            await _context.SaveChangesAsync();
+            _unit.ShipmentRepository.Remove(shipment);
+            _unit.Complete();
 
             return NoContent();
         }
 
-        private bool ShipmentExists(Guid id)
-        {
-            return _context.Shipment.Any(e => e.Id == id);
-        }
+       // private bool ShipmentExists(Guid id)
+       // {
+       //     return _unit.ShipmentRepository.(e => e.Id == id);
+       // }
     }
 }

@@ -9,24 +9,24 @@ namespace Server.Persistence.EF.Repositories
 {
     public class UnitOfWork: IUnitOfWork 
     {
-            private RoadsDbContext iDbContext { get; }
-            public IShipmentRepository ShipmentRepository { get; }
+        public RoadsDbContext Context { get; private set; }
+        public IShipmentRepository ShipmentRepository { get; }
             public IUserRepository UserRepository { get; }
 
-        public UnitOfWork(RoadsDbContext pContext)
+        public UnitOfWork(RoadsDbContext context)
         {
-            this.iDbContext = pContext;
-            this.ShipmentRepository = new ShipmentRepository(iDbContext);
-            this.UserRepository = new UserRepository(iDbContext);
+            this.Context = context;
+            this.ShipmentRepository = new ShipmentRepository(Context);
+            this.UserRepository = new UserRepository(Context);
         }
 
         public void Complete()
         {
-            iDbContext.SaveChanges();
+            Context.SaveChanges();
         }
         public void Dispose()
         {
-            iDbContext.Dispose();
+            Context.Dispose();
         }
 
         IShipmentRepository IUnitOfWork.ShipmentRepository => throw new NotImplementedException();

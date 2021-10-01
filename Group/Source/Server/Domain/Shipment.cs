@@ -14,5 +14,7 @@ namespace Server
         public DateTime ArrivalDate { get; set; }
         public DateTime EstimatedArrivalDate { get; set; }
         public IEnumerable<ShipmentState> States { get; set; }
+        public Location DestinationAddress { get; set; }
+        public CustomerInfo Customer { get; set; }
     }
 }
