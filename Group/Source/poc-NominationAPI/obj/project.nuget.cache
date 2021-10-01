@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "YgKyhg5/u87hZmHjcpT3z7Jvw4R9qMnps+8txIzNHN72Bq0VCgI3+x9QMzLC3hRMwun5O0ot85siPwWcSfgEcQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\santi\\source\\repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\poc-NominationAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\santi\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
