@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Persistence.EF.ClassMappings;
-using Server;
+using Microsoft.EntityFrameworkCore.InMemory;
 
 namespace Server.Persistence.EF
 {
@@ -13,7 +13,8 @@ namespace Server.Persistence.EF
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=RoadsDB; User Id=sa; Password=dacs2021!");
+            //optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=RoadsDB; User Id=sa; Password=dacs2021!");
+            optionsBuilder.UseInMemoryDatabase("Roads");
         } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,7 +27,7 @@ namespace Server.Persistence.EF
             modelBuilder.ApplyConfiguration(new ProfileInfoEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ShipmentStateEntityConfiguration());
         }
-        public DbSet<Server.Shipment> Shipment { get; set; }
+        public DbSet<Shipment> Shipment { get; set; }
 
     }
 }

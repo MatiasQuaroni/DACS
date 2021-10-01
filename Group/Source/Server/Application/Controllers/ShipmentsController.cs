@@ -21,15 +21,15 @@ namespace Server.Application.Controllers
             _context = context;
         }
 
-        // GET: api/Shipments
-        [HttpGet]
+        // GET: api/Shipments/all
+        [HttpGet("all")]
         public async Task<ActionResult<IEnumerable<Shipment>>> GetShipment()
         {
             return await _context.Shipment.ToListAsync();
         }
 
-        // GET: api/Shipments/5
-        [HttpGet("{id}")]
+        // GET: api/Shipments/byId/id
+        [HttpGet("/byId/{id}")]
         public async Task<ActionResult<Shipment>> GetShipment(Guid id)
         {
             var shipment = await _context.Shipment.FindAsync(id);
@@ -42,9 +42,8 @@ namespace Server.Application.Controllers
             return shipment;
         }
 
-        // PUT: api/Shipments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        // PUT: api/Shipments/update/id
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> PutShipment(Guid id, Shipment shipment)
         {
             if (id != shipment.Id)
@@ -73,9 +72,9 @@ namespace Server.Application.Controllers
             return NoContent();
         }
 
-        // POST: api/Shipments
+        // POST: api/Shipments/create
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<ActionResult<Shipment>> PostShipment(Shipment shipment)
         {
             _context.Shipment.Add(shipment);
@@ -84,8 +83,8 @@ namespace Server.Application.Controllers
             return CreatedAtAction("GetShipment", new { id = shipment.Id }, shipment);
         }
 
-        // DELETE: api/Shipments/5
-        [HttpDelete("{id}")]
+        // DELETE: api/Shipments/delete/id
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> DeleteShipment(Guid id)
         {
             var shipment = await _context.Shipment.FindAsync(id);
