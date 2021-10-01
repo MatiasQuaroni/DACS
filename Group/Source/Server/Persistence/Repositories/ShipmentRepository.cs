@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Domain;
 
-namespace Server.Persistence.EF.Repositories
+namespace Server.Persistence.Repositories
 {
     public class ShipmentRepository : Repository<Shipment, RoadsDbContext> , IShipmentRepository 
     {

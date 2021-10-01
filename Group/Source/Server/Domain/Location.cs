@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Server
+namespace Server.Domain
 {
     public class Location
     {

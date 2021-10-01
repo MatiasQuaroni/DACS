@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Server.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Server.Persistence.EF.ClassMappings
+namespace Server.Persistence.ClassMappings
 {
     public class ShipmentEntityConfiguration : IEntityTypeConfiguration<Shipment>
     {
@@ -19,6 +16,8 @@ namespace Server.Persistence.EF.ClassMappings
             builder.Property(s => s.Precautions);
             builder.Property(s => s.EstimatedArrivalDate);
             builder.Property(s => s.ArrivalDate);
+            builder.Property(s => s.Customer.Id).HasColumnName("Customer ID");
+            builder.Property(s => s.DestinationAddress.Id).HasColumnName("Address ID");
             builder.Ignore(s => s.States);
             //builder.HasMany<ShipmentState>(s => (ICollection<ShipmentState>)s.States);
         }

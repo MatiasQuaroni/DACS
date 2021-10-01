@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Server;
-using Server.Persistence.EF;
-using Server.Persistence.EF.Repositories;
+using Server.Domain;
+using Server.Persistence;
+using Server.Persistence.Repositories;
 
 namespace Server.Application.Controllers
 {

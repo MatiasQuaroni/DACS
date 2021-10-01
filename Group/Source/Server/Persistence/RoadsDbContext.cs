@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Server.Persistence.EF.ClassMappings;
-using Microsoft.EntityFrameworkCore.InMemory;
-
-namespace Server.Persistence.EF
+using Server.Persistence.ClassMappings;
+namespace Server.Persistence
 {
     public class RoadsDbContext : DbContext
     {
@@ -27,7 +25,5 @@ namespace Server.Persistence.EF
             modelBuilder.ApplyConfiguration(new ProfileInfoEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ShipmentStateEntityConfiguration());
         }
-        public DbSet<Shipment> Shipment { get; set; }
-
     }
 }
