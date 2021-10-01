@@ -16,10 +16,10 @@ namespace Server.Persistence.ClassMappings
             builder.Property(s => s.Precautions);
             builder.Property(s => s.EstimatedArrivalDate);
             builder.Property(s => s.ArrivalDate);
-            builder.Property(s => s.Customer.Id).HasColumnName("Customer ID");
-            builder.Property(s => s.DestinationAddress.Id).HasColumnName("Address ID");
+            //builder.Property(s => s.Customer).HasColumnName("Customer");
+            //builder.Property(s => s.DestinationAddress).HasColumnName("Address");
             builder.Ignore(s => s.States);
-            builder.HasMany<ShipmentState>(s => s.States);
+            //builder.HasMany<ShipmentState>(s => s.States);
         }
     }
 }

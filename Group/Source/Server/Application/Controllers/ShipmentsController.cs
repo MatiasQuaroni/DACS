@@ -98,6 +98,6 @@ namespace Server.Application.Controllers
         }
 
         private bool ShipmentExists(Guid id) =>
-             _unit.Context.Shipment.Any(s => s.Id == id);
+             _unit.ShipmentRepository.GetAll().Any(s => s.Id == id);
     }
 }
