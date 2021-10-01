@@ -19,7 +19,7 @@ namespace Server.Persistence.ClassMappings
             builder.Property(s => s.Customer.Id).HasColumnName("Customer ID");
             builder.Property(s => s.DestinationAddress.Id).HasColumnName("Address ID");
             builder.Ignore(s => s.States);
-            //builder.HasMany<ShipmentState>(s => (ICollection<ShipmentState>)s.States);
+            builder.HasMany<ShipmentState>(s => s.States);
         }
     }
 }
