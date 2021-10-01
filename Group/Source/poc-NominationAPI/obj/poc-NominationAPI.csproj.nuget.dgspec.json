@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\santi\\source\\repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\poc-NominationAPI.csproj": {}
+    "C:\\Users\\santi\\Source\\Repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\poc-NominationAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\santi\\source\\repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\poc-NominationAPI.csproj": {
+    "C:\\Users\\santi\\Source\\Repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\poc-NominationAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\santi\\source\\repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\poc-NominationAPI.csproj",
+        "projectUniqueName": "C:\\Users\\santi\\Source\\Repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\poc-NominationAPI.csproj",
         "projectName": "poc-NominationAPI",
-        "projectPath": "C:\\Users\\santi\\source\\repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\poc-NominationAPI.csproj",
+        "projectPath": "C:\\Users\\santi\\Source\\Repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\poc-NominationAPI.csproj",
         "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\santi\\source\\repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\obj\\",
+        "outputPath": "C:\\Users\\santi\\Source\\Repos\\dacs2021g2\\Group\\Source\\poc-NominationAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
