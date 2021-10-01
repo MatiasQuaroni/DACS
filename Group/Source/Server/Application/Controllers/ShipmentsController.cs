@@ -18,7 +18,7 @@ namespace Server.Application.Controllers
         private UnitOfWork _unit;
         public ShipmentsController(RoadsDbContext context)
         {
-            _unit = new UnitOfWork(context);  
+            _unit = new UnitOfWork(context);
         }
 
         // GET: api/Shipments/all
@@ -42,20 +42,20 @@ namespace Server.Application.Controllers
             return shipment;
         }
 
-       /*  // PUT: api/Shipments/update/id
+        //PUT: api/Shipments/update/id
         [HttpPut("update/{id}")]
-        public async Task<IActionResult> PutShipment(Guid id, Shipment shipment)
+        public IActionResult PutShipment(Guid id, Shipment shipment)
         {
             if (id != shipment.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(shipment).State = EntityState.Modified;
+            _unit.Context.Entry(shipment).State = EntityState.Modified;
 
             try
             {
-                await _context.SaveChangesAsync();
+                _unit.Complete();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -68,9 +68,8 @@ namespace Server.Application.Controllers
                     throw;
                 }
             }
-
             return NoContent();
-        } */
+        }
 
         // POST: api/Shipments/create
         [HttpPost("create")]
@@ -98,9 +97,7 @@ namespace Server.Application.Controllers
             return NoContent();
         }
 
-       // private bool ShipmentExists(Guid id)
-       // {
-       //     return _unit.ShipmentRepository.(e => e.Id == id);
-       // }
+        private bool ShipmentExists(Guid id) =>
+             _unit.Context.Shipment.Any(s => s.Id == id);
     }
 }

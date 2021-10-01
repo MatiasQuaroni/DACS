@@ -54,5 +54,9 @@ namespace Server.Persistence.EF.Repositories
 
             this.iDbContext.Set<TEntity>().Remove(pEntity);
         }
+        public void Update(TEntity pEntity)
+        {
+            this.iDbContext.Entry(pEntity).State = EntityState.Modified;
+        }
     }
 }
