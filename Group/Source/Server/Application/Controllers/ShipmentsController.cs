@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Domain;
 using Server.Persistence;
-using Server.Persistence.Repositories;
+using Server.Application.Services;
+using Server.Services;
 
 namespace Server.Application.Controllers
 {
@@ -21,38 +22,51 @@ namespace Server.Application.Controllers
             _unit = new UnitOfWork(context);
         }
 
-        // GET: api/Shipments/all
         [HttpGet("all")]
-        public IEnumerable<Shipment> GetShipment()
+        public IEnumerable<ShipmentDTO> GetShipment()
         {
-            return _unit.ShipmentRepository.GetAll();
+            var shipments = from s in _unit.ShipmentRepository.GetAll()
+                            select new ShipmentDTO()
+                            {
+                                Id = s.Id,
+                                Weight = s.Weight,
+                                Precautions = s.Precautions,
+                                EstimatedArrivalDate = s.EstimatedArrivalDate
+                            };
+            return shipments;
+          
         }
 
-        // GET: api/Shipments/byId/id
         [HttpGet("/byId/{id}")]
-        public ActionResult<Shipment> GetShipment(Guid id)
+        public ActionResult<ShipmentDTO> GetShipment(Guid id)
         {
-            var shipment = _unit.ShipmentRepository.Get(id);
+            var s = _unit.ShipmentRepository.Get(id);
 
-            if (shipment == null)
+            if (s == null)
             {
                 return NotFound();
             }
+            ShipmentDTO shipmentDTO = new ShipmentDTO {Id = s.Id,
+                                Weight = s.Weight,
+                                Precautions = s.Precautions,
+                                EstimatedArrivalDate = s.EstimatedArrivalDate };
 
-            return shipment;
+            return shipmentDTO;
         }
 
-        //PUT: api/Shipments/update/id
         [HttpPut("update/{id}")]
-        public IActionResult PutShipment(Guid id, Shipment shipment)
+        public IActionResult PutShipment(Guid id, ShipmentDTO shipmentDTO)
         {
-            if (id != shipment.Id)
+            if (id != shipmentDTO.Id)
             {
                 return BadRequest();
             }
-
-            _unit.Context.Entry(shipment).State = EntityState.Modified;
-
+            Shipment s = _unit.ShipmentRepository.Get(id);
+            s.ArrivalDate = shipmentDTO.ArrivalDate;
+            s.Weight = shipmentDTO.Weight;
+            s.Precautions = shipmentDTO.Precautions;
+            s.States = shipmentDTO.States;
+            _unit.Context.Entry(s).State = EntityState.Modified;
             try
             {
                 _unit.Complete();
@@ -71,17 +85,22 @@ namespace Server.Application.Controllers
             return NoContent();
         }
 
-        // POST: api/Shipments/create
         [HttpPost("create")]
-        public ActionResult<Shipment> PostShipment(Shipment shipment)
+        public ActionResult<Shipment> PostShipment(ShipmentDTO shipmentDTO)
         {
-            _unit.ShipmentRepository.Add(shipment);
+            Shipment s = new Shipment
+            {
+                Id = Guid.NewGuid(),
+                EstimatedArrivalDate = shipmentDTO.EstimatedArrivalDate,
+                Precautions = shipmentDTO.Precautions,
+                Weight = shipmentDTO.Weight,
+            };
+            _unit.ShipmentRepository.Add(s);
             _unit.Complete();
 
-            return CreatedAtAction("GetShipment", new { id = shipment.Id }, shipment);
+            return CreatedAtAction("GetShipment", new { id = s.Id }, s);
         }
 
-        // DELETE: api/Shipments/delete/id
         [HttpDelete("delete/{id}")]
         public IActionResult DeleteShipment(Guid id)
         {

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Server.Domain;
 using Server.Persistence;
+using Server.Persistence.Repositories;
 
-namespace Server.Persistence.Repositories
+namespace Server.Services
 {
     public class UnitOfWork: IUnitOfWork 
     {
