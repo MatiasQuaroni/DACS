@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Group",
+    "\\Group\\Source",
+    "\\Group\\Source\\Server",
+    "\\Group\\Source\\Server\\bin\\Debug\\net5.0",
+    "\\Group\\Source\\Server\\obj\\Debug",
+    "\\Group\\Source\\Server\\obj\\Release"
+  ],
+  "SelectedNode": "\\Group\\Source\\Server\\Server.sln",
+  "PreviewInSolutionExplorer": false
+}
