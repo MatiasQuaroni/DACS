@@ -6,7 +6,7 @@ using Server.Domain;
 using Server.Persistence;
 using Server.Persistence.Repositories;
 
-namespace Server.Services
+namespace Server.Application.Services
 {
     public class UnitOfWork: IUnitOfWork 
     {

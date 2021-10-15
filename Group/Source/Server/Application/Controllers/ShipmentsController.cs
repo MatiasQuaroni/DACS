@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Server.Domain;
 using Server.Persistence;
 using Server.Application.Services;
-using Server.Services;
+using Server.Application.Services.DTOs;
 
 namespace Server.Application.Controllers
 {

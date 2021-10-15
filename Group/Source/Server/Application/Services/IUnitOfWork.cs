@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Server.Domain;
 using Server.Persistence;
 
-namespace Server.Services
+namespace Server.Application.Services
 {
     interface IUnitOfWork : IDisposable
     {
