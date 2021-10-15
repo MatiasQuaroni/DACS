@@ -13,7 +13,7 @@ namespace Server.Domain
         public string Precautions { get; set; }
         public DateTime ArrivalDate { get; set; }
         public DateTime EstimatedArrivalDate { get; set; }
-        public IEnumerable<ShipmentState> States { get; set; }
+        public IList<ShipmentState> States { get; set; }
         public Location DestinationAddress { get; set; }
         public CustomerInfo Customer { get; set; }
 
@@ -23,6 +23,8 @@ namespace Server.Domain
         }
         public void addNewState(ShipmentStateEnum newStateEnum) 
         { ShipmentState newState = new ShipmentState { CurrentState = newStateEnum,
-                                                        FromDate = DateTime.Now};  }
+                                                        FromDate = DateTime.Now};
+            this.States.Add(newState);
+        }
     }
 }
