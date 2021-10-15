@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Server.Domain;
 using Server.Persistence;
 using Server.Application.Services;
-using Server.Application.Services.DTOs;
+using Server.Application.Services.DataTransfer;
 
 namespace Server.Application.Controllers
 {
@@ -65,7 +65,9 @@ namespace Server.Application.Controllers
             s.ArrivalDate = shipmentDTO.ArrivalDate;
             s.Weight = shipmentDTO.Weight;
             s.Precautions = shipmentDTO.Precautions;
-            s.States = shipmentDTO.States;
+            ShipmentStateData shipmentStateDTO = new ShipmentStateData { CurrentState = shipmentDTO.Status,
+                                                    ToDate = DateTime.Now };
+            s.States.Append(shipmentStateDTO);
             _unit.Context.Entry(s).State = EntityState.Modified;
             try
             {
