@@ -16,5 +16,13 @@ namespace Server.Domain
         public IEnumerable<ShipmentState> States { get; set; }
         public Location DestinationAddress { get; set; }
         public CustomerInfo Customer { get; set; }
+
+        public Shipment()
+        {
+            this.States = new List<ShipmentState>();
+        }
+        public void addNewState(ShipmentStateEnum newStateEnum) 
+        { ShipmentState newState = new ShipmentState { CurrentState = newStateEnum,
+                                                        FromDate = DateTime.Now};  }
     }
 }
