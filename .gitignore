@@ -1,5 +1,6 @@
 ﻿################################################################################
 # Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
 ################################################################################
-
-/Group/Source/Server/.vs/Server/v16
+/Group/Source/Server/.vs
+/Group/Source/Server/.idea
+/Group/Source/Server/obj
