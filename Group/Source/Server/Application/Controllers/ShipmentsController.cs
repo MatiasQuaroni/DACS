@@ -90,13 +90,12 @@ namespace Server.Application.Controllers
         [HttpPost("create")]
         public ActionResult<Shipment> PostShipment(ShipmentData shipmentDTO)
         {
-            Shipment s = new Shipment
-            {
-                Id = Guid.NewGuid(),
-                EstimatedArrivalDate = shipmentDTO.EstimatedArrivalDate,
-                Precautions = shipmentDTO.Precautions,
-                Weight = shipmentDTO.Weight,
-            };
+            Shipment s = new Shipment();
+            s.Id = Guid.NewGuid();
+            s.EstimatedArrivalDate = shipmentDTO.EstimatedArrivalDate;
+            s.Precautions = shipmentDTO.Precautions;
+            s.Weight = shipmentDTO.Weight;
+            s.addNewState(0);
             _unit.ShipmentRepository.Add(s);
             _unit.Complete();
 
