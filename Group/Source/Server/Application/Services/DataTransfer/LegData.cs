@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 
 namespace Server.Application.Services.DTOs
 {
-    public class LegDTO
+    public class LegData
     {
         public Guid Id { get; set; }
-        public LocationDTO StartLocation { get; set; }
-        public LocationDTO EndLocation { get; set; }
+        public LocationData StartLocation { get; set; }
+        public LocationData EndLocation { get; set; }
     }
 }

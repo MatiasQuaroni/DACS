@@ -23,10 +23,10 @@ namespace Server.Application.Controllers
         }
 
         [HttpGet("all")]
-        public IEnumerable<ShipmentDTO> GetShipment()
+        public IEnumerable<ShipmentData> GetShipment()
         {
             var shipments = from s in _unit.ShipmentRepository.GetAll()
-                            select new ShipmentDTO()
+                            select new ShipmentData()
                             {
                                 Id = s.Id,
                                 Weight = s.Weight,
@@ -38,7 +38,7 @@ namespace Server.Application.Controllers
         }
 
         [HttpGet("/byId/{id}")]
-        public ActionResult<ShipmentDTO> GetShipment(Guid id)
+        public ActionResult<ShipmentData> GetShipment(Guid id)
         {
             var s = _unit.ShipmentRepository.Get(id);
 
@@ -46,7 +46,7 @@ namespace Server.Application.Controllers
             {
                 return NotFound();
             }
-            ShipmentDTO shipmentDTO = new ShipmentDTO {Id = s.Id,
+            ShipmentData shipmentDTO = new ShipmentData {Id = s.Id,
                                 Weight = s.Weight,
                                 Precautions = s.Precautions,
                                 EstimatedArrivalDate = s.EstimatedArrivalDate };
@@ -55,7 +55,7 @@ namespace Server.Application.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public IActionResult PutShipment(Guid id, ShipmentDTO shipmentDTO)
+        public IActionResult PutShipment(Guid id, ShipmentData shipmentDTO)
         {
             if (id != shipmentDTO.Id)
             {
@@ -86,7 +86,7 @@ namespace Server.Application.Controllers
         }
 
         [HttpPost("create")]
-        public ActionResult<Shipment> PostShipment(ShipmentDTO shipmentDTO)
+        public ActionResult<Shipment> PostShipment(ShipmentData shipmentDTO)
         {
             Shipment s = new Shipment
             {
