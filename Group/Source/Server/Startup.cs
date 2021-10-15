@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Server.Application.Services.DataTransfer.MappingProfiles;
 using Server.Persistence;
 
 namespace Server
@@ -30,6 +32,20 @@ namespace Server
             services.AddDbContext<RoadsDbContext>();
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Server", Version = "v1"}); });
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new CustomerMappingProfile());
+                mc.AddProfile(new ItineraryMappingProfile());
+                mc.AddProfile(new LegMappingProfile());
+                mc.AddProfile(new LocationMappingProfile());
+                mc.AddProfile(new ShipmentMappingProfile());
+                mc.AddProfile(new ShipmentStateMappingProfile());
+                mc.AddProfile(new UserMappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
