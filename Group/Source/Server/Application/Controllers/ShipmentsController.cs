@@ -67,7 +67,7 @@ namespace Server.Application.Controllers
             s.Precautions = shipmentDTO.Precautions;
             ShipmentStateData shipmentStateDTO = new ShipmentStateData { CurrentState = shipmentDTO.Status,
                                                     ToDate = DateTime.Now };
-            s.States.Append(shipmentStateDTO);
+            s.addNewState(shipmentDTO.Status);
             _unit.Context.Entry(s).State = EntityState.Modified;
             try
             {

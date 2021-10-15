@@ -21,8 +21,8 @@ namespace Server.Domain
         {
             this.States = new List<ShipmentState>();
         }
-        public void addNewState(ShipmentStateEnum newStateEnum) 
-        { ShipmentState newState = new ShipmentState { CurrentState = newStateEnum,
+        public void addNewState(int newStateEnum) 
+        { ShipmentState newState = new ShipmentState { CurrentState = (ShipmentStateEnum)newStateEnum,
                                                         FromDate = DateTime.Now};
             this.States.Add(newState);
         }
