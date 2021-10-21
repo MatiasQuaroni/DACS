@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Server.Application.Services.DataTransfer.MappingProfiles;
 using Server.Persistence;
+using Server.Application.Services;
 
 namespace Server
 {
@@ -46,7 +47,7 @@ namespace Server
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddMvc();
-        }
+            services.AddTransient<IShipmentsServices, ShipmentsServices>();        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

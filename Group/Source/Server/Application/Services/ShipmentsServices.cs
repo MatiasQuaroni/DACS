@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Server.Domain;
 using Server.Application.Services.DataTransfer;
 using Server.Persistence.UnitOfWork;
@@ -9,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Server.Application.Services
 {
-    public interface IShipmentServices
+    public interface IShipmentsServices
     {
         public IEnumerable<Shipment> GetAllShipments();
         public Shipment GetShipment(Guid id);
@@ -18,7 +17,7 @@ namespace Server.Application.Services
         public void DeleteShipment(Guid id);
     }
    
-    public class ShipmentsServices : IShipmentServices
+    public class ShipmentsServices : IShipmentsServices
     {
         private readonly UnitOfWork _unit;
         public IEnumerable<Shipment> GetAllShipments() 
