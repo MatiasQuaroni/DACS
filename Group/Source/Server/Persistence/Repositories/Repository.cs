@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Server.Domain;
+using Server.Domain.Repositories;
 
 namespace Server.Persistence.Repositories
 {

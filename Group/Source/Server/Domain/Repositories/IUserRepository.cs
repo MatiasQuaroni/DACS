@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Server.Domain;
 
-namespace Server.Persistence
+namespace Server.Domain.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {

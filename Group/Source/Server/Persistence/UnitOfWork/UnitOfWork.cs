@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Server.Domain;
-using Server.Persistence;
 using Server.Persistence.Repositories;
 
-namespace Server.Application.Services
+namespace Server.Persistence.UnitOfWork
 {
     public class UnitOfWork: IUnitOfWork 
     {

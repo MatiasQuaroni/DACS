@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Domain;
 using Server.Persistence;
-using Server.Application.Services;
 using Server.Application.Services.DataTransfer;
+using Server.Persistence.UnitOfWork;
 
 namespace Server.Application.Controllers
 {

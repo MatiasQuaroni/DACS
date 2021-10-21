@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Server.Domain;
 
-namespace Server.Persistence
+namespace Server.Domain.Repositories
 {
    public interface IShipmentRepository : IRepository<Shipment>
     {

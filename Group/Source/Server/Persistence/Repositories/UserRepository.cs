@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Server.Domain;
+using Server.Domain.Repositories;
 
 namespace Server.Persistence.Repositories
 

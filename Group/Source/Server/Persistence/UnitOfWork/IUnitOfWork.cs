@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Server.Domain;
-using Server.Persistence;
 
-namespace Server.Application.Services
+namespace Server.Persistence.UnitOfWork
 {
     interface IUnitOfWork : IDisposable
     {
