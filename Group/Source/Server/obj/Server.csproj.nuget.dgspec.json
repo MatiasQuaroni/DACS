@@ -1,32 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\santi\\Source\\Repos\\dacs2021g2\\Group\\Source\\Server\\Server.csproj": {}
+    "C:\\Users\\lquaroni\\OneDrive\\Facultad\\Quinto\\DACS\\dacs2021g2\\Group\\Source\\Server\\Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\santi\\Source\\Repos\\dacs2021g2\\Group\\Source\\Server\\Server.csproj": {
+    "C:\\Users\\lquaroni\\OneDrive\\Facultad\\Quinto\\DACS\\dacs2021g2\\Group\\Source\\Server\\Server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\santi\\Source\\Repos\\dacs2021g2\\Group\\Source\\Server\\Server.csproj",
+        "projectUniqueName": "C:\\Users\\lquaroni\\OneDrive\\Facultad\\Quinto\\DACS\\dacs2021g2\\Group\\Source\\Server\\Server.csproj",
         "projectName": "Server",
-        "projectPath": "C:\\Users\\santi\\Source\\Repos\\dacs2021g2\\Group\\Source\\Server\\Server.csproj",
-        "packagesPath": "C:\\Users\\santi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\santi\\Source\\Repos\\dacs2021g2\\Group\\Source\\Server\\obj\\",
+        "projectPath": "C:\\Users\\lquaroni\\OneDrive\\Facultad\\Quinto\\DACS\\dacs2021g2\\Group\\Source\\Server\\Server.csproj",
+        "packagesPath": "C:\\Users\\lquaroni\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lquaroni\\OneDrive\\Facultad\\Quinto\\DACS\\dacs2021g2\\Group\\Source\\Server\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\santi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\lquaroni\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\NuGet.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
+          "https://api.nuget.org/v3/index.json": {},
+          "https://www.nuget.org/api/v2": {}
         },
         "frameworks": {
           "net5.0": {
@@ -56,9 +54,27 @@
               "target": "Package",
               "version": "[5.0.10, )"
             },
+            "Microsoft.EntityFrameworkCore.InMemory": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
               "version": "[5.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[5.0.2, )"
             },
             "Moq": {
               "target": "Package",
@@ -70,7 +86,11 @@
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[5.6.3, )"
+              "version": "[6.2.2, )"
+            },
+            "System.Runtime": {
+              "target": "Package",
+              "version": "[4.3.1, )"
             }
           },
           "imports": [
@@ -91,7 +111,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,20 +1,47 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<main-content>
+</main-content>
+<ion-content>
+<ion-item-divider>
+  <ion-list-header>
+    <p>Notifications</p>
+  </ion-list-header>
+</ion-item-divider>
+  <ion-item-divider>
+    <div style="display: block;">
+  <ion-card color="tertiary" style="margin: 30px">
+    <ion-card-header>
+      <ion-card-subtitle>16:53</ion-card-subtitle>
+      <ion-card-title>Shipment arrived</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Your shipment has been successfully delivered!
+    </ion-card-content>
+  </ion-card>
+  <ion-card color="tertiary" style="margin: 30px;">
+    <ion-card-header>
+      <ion-card-subtitle>10:14</ion-card-subtitle>
+      <ion-card-title>Your shipment is on the way</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Your shipment has left the deposit and will be delivered soon.
+    </ion-card-content>
+  </ion-card>
+</div>
+</ion-item-divider>
+<ion-fab horizontal="start" vertical="bottom" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="chevron-forward-outline"></ion-icon>  </ion-fab-button>
+  <ion-fab-list side="end">
+    <ion-fab-button color="light">
+      <ion-icon name="qr-code-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button color="light">
+      <ion-icon name="analytics-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
 </ion-content>
+
+<ion-footer>
+
+</ion-footer>
