@@ -6,8 +6,9 @@ using Server.Domain.Repositories;
 
 namespace Server.Persistence.UnitOfWork
 {
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
+        public RoadsDbContext Context { get; set; }
         public void Complete();
         public IShipmentRepository ShipmentRepository { get; }
         public IUserRepository UserRepository { get; } 

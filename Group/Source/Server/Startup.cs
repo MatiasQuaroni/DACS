@@ -35,8 +35,8 @@ namespace Server
         {
             services.AddDbContext<RoadsDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped(typeof (IShipmentRepository), typeof (ShipmentRepository));
-            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+           // services.AddScoped(typeof (IShipmentRepository), typeof (ShipmentRepository));
+           // services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Server", Version = "v1"}); });
             var mappingConfig = new MapperConfiguration(mc =>

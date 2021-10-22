@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Domain;
 using Server.Application.Services.DataTransfer;
 using Server.Application.Services;
+using Server.Persistence.UnitOfWork;
 using AutoMapper;
 
 namespace Server.Application.Controllers
@@ -14,11 +15,14 @@ namespace Server.Application.Controllers
     [ApiController]
     public class ShipmentsController : ControllerBase
     {
+        private readonly IUnitOfWork _unit;
         private readonly IShipmentsServices _shipmentsServices;
         private readonly IMapper _mapper;
-        public ShipmentsController(IShipmentsServices shipmentsServices, IMapper mapper) 
+        public ShipmentsController(IShipmentsServices shipmentsServices, IMapper mapper, IUnitOfWork unit) 
         { _shipmentsServices = shipmentsServices;
+            _shipmentsServices._unit = unit;
             _mapper = mapper;
+            _unit = unit;
         }
 
         [HttpGet("all")]

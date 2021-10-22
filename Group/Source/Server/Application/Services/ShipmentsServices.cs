@@ -10,6 +10,7 @@ namespace Server.Application.Services
 {
     public interface IShipmentsServices
     {
+        public IUnitOfWork _unit { get; set; }
         public IEnumerable<Shipment> GetAllShipments();
         public Shipment GetShipment(Guid id);
         public void PutShipment(Guid id, ShipmentData shipmentDTO);
@@ -19,22 +20,22 @@ namespace Server.Application.Services
    
     public class ShipmentsServices : IShipmentsServices
     {
-        private readonly UnitOfWork _unit;
+        public IUnitOfWork _unit { get; set; } 
         public IEnumerable<Shipment> GetAllShipments() 
         {
-            var shipments = _unit.ShipmentRepository.GetAll();
+            var shipments = this._unit.ShipmentRepository.GetAll();
             return shipments;
         }
         public Shipment GetShipment(Guid id) 
         {
-            var s = _unit.ShipmentRepository.Get(id);
+            var s = this._unit.ShipmentRepository.Get(id);
             return s;
         }
         public void PutShipment(Guid id, ShipmentData shipmentDTO) 
         {
             try
             {
-                Shipment s = _unit.ShipmentRepository.Get(id);
+                Shipment s = this._unit.ShipmentRepository.Get(id);
                 s.ArrivalDate = shipmentDTO.ArrivalDate;
                 s.Weight = shipmentDTO.Weight;
                 s.Precautions = shipmentDTO.Precautions;
@@ -44,7 +45,7 @@ namespace Server.Application.Services
                     ToDate = DateTime.Now
                 };
                 s.addNewState(shipmentDTO.Status);
-                _unit.Context.Entry(s).State = EntityState.Modified;
+                this._unit.Context.Entry(s).State = EntityState.Modified;
                 _unit.Complete();
             }
             catch (DbUpdateConcurrencyException)

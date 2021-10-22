@@ -9,7 +9,7 @@ namespace Server.Persistence.UnitOfWork
 {
     public class UnitOfWork: IUnitOfWork 
     {
-        public RoadsDbContext Context { get; private set; }
+        public RoadsDbContext Context { get; set; }
         public IShipmentRepository ShipmentRepository { get; }
             public IUserRepository UserRepository { get; }
 
@@ -29,9 +29,6 @@ namespace Server.Persistence.UnitOfWork
             Context.Dispose();
         }
 
-        IShipmentRepository IUnitOfWork.ShipmentRepository => throw new NotImplementedException();
-
-        IUserRepository IUnitOfWork.UserRepository => throw new NotImplementedException();
         }
     }
 
