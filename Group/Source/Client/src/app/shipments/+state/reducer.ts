@@ -2,6 +2,8 @@ import { createEntityAdapter, EntityState } from "@ngrx/entity";
 import { Action, createReducer } from "@ngrx/store";
 import * as model from './model';
 
+export const shipmentsFeatureKey = 'shipments';
+
 type ShipmentState = EntityState<model.Shipment>;
 type LocationState = EntityState<model.Location>;
 type CustomerState = EntityState<model.CustomerInfo>;
@@ -52,6 +54,6 @@ const initialState: State = {
 const shipmentsReducer = createReducer(initialState);
 
 
-function reducer(state: State | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action) {
     return shipmentsReducer(state,action)
 };
