@@ -6,9 +6,9 @@ import { IonicModule } from '@ionic/angular';
 
 import { HomePageRoutingModule } from './home-routing.module';
 
-import { HomePage } from './home.page';
+import { HomePage } from './home-page/home.page';
 import { LayoutModule } from '../layout/layout.module';
-import { HomeComponent } from './home-component/home/home.component';
+import { HomeComponent } from './home-component/home.component';
 import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
