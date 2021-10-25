@@ -35,8 +35,9 @@ namespace Server
         {
             services.AddDbContext<RoadsDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-           // services.AddScoped(typeof (IShipmentRepository), typeof (ShipmentRepository));
-           // services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddScoped(typeof (IShipmentRepository), typeof (ShipmentRepository));
+            services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddTransient<IShipmentsServices, ShipmentsServices>();
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Server", Version = "v1"}); });
             var mappingConfig = new MapperConfiguration(mc =>
@@ -52,8 +53,8 @@ namespace Server
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
-            services.AddMvc();
-            services.AddTransient<IShipmentsServices, ShipmentsServices>();        }
+            services.AddMvc();                 
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

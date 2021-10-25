@@ -15,14 +15,12 @@ namespace Server.Application.Controllers
     [ApiController]
     public class ShipmentsController : ControllerBase
     {
-        private readonly IUnitOfWork _unit;
         private readonly IShipmentsServices _shipmentsServices;
         private readonly IMapper _mapper;
         public ShipmentsController(IShipmentsServices shipmentsServices, IMapper mapper, IUnitOfWork unit) 
-        { _shipmentsServices = shipmentsServices;
-            _shipmentsServices._unit = unit;
+        { 
+            _shipmentsServices = shipmentsServices;
             _mapper = mapper;
-            _unit = unit;
         }
 
         [HttpGet("all")]
@@ -46,13 +44,13 @@ namespace Server.Application.Controllers
         [HttpPut("update/{id}")]
         public void PutShipment(Guid id, ShipmentData shipmentDTO)
         {
-            _shipmentsServices.PutShipment(id, shipmentDTO);
+            _shipmentsServices.UpdateShipment(id, shipmentDTO);
         }
 
         [HttpPost("create")]
         public void PostShipment(ShipmentData shipmentDTO)
         {
-            _shipmentsServices.PostShipment(shipmentDTO);
+            _shipmentsServices.CreateShipment(shipmentDTO);
         }
 
         [HttpDelete("delete/{id}")]

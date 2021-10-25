@@ -11,7 +11,7 @@ namespace Server.Persistence.UnitOfWork
     {
         public RoadsDbContext Context { get; set; }
         public IShipmentRepository ShipmentRepository { get; }
-            public IUserRepository UserRepository { get; }
+        public IUserRepository UserRepository { get; }
 
         public UnitOfWork(RoadsDbContext context)
         {

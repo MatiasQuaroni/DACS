@@ -10,17 +10,21 @@ namespace Server.Application.Services
 {
     public interface IShipmentsServices
     {
-        public IUnitOfWork _unit { get; set; }
         public IEnumerable<Shipment> GetAllShipments();
         public Shipment GetShipment(Guid id);
-        public void PutShipment(Guid id, ShipmentData shipmentDTO);
-        public void PostShipment(ShipmentData shipmentDTO);
+        public void UpdateShipment(Guid id, ShipmentData shipmentDTO);
+        public void CreateShipment(ShipmentData shipmentDTO);
         public void DeleteShipment(Guid id);
     }
    
     public class ShipmentsServices : IShipmentsServices
     {
-        public IUnitOfWork _unit { get; set; } 
+        private readonly IUnitOfWork _unit;
+
+        public ShipmentsServices(IUnitOfWork unitOfWork)
+        {
+            _unit = unitOfWork;
+        }
         public IEnumerable<Shipment> GetAllShipments() 
         {
             var shipments = this._unit.ShipmentRepository.GetAll();
@@ -31,7 +35,7 @@ namespace Server.Application.Services
             var s = this._unit.ShipmentRepository.Get(id);
             return s;
         }
-        public void PutShipment(Guid id, ShipmentData shipmentDTO) 
+        public void UpdateShipment(Guid id, ShipmentData shipmentDTO) 
         {
             try
             {
@@ -45,15 +49,15 @@ namespace Server.Application.Services
                     ToDate = DateTime.Now
                 };
                 s.addNewState(shipmentDTO.Status);
-                this._unit.Context.Entry(s).State = EntityState.Modified;
+                _unit.ShipmentRepository.Update(s);
                 _unit.Complete();
             }
             catch (DbUpdateConcurrencyException)
             { throw; }
-            catch (Exception e) 
+            catch (Exception) 
             { throw; }
         }
-        public void PostShipment(ShipmentData shipmentDTO) 
+        public void CreateShipment(ShipmentData shipmentDTO) 
         {
             Shipment s = new Shipment();
             s.Id = Guid.NewGuid();
@@ -70,8 +74,11 @@ namespace Server.Application.Services
             _unit.ShipmentRepository.Remove(shipment);
             _unit.Complete();
         }
-        protected bool ShipmentExists(Guid id) =>
-             _unit.ShipmentRepository.GetAll().Any(s => s.Id == id);
+        protected bool ShipmentExists(Guid id)
+        {
+            return _unit.ShipmentRepository.GetAll().Any(s => s.Id == id);
+        }
+             
 
     }
 }

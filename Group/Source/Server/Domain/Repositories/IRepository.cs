@@ -12,5 +12,6 @@ namespace Server.Domain.Repositories
         TEntity Get(int pId);
         TEntity Get(Guid pId);
         IEnumerable<TEntity> GetAll();
+        void Update(TEntity pEntity);
     }
 }
