@@ -11,8 +11,12 @@ namespace Server.Application.Services.DataTransfer.MappingProfiles
     {
         public ItineraryMappingProfile()
         {
-            CreateMap<Itinerary, ItineraryData>();
-            CreateMap<ItineraryData, Itinerary>();
+            CreateMap<Itinerary, ItineraryData>().ForMember(dto => dto.StartDate, src => src.MapFrom(src => src.StartDate));
+            CreateMap<Itinerary, ItineraryData>().ForMember(dto => dto.EndDate, src => src.MapFrom(src => src.EndDate));
+            CreateMap<Itinerary, ItineraryData>().ForMember(dto => dto.Id, src => src.MapFrom(src => src.Id));
+            CreateMap<Itinerary, ItineraryData>().ForMember(dto => dto.IsComplete, src => src.MapFrom(src => src.IsComplete));
+            CreateMap<Itinerary, ItineraryData>().ForMember(dto => dto.Legs, src => src.MapFrom(src => src.Legs));
+            CreateMap<Itinerary, ItineraryData>().ForMember(dto => dto.Shipments, src => src.MapFrom(src => src.Shipments));
         }
     }
 }

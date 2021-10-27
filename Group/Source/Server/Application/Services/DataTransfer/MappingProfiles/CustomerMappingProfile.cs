@@ -11,8 +11,10 @@ namespace Server.Application.Services.DataTransfer.MappingProfiles
     {
         public CustomerMappingProfile()
         {
-            CreateMap<CustomerInfo, CustomerData>();
-            CreateMap<CustomerData, CustomerInfo>();
+            CreateMap<CustomerInfo, CustomerData>().ForMember(dto => dto.Dni, src => src.MapFrom(src => src.Dni));
+            CreateMap<CustomerInfo, CustomerData>().ForMember(dto => dto.Email, src => src.MapFrom(src => src.Email));
+            CreateMap<CustomerInfo, CustomerData>().ForMember(dto => dto.Name, src => src.MapFrom(src => src.Name));
+            CreateMap<CustomerInfo, CustomerData>().ForMember(dto => dto.PhoneNumber, src => src.MapFrom(src => src.PhoneNumber));
         }
     }
 }

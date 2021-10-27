@@ -11,8 +11,11 @@ namespace Server.Application.Services.DataTransfer.MappingProfiles
     {
         public LocationMappingProfile()
         {
-            CreateMap<Location, LocationData>();
-            CreateMap<LocationData, Location>();
+            CreateMap<Location, LocationData>().ForMember(dto => dto.Address, src => src.MapFrom(src => src.Address));
+            CreateMap<Location, LocationData>().ForMember(dto => dto.Floor, src => src.MapFrom(src => src.Floor));
+            CreateMap<Location, LocationData>().ForMember(dto => dto.Number, src => src.MapFrom(src => src.Number));
+            CreateMap<Location, LocationData>().ForMember(dto => dto.PostalCode, src => src.MapFrom(src => src.PostalCode));
+
         }
     }
 }
