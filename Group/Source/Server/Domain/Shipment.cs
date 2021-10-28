@@ -15,7 +15,9 @@ namespace Server.Domain
         public DateTime EstimatedArrivalDate { get; set; }
         public IList<ShipmentState> States { get; set; }
         public Location DestinationAddress { get; set; }
+        public Guid LocationId { get; set; }
         public CustomerInfo Customer { get; set; }
+        public Guid CustomerId { get; set; }
 
         public Shipment()
         {

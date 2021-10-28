@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
 namespace Server.Domain
@@ -12,7 +13,7 @@ namespace Server.Domain
         public string Floor { get; set; }
         public string Number { get; set; }
         public LocationType Type { get; set; }
-
+        public ICollection<Shipment> Shipments { get; set; } 
     }
 }
 

@@ -9,6 +9,7 @@ namespace Server.Domain
         public ShipmentStateEnum CurrentState { get; set; }
         public DateTime FromDate { get; set; }
         public DateTime ToDate { get; set; }
-
+        public Shipment Shipment { get; set; }
+        public Guid ShipmentId { get; set; }
     }
 }
