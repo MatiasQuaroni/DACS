@@ -11,8 +11,8 @@ namespace Server.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=localhost, 1433; Database=RoadsDB; User Id=sa; Password=dacs2021!; Trusted_Connection=True");
-            //optionsBuilder.UseInMemoryDatabase("Roads");
+            //optionsBuilder.UseSqlServer(@"Server=localhost, 1433; Database=RoadsDB; User Id=sa; Password=dacs2021!; Trusted_Connection=True");
+            optionsBuilder.UseInMemoryDatabase("Roads");
         } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

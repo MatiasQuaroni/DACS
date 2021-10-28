@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Server.Persistence.Repositories;
 using Server.Domain.Repositories;
+using Server.Domain;
 
 namespace Server.Persistence.UnitOfWork
 {
@@ -12,12 +13,16 @@ namespace Server.Persistence.UnitOfWork
         public RoadsDbContext Context { get; set; }
         public IShipmentRepository ShipmentRepository { get; }
         public IUserRepository UserRepository { get; }
+        public IRepository<Location> LocationRepository { get; }
+        public IRepository<CustomerInfo> CustomerInfoRepository { get; }
 
         public UnitOfWork(RoadsDbContext context)
         {
             this.Context = context;
             this.ShipmentRepository = new ShipmentRepository(Context);
             this.UserRepository = new UserRepository(Context);
+            this.LocationRepository = new LocationRepository(Context);
+            this.CustomerInfoRepository = new CustomerInfoRepository(Context);
         }
 
         public void Complete()
