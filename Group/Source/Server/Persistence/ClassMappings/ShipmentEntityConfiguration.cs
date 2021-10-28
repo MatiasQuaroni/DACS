@@ -19,10 +19,11 @@ namespace Server.Persistence.ClassMappings
             builder.HasOne<Location>(s => s.DestinationAddress)
                 .WithMany(l => l.Shipments)
                 .HasForeignKey(s => s.LocationId);
-            builder.Ignore(s => s.States);
             builder.HasOne<CustomerInfo>(s => s.Customer)
                 .WithMany(c => c.Shipments)
                 .HasForeignKey(s => s.CustomerId);
+            //builder.HasMany<ShipmentState>(s => s.States).WithOne(ss => ss.Shipment).HasForeignKey(ss=> ss.ShipmentId) ;
+            builder.Ignore(s => s.States);
         }
     }
 }

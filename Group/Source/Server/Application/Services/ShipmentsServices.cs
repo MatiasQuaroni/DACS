@@ -60,6 +60,7 @@ namespace Server.Application.Services
         public void CreateShipment(ShipmentData shipmentDTO) 
         {
             Shipment s = new Shipment();
+            s.States = new List<ShipmentState>();
             s.Id = Guid.NewGuid();
             s.EstimatedArrivalDate = shipmentDTO.EstimatedArrivalDate;
             s.Precautions = shipmentDTO.Precautions;
