@@ -12,6 +12,9 @@ export class ShipmentListItemComponent implements OnInit {
   @Input()
   public shipment: Shipment;
 
+  @Input()
+  public selected: boolean;
+
   ngOnInit() {}
 
 }
