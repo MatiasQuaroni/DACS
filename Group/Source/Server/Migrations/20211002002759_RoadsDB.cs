@@ -130,7 +130,7 @@ namespace Server.Migrations
                         column: x => x.CustomerId,
                         principalTable: "CustomerInfo",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ShipmentInfo_ItineraryInfo_ItineraryId",
                         column: x => x.ItineraryId,
@@ -142,7 +142,7 @@ namespace Server.Migrations
                         column: x => x.DestinationAddressId,
                         principalTable: "Location",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

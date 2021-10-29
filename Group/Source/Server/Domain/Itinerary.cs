@@ -10,7 +10,7 @@ namespace Server.Domain
         public Guid Id { get; set; }
         public bool IsComplete { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public IEnumerable<Shipment> Shipments { get; set; }
         public IEnumerable<Leg> Legs { get; set; }
 

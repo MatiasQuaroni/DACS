@@ -14,6 +14,6 @@ namespace Server.Application.Services.DataTransfer
         public DateTime EstimatedArrivalDate { get; set; }
         public int Status { get; set; }
         public CustomerData Customer { get; set; }
-        public LocationData Location { get; set; }
+        public LocationData DestinationAddress { get; set; }
     }
 }

@@ -7,6 +7,7 @@ namespace Server.Application.Services.DataTransfer
 {
     public class LocationData
     {
+        public Guid Id { get; set; }
         public int PostalCode { get; set; }
         public string Address { get; set; }
         public string Floor { get; set; }
