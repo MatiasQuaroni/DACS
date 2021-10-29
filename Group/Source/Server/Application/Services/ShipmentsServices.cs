@@ -27,7 +27,7 @@ namespace Server.Application.Services
         }
         public IEnumerable<Shipment> GetAllShipments() 
         {
-            var shipments = this._unit.ShipmentRepository.GetAll();
+            var shipments = this._unit.ShipmentRepository.GetAllShipments();
             return shipments;
         }
         public Shipment GetShipment(Guid id) 
@@ -75,10 +75,21 @@ namespace Server.Application.Services
             _unit.ShipmentRepository.Remove(shipment);
             _unit.Complete();
         }
+        public void GetItinerary(IList<Guid> shipmentsIDs)
+        {
+            List<Shipment> shipments = new List<Shipment>();
+            Dictionary<Guid, string> shipmentCoords = new Dictionary<Guid, string>();
+            foreach (Guid id in shipmentsIDs)
+            { shipments.Add(GetShipment(id)); }
+            foreach(Shipment s in shipments )
+            { shipmentCoords.Add(s.Id, _unit.LocationRepository.Get(s.LocationId).Coordinates); }
+        }
+        
         protected bool ShipmentExists(Guid id)
         {
             return _unit.ShipmentRepository.GetAll().Any(s => s.Id == id);
         }
+
              
 
     }
