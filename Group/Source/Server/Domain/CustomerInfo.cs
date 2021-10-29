@@ -12,7 +12,7 @@ namespace Server.Domain
         public string Name { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        private IEnumerable<Location> RegisteredAddresses { get; set; }
+        public IEnumerable<Location> RegisteredAddresses { get; set; }
 
         public CustomerInfo()
         {
