@@ -10,6 +10,7 @@ import { HomePage } from './home-page/home.page';
 import { LayoutModule } from '../layout/layout.module';
 import { HomeComponent } from './home-component/home.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     IonicModule,
     HomePageRoutingModule,
     LayoutModule,
-    MatBadgeModule
+    MatBadgeModule,
+    NotificationsModule,
   ],
   declarations: [HomePage, HomeComponent],
   exports: [HomeComponent]
