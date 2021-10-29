@@ -14,6 +14,11 @@ namespace Server.Persistence.Repositories
         {
 
         }
+        public IQueryable<Shipment> GetAllShipments()
+        { IQueryable<Shipment> shipments;
+            shipments = this.iDbContext.Set<Shipment>(); 
+            return shipments;
+        }
 
         public IEnumerable<Shipment> GetByFilter()
         {
