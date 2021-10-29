@@ -11,13 +11,11 @@ namespace Server.Domain
         public Guid TrackingNumber { get; set; }
         public int Weight { get; set; }
         public string Precautions { get; set; }
-        public DateTime? ArrivalDate { get; set; }
+        public DateTime ArrivalDate { get; set; }
         public DateTime EstimatedArrivalDate { get; set; }
         public ICollection<ShipmentState> States { get; set; }
         public Location DestinationAddress { get; set; }
-        public Guid LocationId { get; set; }
         public CustomerInfo Customer { get; set; }
-        public Guid CustomerId { get; set; }
 
         public Shipment()
         {

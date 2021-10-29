@@ -34,7 +34,7 @@ namespace Server.Application.Services
         }
         public IEnumerable<Shipment> GetAllShipments() 
         {
-            var shipments = this._unit.ShipmentRepository.GetAllShipments();
+            var shipments = this._unit.ShipmentRepository.GetAll();
             return shipments;
         }
         public Shipment GetShipment(Guid id) 
@@ -113,7 +113,9 @@ namespace Server.Application.Services
             foreach (Guid id in shipmentsIDs)
             { shipments.Add(GetShipment(id)); }
             foreach(Shipment s in shipments )
-            { shipmentCoords.Add(s.Id, _unit.LocationRepository.Get(s.LocationId).Coordinates); }
+            {// shipmentCoords.Add(s.Id, _unit.LocationRepository.Get(s.LocationId).Coordinates);
+             //
+            }
         }
         
         protected bool ShipmentExists(Guid id)

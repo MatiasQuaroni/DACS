@@ -10,7 +10,7 @@ using Server.Persistence;
 namespace Server.Migrations
 {
     [DbContext(typeof(RoadsDbContext))]
-    [Migration("20211002002759_RoadsDB")]
+    [Migration("20211029213232_RoadsDB")]
     partial class RoadsDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,7 +50,7 @@ namespace Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("EndDate")
+                    b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsComplete")
@@ -147,8 +147,8 @@ namespace Server.Migrations
                     b.Property<string>("Precautions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrackingNumber")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TrackingNumber")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Weight")
                         .HasColumnType("int");
@@ -162,6 +162,25 @@ namespace Server.Migrations
                     b.HasIndex("ItineraryId");
 
                     b.ToTable("ShipmentInfo");
+                });
+
+            modelBuilder.Entity("Server.Domain.ShipmentState", b =>
+                {
+                    b.Property<int>("CurrentState")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ShipmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasIndex("ShipmentId");
+
+                    b.ToTable("ShipmentState");
                 });
 
             modelBuilder.Entity("Server.Domain.User", b =>
@@ -181,20 +200,6 @@ namespace Server.Migrations
                     b.ToTable("UserInfo");
                 });
 
-            modelBuilder.Entity("Server.ShipmentState", b =>
-                {
-                    b.Property<int>("CurrentState")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FromDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
-
-                    b.ToTable("ShipmentState");
-                });
-
             modelBuilder.Entity("Server.Domain.Leg", b =>
                 {
                     b.HasOne("Server.Domain.Itinerary", null)
@@ -205,11 +210,11 @@ namespace Server.Migrations
             modelBuilder.Entity("Server.Domain.Shipment", b =>
                 {
                     b.HasOne("Server.Domain.CustomerInfo", "Customer")
-                        .WithMany()
+                        .WithMany("Shipments")
                         .HasForeignKey("CustomerId");
 
                     b.HasOne("Server.Domain.Location", "DestinationAddress")
-                        .WithMany()
+                        .WithMany("Shipments")
                         .HasForeignKey("DestinationAddressId");
 
                     b.HasOne("Server.Domain.Itinerary", null)
@@ -221,10 +226,31 @@ namespace Server.Migrations
                     b.Navigation("DestinationAddress");
                 });
 
+            modelBuilder.Entity("Server.Domain.ShipmentState", b =>
+                {
+                    b.HasOne("Server.Domain.Shipment", "Shipment")
+                        .WithMany()
+                        .HasForeignKey("ShipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shipment");
+                });
+
+            modelBuilder.Entity("Server.Domain.CustomerInfo", b =>
+                {
+                    b.Navigation("Shipments");
+                });
+
             modelBuilder.Entity("Server.Domain.Itinerary", b =>
                 {
                     b.Navigation("Legs");
 
+                    b.Navigation("Shipments");
+                });
+
+            modelBuilder.Entity("Server.Domain.Location", b =>
+                {
                     b.Navigation("Shipments");
                 });
 #pragma warning restore 612, 618

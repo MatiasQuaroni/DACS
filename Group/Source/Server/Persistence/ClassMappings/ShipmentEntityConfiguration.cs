@@ -16,13 +16,6 @@ namespace Server.Persistence.ClassMappings
             builder.Property(s => s.Precautions);
             builder.Property(s => s.EstimatedArrivalDate);
             builder.Property(s => s.ArrivalDate);
-            builder.HasOne<Location>(s => s.DestinationAddress)
-                .WithMany(l => l.Shipments)
-                .HasForeignKey(s => s.LocationId);
-            builder.HasOne<CustomerInfo>(s => s.Customer)
-                .WithMany(c => c.Shipments)
-                .HasForeignKey(s => s.CustomerId);
-            //builder.HasMany<ShipmentState>(s => s.States).WithOne(ss => ss.Shipment).HasForeignKey(ss=> ss.ShipmentId) ;
             builder.Ignore(s => s.States);
         }
     }

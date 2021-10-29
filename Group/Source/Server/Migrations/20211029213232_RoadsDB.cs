@@ -29,7 +29,7 @@ namespace Server.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IsComplete = table.Column<bool>(type: "bit", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -60,18 +60,6 @@ namespace Server.Migrations
                     DisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ShipmentState",
-                columns: table => new
-                {
-                    CurrentState = table.Column<int>(type: "int", nullable: false),
-                    FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ToDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -113,7 +101,7 @@ namespace Server.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    TrackingNumber = table.Column<int>(type: "int", nullable: false),
+                    TrackingNumber = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Weight = table.Column<int>(type: "int", nullable: false),
                     Precautions = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ArrivalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -130,7 +118,7 @@ namespace Server.Migrations
                         column: x => x.CustomerId,
                         principalTable: "CustomerInfo",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ShipmentInfo_ItineraryInfo_ItineraryId",
                         column: x => x.ItineraryId,
@@ -141,6 +129,25 @@ namespace Server.Migrations
                         name: "FK_ShipmentInfo_Location_DestinationAddressId",
                         column: x => x.DestinationAddressId,
                         principalTable: "Location",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ShipmentState",
+                columns: table => new
+                {
+                    CurrentState = table.Column<int>(type: "int", nullable: false),
+                    FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ShipmentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.ForeignKey(
+                        name: "FK_ShipmentState_ShipmentInfo_ShipmentId",
+                        column: x => x.ShipmentId,
+                        principalTable: "ShipmentInfo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -164,6 +171,11 @@ namespace Server.Migrations
                 name: "IX_ShipmentInfo_ItineraryId",
                 table: "ShipmentInfo",
                 column: "ItineraryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ShipmentState_ShipmentId",
+                table: "ShipmentState",
+                column: "ShipmentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -175,13 +187,13 @@ namespace Server.Migrations
                 name: "ProfileInfo");
 
             migrationBuilder.DropTable(
-                name: "ShipmentInfo");
-
-            migrationBuilder.DropTable(
                 name: "ShipmentState");
 
             migrationBuilder.DropTable(
                 name: "UserInfo");
+
+            migrationBuilder.DropTable(
+                name: "ShipmentInfo");
 
             migrationBuilder.DropTable(
                 name: "CustomerInfo");
