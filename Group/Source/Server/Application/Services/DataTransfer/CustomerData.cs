@@ -7,6 +7,7 @@ namespace Server.Application.Services.DataTransfer
 {
     public class CustomerData
     {
+        public Guid Id { get; set; }
         public string Dni { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }

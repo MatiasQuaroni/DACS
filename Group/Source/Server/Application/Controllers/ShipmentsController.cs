@@ -17,7 +17,7 @@ namespace Server.Application.Controllers
     {
         private readonly IShipmentsServices _shipmentsServices;
         private readonly IMapper _mapper;
-        public ShipmentsController(IShipmentsServices shipmentsServices, IMapper mapper, IUnitOfWork unit) 
+        public ShipmentsController(IShipmentsServices shipmentsServices, IMapper mapper) 
         { 
             _shipmentsServices = shipmentsServices;
             _mapper = mapper;

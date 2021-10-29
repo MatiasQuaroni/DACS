@@ -5,6 +5,7 @@ using Server.Domain;
 using Server.Application.Services.DataTransfer;
 using Server.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace Server.Application.Services
 {
@@ -20,10 +21,12 @@ namespace Server.Application.Services
     public class ShipmentsServices : IShipmentsServices
     {
         private readonly IUnitOfWork _unit;
+        private readonly IMapper _mapper;
 
-        public ShipmentsServices(IUnitOfWork unitOfWork)
+        public ShipmentsServices(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unit = unitOfWork;
+            _mapper = mapper;
         }
         public IEnumerable<Shipment> GetAllShipments() 
         {
@@ -43,6 +46,8 @@ namespace Server.Application.Services
                 s.ArrivalDate = shipmentDTO.ArrivalDate;
                 s.Weight = shipmentDTO.Weight;
                 s.Precautions = shipmentDTO.Precautions;
+                s.Customer = _mapper.Map<CustomerInfo>(shipmentDTO.Customer);
+                s.DestinationAddress = _mapper.Map<Location>(shipmentDTO.DestinationAddress);
                 ShipmentStateData shipmentStateDTO = new ShipmentStateData
                 {
                     CurrentState = shipmentDTO.Status,
@@ -64,6 +69,8 @@ namespace Server.Application.Services
             s.EstimatedArrivalDate = shipmentDTO.EstimatedArrivalDate;
             s.Precautions = shipmentDTO.Precautions;
             s.Weight = shipmentDTO.Weight;
+            s.Customer = _mapper.Map<CustomerInfo>(shipmentDTO.Customer);
+            s.DestinationAddress = _mapper.Map<Location>(shipmentDTO.DestinationAddress);
             s.addNewState(0);
             _unit.ShipmentRepository.Add(s);
             _unit.Complete();
