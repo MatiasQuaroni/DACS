@@ -10,6 +10,7 @@ namespace Server.Domain.Repositories
         IEnumerable<Shipment> GetByArrivalDate(DateTime arrivalDate);
         IEnumerable<Shipment> GetByStatus(int status);
         IEnumerable<Shipment> GetByPostalCode(int postalCode);
+        public IQueryable<Shipment> GetAllShipments();
 
     }
 }
