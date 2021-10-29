@@ -5,6 +5,10 @@ namespace Server.Domain.Repositories
 {
    public interface IShipmentRepository : IRepository<Shipment>
     {
-        IEnumerable<Shipment> GetByFilter();
+        Shipment GetByTrackingNumber(Guid trackingNumber);
+        IEnumerable<Shipment> GetByArrivalDate(DateTime arrivalDate);
+        IEnumerable<Shipment> GetByStatus(int status);
+        IEnumerable<Shipment> GetByPostalCode(int postalCode);
+
     }
 }

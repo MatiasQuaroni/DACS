@@ -15,9 +15,47 @@ namespace Server.Persistence.Repositories
 
         }
 
-        public IEnumerable<Shipment> GetByFilter()
+        public IEnumerable<Shipment> GetByArrivalDate(DateTime arrivalDate)
         {
-            throw new NotImplementedException();
+            var shipments = new List<Shipment>();
+            foreach(var item in this.iDbContext.Set<Shipment>())
+            {
+                if (item.ArrivalDate == arrivalDate)
+                {
+                    shipments.Add(item);
+                }
+            }
+            return shipments;
+        }
+
+        public IEnumerable<Shipment> GetByStatus(int status)
+        {
+            var shipments = new List<Shipment>();
+            foreach (var item in this.iDbContext.Set<Shipment>())
+            {
+                if (item.States.Last().CurrentState == (ShipmentStateEnum)status)
+                {
+                    shipments.Add(item);
+                }
+            }
+            return shipments;
+        }
+
+        public IEnumerable<Shipment> GetByPostalCode(int postalCode)
+        {
+            var shipments = new List<Shipment>();
+            foreach (var item in this.iDbContext.Set<Shipment>())
+            {
+                if (item.DestinationAddress.PostalCode == postalCode)
+                {
+                    shipments.Add(item);
+                }
+            }
+            return shipments;
+        }
+        public Shipment GetByTrackingNumber(Guid trackingNumber)
+        {
+            return this.iDbContext.Set<Shipment>().Single(s => s.TrackingNumber == trackingNumber);
         }
     }
 }

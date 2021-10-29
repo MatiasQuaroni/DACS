@@ -27,7 +27,7 @@ namespace Server.Application.Controllers
         public IList<ShipmentData> GetAllShipments()
         {
             IList<ShipmentData> shipmentsDTOs = new List<ShipmentData>();
-           var shipments = _shipmentsServices.GetAllShipments();
+            var shipments = _shipmentsServices.GetAllShipments();
             foreach (Shipment s in shipments) 
             {
              shipmentsDTOs.Append(_mapper.Map<ShipmentData>(s));
@@ -39,6 +39,36 @@ namespace Server.Application.Controllers
         public ShipmentData GetShipment(Guid id)
         {
            return _mapper.Map<ShipmentData>(_shipmentsServices.GetShipment(id));
+        }
+
+        [HttpGet("/track/{trackingNumber}")]
+        public ShipmentData Track(Guid trackingNumber)
+        {
+            return _mapper.Map<ShipmentData>(_shipmentsServices.GetShipmentByTrackingNumber(trackingNumber));
+        }
+
+        [HttpGet("/byFilter/{filter}")]
+        public IList<ShipmentData> GetByFilter(string filter, string searchTerm)
+        {
+            IList<ShipmentData> shipmentsDTOs = new List<ShipmentData>();
+            IEnumerable<Shipment> shipments = new List<Shipment>();
+            if (filter == "withArrivalDate")
+            {
+                shipments = _shipmentsServices.GetShipmentByArrivalDate(searchTerm);
+            }
+            if (filter == "withStatus")
+            {
+                shipments = _shipmentsServices.GetShipmentByStatus(searchTerm);
+            }
+            if (filter == "withPostalCode")
+            {
+                shipments = _shipmentsServices.GetShipmentByPostalCode(searchTerm);
+            }
+            foreach (Shipment s in shipments)
+            {
+                shipmentsDTOs.Append(_mapper.Map<ShipmentData>(s));
+            }
+            return shipmentsDTOs;
         }
 
         [HttpPut("update/{id}")]
@@ -57,6 +87,30 @@ namespace Server.Application.Controllers
         public void DeleteShipment(Guid id)
         {
             _shipmentsServices.DeleteShipment(id);
+        }
+
+        [HttpPost("itineraries/create")]
+        public void CreateItinerary()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete("itineraries/delete/{itineraryId}")]
+        public void DeleteItinerary()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("itineraries/byId/{itineraryId}")]
+        public void GetItinerary()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpGet("itineraries/all")]
+        public void GetAllItineraries()
+        {
+            throw new NotImplementedException();
         }
 
     }

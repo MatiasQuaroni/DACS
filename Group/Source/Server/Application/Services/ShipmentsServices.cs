@@ -13,6 +13,10 @@ namespace Server.Application.Services
     {
         public IEnumerable<Shipment> GetAllShipments();
         public Shipment GetShipment(Guid id);
+        public Shipment GetShipmentByTrackingNumber(Guid trackingNumber);
+        public IEnumerable<Shipment> GetShipmentByArrivalDate(string arrivalDate);
+        public IEnumerable<Shipment> GetShipmentByStatus(string status);
+        public IEnumerable<Shipment> GetShipmentByPostalCode(string postalCode); 
         public void UpdateShipment(Guid id, ShipmentData shipmentDTO);
         public void CreateShipment(ShipmentData shipmentDTO);
         public void DeleteShipment(Guid id);
@@ -38,6 +42,26 @@ namespace Server.Application.Services
             var s = this._unit.ShipmentRepository.Get(id);
             return s;
         }
+        public Shipment GetShipmentByTrackingNumber(Guid trackingNumber)
+        {
+            var s = this._unit.ShipmentRepository.GetByTrackingNumber(trackingNumber);
+            return s;
+        }
+        public IEnumerable<Shipment> GetShipmentByArrivalDate(string arrivalDate)
+        {
+            var shipments = this._unit.ShipmentRepository.GetByArrivalDate(DateTime.Parse(arrivalDate));
+            return shipments;
+        }
+        public IEnumerable<Shipment> GetShipmentByStatus(string status)
+        {
+            var shipments = this._unit.ShipmentRepository.GetByStatus(Int32.Parse(status));
+            return shipments;
+        }
+        public IEnumerable<Shipment> GetShipmentByPostalCode(string postalCode)
+        {
+            var shipments = this._unit.ShipmentRepository.GetByPostalCode(Int32.Parse(postalCode));
+            return shipments;
+        }
         public void UpdateShipment(Guid id, ShipmentData shipmentDTO) 
         {
             try
@@ -58,9 +82,9 @@ namespace Server.Application.Services
                 _unit.Complete();
             }
             catch (DbUpdateConcurrencyException)
-            { throw; }
-            catch (Exception) 
-            { throw; }
+            {
+                throw;
+            }
         }
         public void CreateShipment(ShipmentData shipmentDTO) 
         {
