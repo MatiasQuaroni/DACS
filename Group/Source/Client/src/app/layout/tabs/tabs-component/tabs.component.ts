@@ -19,7 +19,7 @@ export class TabsComponent implements OnInit {
       },
       {
         icon: 'list-outline',
-        tabName: ''
+        tabName: 'shipments'
       },
       {
         icon: 'person-outline',

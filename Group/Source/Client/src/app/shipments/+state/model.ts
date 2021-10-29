@@ -2,8 +2,8 @@ export interface Shipment {
   id: string;
   trackingNumber: string;
   weight: number;
-  precautions: string;
-  arrivalDate: Date;
+  precautions?: string;
+  arrivalDate?: Date;
   estimatedArrivalDate: Date;
   destinationAddressId: string;
   customerInfoId: string;
