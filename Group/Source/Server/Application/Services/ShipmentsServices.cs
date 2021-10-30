@@ -6,6 +6,8 @@ using Server.Application.Services.DataTransfer;
 using Server.Persistence.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Server.Application.ExternalAPIs;
+using System.Threading.Tasks;
 
 namespace Server.Application.Services
 {
@@ -18,7 +20,7 @@ namespace Server.Application.Services
         public IEnumerable<Shipment> GetShipmentByStatus(string status);
         public IEnumerable<Shipment> GetShipmentByPostalCode(string postalCode); 
         public void UpdateShipment(Guid id, ShipmentData shipmentDTO);
-        public void CreateShipment(ShipmentData shipmentDTO);
+        public Task CreateShipment(ShipmentData shipmentDTO);
         public void DeleteShipment(Guid id);
     }
    
@@ -95,7 +97,11 @@ namespace Server.Application.Services
             s.Precautions = shipmentDTO.Precautions;
             s.Weight = shipmentDTO.Weight;
             s.Customer = _mapper.Map<CustomerInfo>(shipmentDTO.Customer);
+            s.Customer.Id = Guid.NewGuid();
             s.DestinationAddress = _mapper.Map<Location>(shipmentDTO.DestinationAddress);
+            s.DestinationAddress.Id = Guid.NewGuid();                
+            var rootObject = NominatimCoordinatesAPI.GetCoordinates(s.DestinationAddress.Address + " " + s.DestinationAddress.PostalCode.ToString());
+            s.DestinationAddress.Coordinates = rootObject.Result.Features.First().Geometry.Coordinates[0].ToString() + rootObject.Result.Features.First().Geometry.Coordinates[1].ToString();
             s.addNewState(0);
             _unit.ShipmentRepository.Add(s);
             _unit.Complete();
