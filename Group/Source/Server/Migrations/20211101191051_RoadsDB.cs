@@ -137,6 +137,7 @@ namespace Server.Migrations
                 name: "ShipmentState",
                 columns: table => new
                 {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CurrentState = table.Column<int>(type: "int", nullable: false),
                     FromDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ToDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -144,6 +145,7 @@ namespace Server.Migrations
                 },
                 constraints: table =>
                 {
+                    table.PrimaryKey("PK_ShipmentState", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ShipmentState_ShipmentInfo_ShipmentId",
                         column: x => x.ShipmentId,

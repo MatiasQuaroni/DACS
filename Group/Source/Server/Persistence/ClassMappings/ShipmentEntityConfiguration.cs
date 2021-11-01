@@ -16,7 +16,7 @@ namespace Server.Persistence.ClassMappings
             builder.Property(s => s.Precautions);
             builder.Property(s => s.EstimatedArrivalDate);
             builder.Property(s => s.ArrivalDate);
-            builder.Ignore(s => s.States);
+            builder.HasMany(s => s.States).WithOne(ss => ss.Shipment).HasForeignKey(s => s.ShipmentId);
         }
     }
 }

@@ -23,7 +23,6 @@ namespace Server.Domain
         public void addNewState(int newStateEnum) 
         { ShipmentState newState = new ShipmentState { CurrentState = (ShipmentStateEnum)newStateEnum,
                                                         FromDate = DateTime.Now,
-                                                        Shipment= this,
                                                         ShipmentId=this.Id};
             this.States.Add(newState);
         }

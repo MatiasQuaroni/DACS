@@ -10,7 +10,7 @@ using Server.Persistence;
 namespace Server.Migrations
 {
     [DbContext(typeof(RoadsDbContext))]
-    [Migration("20211029213232_RoadsDB")]
+    [Migration("20211101191051_RoadsDB")]
     partial class RoadsDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -166,6 +166,10 @@ namespace Server.Migrations
 
             modelBuilder.Entity("Server.Domain.ShipmentState", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("CurrentState")
                         .HasColumnType("int");
 
@@ -177,6 +181,8 @@ namespace Server.Migrations
 
                     b.Property<DateTime>("ToDate")
                         .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ShipmentId");
 
@@ -229,7 +235,7 @@ namespace Server.Migrations
             modelBuilder.Entity("Server.Domain.ShipmentState", b =>
                 {
                     b.HasOne("Server.Domain.Shipment", "Shipment")
-                        .WithMany()
+                        .WithMany("States")
                         .HasForeignKey("ShipmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -252,6 +258,11 @@ namespace Server.Migrations
             modelBuilder.Entity("Server.Domain.Location", b =>
                 {
                     b.Navigation("Shipments");
+                });
+
+            modelBuilder.Entity("Server.Domain.Shipment", b =>
+                {
+                    b.Navigation("States");
                 });
 #pragma warning restore 612, 618
         }
