@@ -20,7 +20,7 @@ namespace Server.Application.Services
         public IEnumerable<Shipment> GetShipmentByStatus(string status);
         public IEnumerable<Shipment> GetShipmentByPostalCode(string postalCode); 
         public void UpdateShipment(Guid id, ShipmentData shipmentDTO);
-        public Task CreateShipment(ShipmentData shipmentDTO);
+        public void CreateShipment(ShipmentData shipmentDTO);
         public void DeleteShipment(Guid id);
     }
    
@@ -99,7 +99,7 @@ namespace Server.Application.Services
             s.Customer = _mapper.Map<CustomerInfo>(shipmentDTO.Customer);
             s.Customer.Id = Guid.NewGuid();
             s.DestinationAddress = _mapper.Map<Location>(shipmentDTO.DestinationAddress);
-            s.DestinationAddress.Id = Guid.NewGuid();                
+            s.DestinationAddress.Id = Guid.NewGuid();
             var rootObject = NominatimCoordinatesAPI.GetCoordinates(s.DestinationAddress.Address + " " + s.DestinationAddress.PostalCode.ToString());
             s.DestinationAddress.Coordinates = rootObject.Result.Features.First().Geometry.Coordinates[0].ToString() + rootObject.Result.Features.First().Geometry.Coordinates[1].ToString();
             s.addNewState(0);
