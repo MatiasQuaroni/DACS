@@ -8,24 +8,7 @@
 </ion-item-divider>
   <ion-item-divider>
     <div style="display: block;">
-  <ion-card color="tertiary" style="margin: 30px">
-    <ion-card-header>
-      <ion-card-subtitle>16:53</ion-card-subtitle>
-      <ion-card-title>Shipment arrived</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      Your shipment has been successfully delivered!
-    </ion-card-content>
-  </ion-card>
-  <ion-card color="tertiary" style="margin: 30px;">
-    <ion-card-header>
-      <ion-card-subtitle>10:14</ion-card-subtitle>
-      <ion-card-title>Your shipment is on the way</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      Your shipment has left the deposit and will be delivered soon.
-    </ion-card-content>
-  </ion-card>
+    <notification-list [notifications]="notifications$"></notification-list>
 </div>
 </ion-item-divider>
 <ion-fab horizontal="start" vertical="bottom" slot="fixed">
