@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { modalController } from '@ionic/core';
 import { ShipmentState } from '../+state/model';
 
 const shipmentStates : ShipmentState[] = [
@@ -49,6 +50,11 @@ firstFormGroup : FormGroup;
     this.firstFormGroup = this._formBuilder.group ({
       trackingID: ['', Validators.required],
     });
+  }
+
+  async closeTrackingTool (){
+    const closeModal: string = "Modal Closed";
+    await modalController.dismiss(closeModal);
   }
 
 
