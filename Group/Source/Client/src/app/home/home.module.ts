@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { HomePageRoutingModule } from './home-routing.module';
-
 import { HomePage } from './home-page/home.page';
 import { LayoutModule } from '../layout/layout.module';
 import { HomeComponent } from './home-component/home.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { ShipmentsPageModule } from '../shipments/shipments.module';
 import { NotificationsModule } from '../notifications/notifications.module';
 
 @NgModule({
@@ -20,6 +18,7 @@ import { NotificationsModule } from '../notifications/notifications.module';
     HomePageRoutingModule,
     LayoutModule,
     MatBadgeModule,
+    ShipmentsPageModule,
     NotificationsModule,
   ],
   declarations: [HomePage, HomeComponent],

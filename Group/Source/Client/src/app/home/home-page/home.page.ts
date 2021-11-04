@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { TrackingToolComponent } from 'src/app/shipments/tracking-tool/tracking-tool.component';
 import { Notification } from 'src/app/notifications/+state/model';
 
 const notifications: Notification[] = [
@@ -35,7 +38,15 @@ const notifications: Notification[] = [
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router, private modalController: ModalController) { }
+
+  async onTrackingToolClicked ()
+  {
+    const modal = await this.modalController.create({
+      component: TrackingToolComponent
+    });
+    return await modal.present();
+  }
 
   public notifications$ = notifications; // Note: this should be retrieved from the store and typed as Observable<Notification[]>, using dummy placeholder for the moment.
 

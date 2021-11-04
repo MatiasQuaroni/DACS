@@ -9,6 +9,13 @@ export interface Shipment {
   customerInfoId: string;
 }
 
+export interface ShipmentState {
+  id: string;
+  currentState: string;
+  fromDate: Date;
+  toDate: Date;
+}
+
 export interface Location {
   id: string;
   postalCode: string;
