@@ -38,6 +38,7 @@ namespace Server
             services.AddScoped(typeof (IShipmentRepository), typeof (ShipmentRepository));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
             services.AddTransient<IShipmentsServices, ShipmentsServices>();
+            services.AddTransient<IUsersServices, UsersServices>();
             var mappingConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new CustomerMappingProfile());
@@ -53,7 +54,8 @@ namespace Server
             services.AddSingleton(mapper);
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Server", Version = "v1"}); });
-            services.AddMvc();                 
+            services.AddMvc().AddSessionStateTempDataProvider();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,6 +71,8 @@ namespace Server
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 
