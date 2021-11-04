@@ -7,11 +7,7 @@ import { HomePage } from './home-page/home.page';
 import { LayoutModule } from '../layout/layout.module';
 import { HomeComponent } from './home-component/home.component';
 import { MatBadgeModule } from '@angular/material/badge';
-import { ReactiveFormsModule} from '@angular/forms'
-import {MatStepperModule} from '@angular/material/stepper'
-import {MatNativeDateModule} from '@angular/material/core';
-import {MatFormFieldModule,} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import { ShipmentsPageModule } from '../shipments/shipments.module';
 
 @NgModule({
   imports: [
@@ -21,11 +17,7 @@ import {MatInputModule} from '@angular/material/input';
     HomePageRoutingModule,
     LayoutModule,
     MatBadgeModule,
-    ReactiveFormsModule,
-    MatStepperModule,
-    MatNativeDateModule,
-    MatFormFieldModule,
-    MatInputModule,
+    ShipmentsPageModule,
 
   ],
   declarations: [HomePage, HomeComponent],

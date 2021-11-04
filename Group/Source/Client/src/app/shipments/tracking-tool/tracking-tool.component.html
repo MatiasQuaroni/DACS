@@ -12,7 +12,6 @@
     </form>
   </mat-step>
 
-
   <div *ngFor="let shipmentState of shipmentStates$">
     <mat-step>
       <ng-template matStepLabel>{{shipmentState.currentState}}</ng-template>
@@ -25,8 +24,6 @@
   </mat-step>
 </div>
 
-
-
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>
     <p>You are now done.</p>
@@ -36,3 +33,5 @@
     </div>
   </mat-step>
 </mat-stepper>
+
+<ion-button (click)="closeTrackingTool()">Close</ion-button>
