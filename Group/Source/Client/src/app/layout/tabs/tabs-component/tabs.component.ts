@@ -23,7 +23,7 @@ export class TabsComponent implements OnInit {
       },
       {
         icon: 'person-outline',
-        tabName: ''
+        tabName: 'login'
       }
     ]
   }

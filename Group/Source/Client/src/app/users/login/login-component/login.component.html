@@ -1,0 +1,25 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title style="text-align: center;">
+      Sign in
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-label>
+      Email:
+    </ion-label>
+    <ion-input type="Email" [(ngModel)]="email"></ion-input>
+    <ion-label>
+      Password:
+    </ion-label>
+    <ion-input type="Password" [(ngModel)]="password"></ion-input>
+    <div style="margin:0 auto; display: block;">
+      <ion-button (click)="onLogin()">
+        Confirm
+      </ion-button>
+      <ion-button (click)="onSignUpClicked()">
+        Sign up
+      </ion-button>
+    </div>
+  </ion-card-content>
+</ion-card>
