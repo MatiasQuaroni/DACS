@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from './login/login-component/login.component';
+import { IonicModule } from '@ionic/angular';
 
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    IonicModule
   ]
 })
-export class UsersModule { }
+export class UsersPageModule { }

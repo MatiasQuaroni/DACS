@@ -8,6 +8,7 @@ import { LayoutModule } from '../layout/layout.module';
 import { HomeComponent } from './home-component/home.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { ShipmentsPageModule } from '../shipments/shipments.module';
+import { NotificationsModule } from '../notifications/notifications.module';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { ShipmentsPageModule } from '../shipments/shipments.module';
     LayoutModule,
     MatBadgeModule,
     ShipmentsPageModule,
-
+    NotificationsModule,
   ],
   declarations: [HomePage, HomeComponent],
   exports: [HomeComponent]
