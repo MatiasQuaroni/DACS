@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Persistence.ClassMappings;
+
 namespace Server.Persistence
 {
     public class RoadsDbContext : DbContext

@@ -13,5 +13,19 @@ namespace Server.Domain
         public UserState UserState { get; set; }
         public ProfileInfo ProfileInfo { get; set; }
 
+        public User()
+        {
+
+        }
+        public void addState(int newUserStatus)
+        {
+            UserState newState = new UserState
+            {
+                Status = (UserStatus)newUserStatus,
+                Date = DateTime.Now,
+                UserId = this.Id
+            };
+        }
+
     }
 }

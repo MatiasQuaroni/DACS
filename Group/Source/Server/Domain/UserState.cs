@@ -9,5 +9,6 @@ namespace Server.Domain
     {
         public DateTime Date { get; set; }
         public UserStatus Status { get; set; }
+        public Guid UserId { get; set; }
     }
 }

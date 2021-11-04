@@ -8,6 +8,6 @@ namespace Server.Domain.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-        IEnumerable<User> GetByFilter();
+        public IEnumerable<User> GetByStatus(int status);
     }
 }

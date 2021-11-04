@@ -14,9 +14,18 @@ namespace Server.Persistence.Repositories
         {
 
         }
-        public IEnumerable<User> GetByFilter()
+        public IEnumerable<User> GetByStatus(int status)
         {
-            throw new NotImplementedException();
+            var users = new List<User>();
+            foreach (var item in this.iDbContext.Set<User>())
+            {
+                if (item.UserState.Status == (UserStatus)status)
+                {
+                    users.Add(item);
+                }
+            }
+            return users;
         }
+
     }
 }
