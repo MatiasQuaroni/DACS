@@ -16,7 +16,7 @@ namespace Server.Domain
 
         public Itinerary()
         {
-            this.Id = new Guid();
+            this.Id = Guid.NewGuid();
             this.Shipments = new List<Shipment>();
             this.Legs = new List<Leg>();
             this.IsComplete = false;

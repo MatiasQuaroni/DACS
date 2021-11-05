@@ -17,7 +17,7 @@ namespace Server.Domain
 
         public Location()
         {
-            this.Id = new Guid();
+            this.Id = Guid.NewGuid();
         }
     }
 }

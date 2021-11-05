@@ -21,8 +21,8 @@ namespace Server.Domain
 
         public Shipment()
         {
-            this.Id = new Guid();
-            this.TrackingNumber = new Guid();
+            this.Id = Guid.NewGuid();
+            this.TrackingNumber = Guid.NewGuid();
             this.Customer = new CustomerInfo();
             this.DestinationAddress = new Location();
             this.States = new List<ShipmentState>();

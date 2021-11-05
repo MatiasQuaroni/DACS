@@ -17,7 +17,7 @@ namespace Server.Domain
 
         public CustomerInfo()
         {
-            this.Id = new Guid();
+            this.Id = Guid.NewGuid();
             this.RegisteredAddresses = new List<Location>();
         }
 
