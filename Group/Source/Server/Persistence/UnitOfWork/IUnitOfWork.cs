@@ -14,5 +14,6 @@ namespace Server.Persistence.UnitOfWork
         public IUserRepository UserRepository { get; } 
         public IRepository<Location> LocationRepository { get; }
         public IRepository<CustomerInfo> CustomerInfoRepository { get; }
+        public IRepository<Itinerary> ItineraryRepository { get; }
     }
 }

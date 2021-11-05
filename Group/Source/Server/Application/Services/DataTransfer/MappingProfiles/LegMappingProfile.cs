@@ -14,10 +14,6 @@ namespace Server.Application.Services.DataTransfer.MappingProfiles
             CreateMap<Leg, LegData>().ForMember(dto => dto.Id, src => src.MapFrom(src => src.Id));
             CreateMap<Leg, LegData>().ForMember(dto => dto.StartLocation, src => src.MapFrom(src => src.StartLocation));
             CreateMap<Leg, LegData>().ForMember(dto => dto.EndLocation, src => src.MapFrom(src => src.EndLocation));
-
-            CreateMap<LegData, Leg>().ForMember(dto => dto.Id, src => src.MapFrom(src => src.Id));
-            CreateMap<LegData, Leg>().ForMember(dto => dto.StartLocation, src => src.MapFrom(src => src.StartLocation));
-            CreateMap<LegData, Leg>().ForMember(dto => dto.EndLocation, src => src.MapFrom(src => src.EndLocation));
         }
     }
 }

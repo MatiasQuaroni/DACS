@@ -8,15 +8,13 @@ namespace Server.Persistence.ClassMappings
     {
         public void Configure(EntityTypeBuilder<Shipment> builder)
         {
-            builder.ToTable("ShipmentInfo");
             builder.HasKey(s => s.Id);
-
             builder.Property(s => s.TrackingNumber);
             builder.Property(s => s.Weight);
             builder.Property(s => s.Precautions);
             builder.Property(s => s.EstimatedArrivalDate);
             builder.Property(s => s.ArrivalDate);
-            builder.HasMany(s => s.States).WithOne(ss => ss.Shipment).HasForeignKey(s => s.ShipmentId);
+            builder.HasMany(s => s.States).WithOne(ss => ss.Shipment).HasForeignKey(ss => ss.ShipmentId);
         }
     }
 }

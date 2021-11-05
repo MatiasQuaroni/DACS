@@ -8,12 +8,12 @@ namespace Server.Persistence.ClassMappings
     {
         public void Configure(EntityTypeBuilder<CustomerInfo> builder)
         {
-            builder.ToTable("CustomerInfo");
             builder.HasKey(ci => ci.Id);
             builder.Property(ci=> ci.Name);
             builder.Property(ci => ci.Dni);
             builder.Property(ci => ci.Email);
             builder.Property(ci => ci.PhoneNumber);
+            builder.HasOne<Shipment>(ci =>ci.Shipment ).WithOne(s => s.Customer).HasForeignKey<Shipment>(s => s.CustomerId);
         }
     }
 }

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Server.Application.ExternalAPIs
 {
-    //Classes to storage the data
     public partial class RootObject
     {
         [JsonProperty("features")]
@@ -25,8 +24,6 @@ namespace Server.Application.ExternalAPIs
         public double[] Coordinates { get; set; }
     }
 
-
-    // Main class
     public static class NominatimCoordinatesAPI
     {
         public static async Task<RootObject> GetCoordinates(string path)
@@ -41,11 +38,6 @@ namespace Server.Application.ExternalAPIs
             HttpResponseMessage response = await client.GetAsync(client.BaseAddress + path + format);
             if (response.IsSuccessStatusCode)
             {
-                /*Stream dataStream = response.Content.ReadAsStream();
-                StreamReader reader = new StreamReader(dataStream);
-                string test = reader.ReadToEnd();
-                reader.Close();
-                dataStream.Close();*/
                 rootOb = JsonConvert.DeserializeObject<RootObject>(await response.Content.ReadAsStringAsync());
             }
             return rootOb;

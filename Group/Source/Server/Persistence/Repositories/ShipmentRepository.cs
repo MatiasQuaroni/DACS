@@ -19,6 +19,12 @@ namespace Server.Persistence.Repositories
             shipments = this.iDbContext.Set<Shipment>(); 
             return shipments;
         }
+        public override Shipment Get(Guid pId) 
+        {
+            var shipment = iDbContext.Set<Shipment>().Where
+                (s => s.Id == pId).Include(s => s.Customer).Include(s=> s.DestinationAddress).FirstOrDefault();
+            return (Shipment) shipment;
+        }
 
         public IEnumerable<Shipment> GetByArrivalDate(DateTime arrivalDate)
         {

@@ -14,11 +14,19 @@ namespace Server.Domain
         public DateTime ArrivalDate { get; set; }
         public DateTime EstimatedArrivalDate { get; set; }
         public ICollection<ShipmentState> States { get; set; }
-        public Location DestinationAddress { get; set; }
-        public CustomerInfo Customer { get; set; }
+        public Guid DestinationAddressId { get; set; }
+        public Guid CustomerId { get; set; }
+        public virtual Location DestinationAddress { get; set; }
+        public virtual CustomerInfo Customer { get; set; }
 
         public Shipment()
         {
+            this.Id = new Guid();
+            this.TrackingNumber = new Guid();
+            this.Customer = new CustomerInfo();
+            this.DestinationAddress = new Location();
+            this.States = new List<ShipmentState>();
+            this.addNewState(0);
         }
         public void addNewState(int newStateEnum) 
         { ShipmentState newState = new ShipmentState { CurrentState = (ShipmentStateEnum)newStateEnum,

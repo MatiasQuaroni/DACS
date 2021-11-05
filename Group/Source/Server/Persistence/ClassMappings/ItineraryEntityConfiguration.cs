@@ -8,11 +8,11 @@ namespace Server.Persistence.ClassMappings
     {
         public void Configure(EntityTypeBuilder<Itinerary> builder)
         {
-            builder.ToTable("ItineraryInfo");
             builder.HasKey(i => i.Id);
             builder.Property(i => i.IsComplete);
             builder.Property(i => i.StartDate);
             builder.Property(i => i.EndDate);
+            builder.HasMany(i => i.Legs).WithOne(l => l.Itinerary).HasForeignKey(l => l.ItineraryId);
         }
     }
 }

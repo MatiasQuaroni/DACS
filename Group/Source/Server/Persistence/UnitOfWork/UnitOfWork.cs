@@ -15,6 +15,7 @@ namespace Server.Persistence.UnitOfWork
         public IUserRepository UserRepository { get; }
         public IRepository<Location> LocationRepository { get; }
         public IRepository<CustomerInfo> CustomerInfoRepository { get; }
+        public IRepository<Itinerary> ItineraryRepository { get; }
 
         public UnitOfWork(RoadsDbContext context)
         {
@@ -23,6 +24,7 @@ namespace Server.Persistence.UnitOfWork
             this.UserRepository = new UserRepository(Context);
             this.LocationRepository = new LocationRepository(Context);
             this.CustomerInfoRepository = new CustomerInfoRepository(Context);
+            this.ItineraryRepository = new ItineraryRepository(Context);
         }
 
         public void Complete()
