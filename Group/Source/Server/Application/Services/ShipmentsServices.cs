@@ -52,7 +52,7 @@ namespace Server.Application.Services
         }
         public IEnumerable<Shipment> GetAllShipments()
         {
-            var shipments = this._unit.ShipmentRepository.GetAll();
+            var shipments = this._unit.ShipmentRepository.GetAllShipments();
             return shipments;
         }
         public Shipment GetShipment(Guid id)

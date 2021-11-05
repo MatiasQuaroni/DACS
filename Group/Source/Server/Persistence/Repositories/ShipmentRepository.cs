@@ -14,9 +14,9 @@ namespace Server.Persistence.Repositories
         {
 
         }
-        public IQueryable<Shipment> GetAllShipments()
-        { IQueryable<Shipment> shipments;
-            shipments = this.iDbContext.Set<Shipment>(); 
+        public IEnumerable<Shipment> GetAllShipments()
+        { List<Shipment> shipments;
+            shipments = this.iDbContext.Set<Shipment>().Include(s => s.Customer).Include(s=>s.DestinationAddress).ToList(); 
             return shipments;
         }
         public override Shipment Get(Guid pId) 
