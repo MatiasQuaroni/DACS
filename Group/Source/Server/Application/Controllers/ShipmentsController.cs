@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Domain;
 using Server.Application.Services.DataTransfer;
 using Server.Application.Services;
-using Server.Persistence.UnitOfWork;
 using AutoMapper;
 
 namespace Server.Application.Controllers
@@ -22,7 +21,6 @@ namespace Server.Application.Controllers
             _shipmentsServices = shipmentsServices;
             _mapper = mapper;
         }
-
         [HttpGet("all")]
         public IList<ShipmentData> GetAllShipments()
         {
@@ -30,7 +28,7 @@ namespace Server.Application.Controllers
             var shipments = _shipmentsServices.GetAllShipments();
             foreach (Shipment s in shipments) 
             {
-             shipmentsDTOs.Append(_mapper.Map<ShipmentData>(s));
+             shipmentsDTOs.Add(_mapper.Map<ShipmentData>(s));
             }
             return shipmentsDTOs;
         }
@@ -72,13 +70,13 @@ namespace Server.Application.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public void PutShipment(Guid id, ShipmentData shipmentDTO)
+        public void UpdateShipment(Guid id, ShipmentData shipmentDTO)
         {
             _shipmentsServices.UpdateShipment(id, shipmentDTO);
         }
 
         [HttpPost("create")]
-        public void PostShipment(ShipmentData shipmentDTO)
+        public void CreateShipment(ShipmentData shipmentDTO)
         {
             _shipmentsServices.CreateShipment(shipmentDTO);
         }
@@ -90,9 +88,9 @@ namespace Server.Application.Controllers
         }
 
         [HttpPost("itineraries/create")]
-        public void CreateItinerary()
+        public void CreateItinerary(IList<Guid> shipmentsIDs)
         {
-            throw new NotImplementedException();
+            _shipmentsServices.CreateItinerary(shipmentsIDs);
         }
 
         [HttpDelete("itineraries/delete/{itineraryId}")]
