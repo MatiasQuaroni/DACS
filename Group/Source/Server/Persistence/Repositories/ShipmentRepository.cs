@@ -29,7 +29,7 @@ namespace Server.Persistence.Repositories
         public IEnumerable<Shipment> GetByArrivalDate(DateTime arrivalDate)
         {
             var shipments = new List<Shipment>();
-            foreach(var item in this.iDbContext.Set<Shipment>())
+            foreach(var item in this.iDbContext.Set<Shipment>().Include(s => s.Customer).Include(s => s.DestinationAddress))
             {
                 if (item.ArrivalDate == arrivalDate)
                 {
@@ -42,7 +42,7 @@ namespace Server.Persistence.Repositories
         public IEnumerable<Shipment> GetByStatus(int status)
         {
             var shipments = new List<Shipment>();
-            foreach (var item in this.iDbContext.Set<Shipment>())
+            foreach (var item in this.iDbContext.Set<Shipment>().Include(s => s.Customer).Include(s => s.DestinationAddress))
             {
                 if (item.States.Last().CurrentState == (ShipmentStateEnum)status)
                 {
@@ -55,7 +55,7 @@ namespace Server.Persistence.Repositories
         public IEnumerable<Shipment> GetByPostalCode(int postalCode)
         {
             var shipments = new List<Shipment>();
-            foreach (var item in this.iDbContext.Set<Shipment>())
+            foreach (var item in this.iDbContext.Set<Shipment>().Include(s => s.Customer).Include(s => s.DestinationAddress))
             {
                 if (item.DestinationAddress.PostalCode == postalCode)
                 {
@@ -66,7 +66,7 @@ namespace Server.Persistence.Repositories
         }
         public Shipment GetByTrackingNumber(Guid trackingNumber)
         {
-            return this.iDbContext.Set<Shipment>().Single(s => s.TrackingNumber == trackingNumber);
+            return this.iDbContext.Set<Shipment>().Include(s => s.Customer).Include(s => s.DestinationAddress).Single(s => s.TrackingNumber == trackingNumber);
         }
     }
 }

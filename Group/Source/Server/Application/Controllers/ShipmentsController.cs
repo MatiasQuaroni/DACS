@@ -64,7 +64,7 @@ namespace Server.Application.Controllers
             }
             foreach (Shipment s in shipments)
             {
-                shipmentsDTOs.Append(_mapper.Map<ShipmentData>(s));
+                shipmentsDTOs.Add(_mapper.Map<ShipmentData>(s));
             }
             return shipmentsDTOs;
         }
