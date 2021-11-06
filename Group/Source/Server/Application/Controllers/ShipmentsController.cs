@@ -70,7 +70,7 @@ namespace Server.Application.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public void UpdateShipment(Guid id, ShipmentData shipmentDTO)
+        public void UpdateShipment(Guid id, ShipmentUpdateData shipmentDTO)
         {
             _shipmentsServices.UpdateShipment(id, shipmentDTO);
         }
@@ -93,22 +93,28 @@ namespace Server.Application.Controllers
             _shipmentsServices.CreateItinerary(shipmentsIDs);
         }
 
-        [HttpDelete("itineraries/delete/{itineraryId}")]
-        public void DeleteItinerary()
+        [HttpDelete("itineraries/delete/{id}")]
+        public void DeleteItinerary(Guid id)
         {
-            throw new NotImplementedException();
+            _shipmentsServices.DeleteItinerary(id);
         }
 
         [HttpGet("itineraries/byId/{itineraryId}")]
-        public void GetItinerary()
+        public ItineraryData GetItinerary(Guid id)
         {
-            throw new NotImplementedException();
+            return _mapper.Map<ItineraryData>(_shipmentsServices.GetItinerary(id));
         }
 
         [HttpGet("itineraries/all")]
-        public void GetAllItineraries()
+        public IList<ItineraryData> GetAllItineraries()
         {
-            throw new NotImplementedException();
+            IList<ItineraryData> itinerariesDTOs = new List<ItineraryData>();
+            var itineraries = _shipmentsServices.GetAllItineraries();
+            foreach (Itinerary s in itineraries)
+            {
+                itinerariesDTOs.Add(_mapper.Map<ItineraryData>(s));
+            }
+            return itinerariesDTOs;
         }
 
     }
