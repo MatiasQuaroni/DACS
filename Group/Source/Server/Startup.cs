@@ -16,6 +16,7 @@ using Server.Application.Services.DataTransfer.MappingProfiles;
 using Server.Persistence;
 using Server.Application.Services;
 using Server.Persistence.UnitOfWork;
+using Server.Domain;
 using Server.Persistence.Repositories;
 using Server.Domain.Repositories;
 
@@ -23,9 +24,11 @@ namespace Server
 {
     public class Startup
     {
+        private readonly Guid _baseLocationId = new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4");
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -53,6 +56,30 @@ namespace Server
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Server", Version = "v1"}); });
             services.AddMvc().AddSessionStateTempDataProvider();
             services.AddSession();
+
+            using (var scope = services.BuildServiceProvider().CreateScope())
+            {
+                var localScoped = scope.ServiceProvider.GetService<IUnitOfWork>();
+                this.SeedInitialData(localScoped);
+            }
+        }
+        public void SeedInitialData(IUnitOfWork localScoped)
+        {
+            
+            if (localScoped.LocationRepository.GetAll().Count() == 0)
+            {
+                double[] baseCoordinates = { -58.2308008, -32.4962985 };
+                localScoped.LocationRepository.Add(new Location
+                {
+                    Id = _baseLocationId,
+                    Address = "676 Ingeniero Pereyra",
+                    PostalCode = 3260,
+                    Type = 0,
+                    Coordinates = baseCoordinates
+                }
+                ); ; ;
+            }
+            localScoped.Complete();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
