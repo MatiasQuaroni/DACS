@@ -9,6 +9,9 @@ using Server.Application.Services.DataTransfer.MappingProfiles;
 using Server.Persistence;
 using Server.Application.Services;
 using Server.Persistence.UnitOfWork;
+using Server.Domain;
+using Server.Persistence.Repositories;
+using Server.Domain.Repositories;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 
@@ -16,9 +19,11 @@ namespace Server
 {
     public class Startup
     {
+        private readonly Guid _baseLocationId = new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4");
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }

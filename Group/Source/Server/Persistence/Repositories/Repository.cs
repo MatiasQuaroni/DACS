@@ -31,7 +31,7 @@ namespace Server.Persistence.Repositories
             this.iDbContext.Set<TEntity>().Add(pEntity);
         }
 
-        public TEntity Get(int pId)
+        public virtual TEntity Get(int pId)
         {
             return this.iDbContext.Set<TEntity>().Find(pId);
         }
