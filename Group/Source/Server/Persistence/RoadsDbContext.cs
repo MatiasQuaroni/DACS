@@ -23,6 +23,7 @@ namespace Server.Persistence
             modelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerInfoEntityConfiguration());
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new UserStateEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ProfileInfoEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ShipmentStateEntityConfiguration());
         }

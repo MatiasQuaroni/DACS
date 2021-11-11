@@ -10,9 +10,9 @@ namespace Server.Application.Services
 {
     public interface IUsersServices
     {
-        public IEnumerable<Domain.User> GetAllUsers();
-        public Domain.User GetUser(Guid id);
-        public IEnumerable<Domain.User> GetUsersByStatus(int status);
+        public IEnumerable<User> GetAllUsers();
+        public User GetUser(Guid id);
+        public IEnumerable<User> GetUsersByStatus(int status);
         public void CreateUser(UserData userDTO);
         public void UpdateUser(Guid id, UserData userDTO);
         public void DeleteUser(Guid id);
@@ -25,32 +25,32 @@ namespace Server.Application.Services
         {
             _unit = unitOfWork;
         }
-        public IEnumerable<Domain.User> GetAllUsers()
+        public IEnumerable<User> GetAllUsers()
         {
-            var users = this._unit.UserRepository.GetAll();
+            var users = this._unit.UserRepository.GetAllUsers();
             return users;
         }
-        public Domain.User GetUser(Guid id)
+        public User GetUser(Guid id)
         {
             var u = this._unit.UserRepository.Get(id);
             return u;
         }
 
-        public IEnumerable<Domain.User> GetUsersByStatus(int status)
+        public IEnumerable<User> GetUsersByStatus(int status)
         {
             var users = this._unit.UserRepository.GetByStatus(status);
             return users;
         }
         public void CreateUser(UserData userDTO)
         {
-            Domain.User u = new Domain.User();
+            User u = new User();
             u.Id = Guid.NewGuid();
             u.UserName = userDTO.Username;
             u.Password = userDTO.Password;
-            u.ProfileInfo.DisplayName = userDTO.DisplayName;
-            u.ProfileInfo.EmailAddress = userDTO.Email;
-            u.ProfileInfo.PhoneNumber = userDTO.PhoneNumber;
-            u.addState(userDTO.Status);
+            u.ProfileInfo.DisplayName = userDTO.ProfileInfo.DisplayName;
+            u.ProfileInfo.EmailAddress = userDTO.ProfileInfo.Email;
+            u.ProfileInfo.PhoneNumber = userDTO.ProfileInfo.PhoneNumber;
+            u.addState(userDTO.UserState.Type);
             _unit.UserRepository.Add(u);
             _unit.Complete();
         }
@@ -59,15 +59,15 @@ namespace Server.Application.Services
         {
             try
             {
-                Domain.User u = this._unit.UserRepository.Get(id);
+                User u = this._unit.UserRepository.Get(id);
                 u.UserName = userDTO.Username;
                 u.Password = userDTO.Password;
-                u.ProfileInfo.DisplayName = userDTO.DisplayName;
-                u.ProfileInfo.EmailAddress = userDTO.Email;
-                u.ProfileInfo.PhoneNumber = userDTO.PhoneNumber;
-                if (u.UserState.Status != (UserStatus)userDTO.Status)
+                u.ProfileInfo.DisplayName = userDTO.ProfileInfo.DisplayName;
+                u.ProfileInfo.EmailAddress = userDTO.ProfileInfo.Email;
+                u.ProfileInfo.PhoneNumber = userDTO.ProfileInfo.PhoneNumber;
+                if (u.UserState.Status != (UserStatus)userDTO.UserState.Type)
                 {
-                    u.addState(userDTO.Status);
+                    u.addState(userDTO.UserState.Type);
                 }
                 _unit.UserRepository.Update(u);
                 _unit.Complete();

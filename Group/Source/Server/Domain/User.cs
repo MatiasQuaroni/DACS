@@ -10,21 +10,22 @@ namespace Server.Domain
         public Guid Id { get; set; }
         public string UserName { get; set; }
         public string Password { get; set; }
-        public UserState UserState { get; set; }
-        public ProfileInfo ProfileInfo { get; set; }
+        public Guid UserStateId { get; set; }
+        public Guid ProfileInfoId { get; set; }
+        public virtual UserState UserState { get; set; }
+        public virtual ProfileInfo ProfileInfo { get; set; }
 
         public User()
         {
-
+            this.Id = Guid.NewGuid();
+            this.UserState = new UserState();
+            this.ProfileInfo = new ProfileInfo();
         }
         public void addState(int newUserStatus)
         {
-            UserState newState = new UserState
-            {
-                Status = (UserStatus)newUserStatus,
-                Date = DateTime.Now,
-                UserId = this.Id
-            };
+            this.UserState.Status = (UserStatus)newUserStatus;
+            this.UserState.Date = DateTime.Now;
+            this.UserState.UserId = this.Id;
         }
 
     }
