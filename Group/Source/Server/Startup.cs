@@ -1,23 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Server.Application.Services.DataTransfer.MappingProfiles;
 using Server.Persistence;
 using Server.Application.Services;
 using Server.Persistence.UnitOfWork;
-using Server.Persistence.Repositories;
-using Server.Domain.Repositories;
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 
 namespace Server
 {
@@ -45,14 +38,18 @@ namespace Server
                 mc.AddProfile(new ShipmentMappingProfile());
                 mc.AddProfile(new ShipmentStateMappingProfile());
                 mc.AddProfile(new UserMappingProfile());
+                mc.AddProfile(new ProfileInfoMappingProfile());
+                mc.AddProfile(new UserStateMappingProfile());
             });
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
             services.AddControllers();
             services.AddSwaggerGen(c => { c.SwaggerDoc("v1", new OpenApiInfo {Title = "Server", Version = "v1"}); });
-            services.AddMvc().AddSessionStateTempDataProvider();
-            services.AddSession();
+            FirebaseApp.Create(new AppOptions()
+            {
+                Credential = GoogleCredential.FromFile("./dacs2021g2-0d70fb764546.json"),
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -67,8 +64,6 @@ namespace Server
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
-            app.UseSession();
 
             app.UseAuthorization();
 
