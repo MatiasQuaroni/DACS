@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,8 +12,6 @@ using Server.Persistence;
 using Server.Application.Services;
 using Server.Persistence.UnitOfWork;
 using Server.Domain;
-using Server.Persistence.Repositories;
-using Server.Domain.Repositories;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 
@@ -55,6 +55,30 @@ namespace Server
             {
                 Credential = GoogleCredential.FromFile("./dacs2021g2-0d70fb764546.json"),
             });
+            //call to the seeding data method
+            using (var scope = services.BuildServiceProvider().CreateScope())
+            {
+                var localScoped = scope.ServiceProvider.GetService<IUnitOfWork>();
+                this.SeedInitialData(localScoped);
+            }
+        }
+        public void SeedInitialData(IUnitOfWork localScoped)
+        {
+
+            if (localScoped.LocationRepository.GetAll().Count() == 0)
+            {
+                double[] baseCoordinates = { -58.2308008, -32.4962985 };
+                localScoped.LocationRepository.Add(new Location
+                {
+                    Id = _baseLocationId,
+                    Address = "676 Ingeniero Pereyra",
+                    PostalCode = 3260,
+                    Type = 0,
+                    Coordinates = baseCoordinates
+                }
+                ); ; ;
+            }
+            localScoped.Complete();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
