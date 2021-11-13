@@ -22,5 +22,11 @@ namespace Server.Application.Services
         public Itinerary GetItinerary(Guid id);
         public IEnumerable<Itinerary> GetAllItineraries();
 
+        public Location GetLocation(Guid id);
+        public IEnumerable<Location> GetAllLocations();
+
+        public CustomerInfo GetCustomer(Guid id);
+        public IEnumerable<CustomerInfo> GetAllCustomers();
+
     }
 }
