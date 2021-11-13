@@ -11,23 +11,30 @@ const routes: Routes = [
     children: [
       {
         path: 'home',
-        loadChildren: () => import('../../home/home.module').then(m => m.HomePageModule)
+        loadChildren: () =>
+          import('../../home/home.module').then((m) => m.HomePageModule),
       },
       {
         path: 'shipments',
-        loadChildren: () => import('../../shipments/shipments.module').then(m => m.ShipmentsPageModule)
+        loadChildren: () =>
+          import('../../shipments/shipments.module').then(
+            (m) => m.ShipmentsPageModule
+          ),
       },
       {
         path: 'login',
-        loadChildren: () => import('../../users/login/login.module').then(m => m.LoginPageModule)
+        loadChildren: () =>
+          import('../../users/login/login.module').then(
+            (m) => m.LoginPageModule
+          ),
       },
       {
         path: '',
         redirectTo: 'home',
-        pathMatch: 'full'
-      }
-    ]
-  }
+        pathMatch: 'full',
+      },
+    ],
+  },
 ];
 
 @NgModule({

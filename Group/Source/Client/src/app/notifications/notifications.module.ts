@@ -4,13 +4,9 @@ import { NotificationListComponent } from './notification-list/notification-list
 import { NotificationCardComponent } from './notification-card/notification-card.component';
 import { IonicModule } from '@ionic/angular';
 
-
-
 @NgModule({
-  declarations: [ NotificationListComponent, NotificationCardComponent],
-  imports: [ IonicModule,
-    CommonModule
-  ],
-  exports: [NotificationListComponent, NotificationCardComponent]
+  declarations: [NotificationListComponent, NotificationCardComponent],
+  imports: [IonicModule, CommonModule],
+  exports: [NotificationListComponent, NotificationCardComponent],
 })
-export class NotificationsModule { }
+export class NotificationsModule {}

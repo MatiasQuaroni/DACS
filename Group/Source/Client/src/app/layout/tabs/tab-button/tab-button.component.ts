@@ -7,12 +7,10 @@ import { TabDefinition } from '../models';
   styleUrls: ['./tab-button.component.scss'],
 })
 export class TabButtonComponent implements OnInit {
-
   @Input()
-  public tabDefinition: TabDefinition
+  public tabDefinition: TabDefinition;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }

@@ -1,22 +1,14 @@
 <ion-card>
   <ion-card-header>
-    <ion-card-title style="text-align: center;">
-      Sign up
-    </ion-card-title>
+    <ion-card-title style="text-align: center"> Sign up </ion-card-title>
   </ion-card-header>
   <ion-card-content>
-      <ion-label>
-        Email:
-      </ion-label>
-      <ion-input [(ngModel)]="email"></ion-input>
-      <ion-label>
-        Password:
-      </ion-label>
-      <ion-input [(ngModel)]="password"></ion-input>
-    <div style="margin:0 auto; display: block;">
-      <ion-button (click)="onConfirm()">
-        Register
-      </ion-button>
+    <ion-label> Email: </ion-label>
+    <ion-input [(ngModel)]="email"></ion-input>
+    <ion-label> Password: </ion-label>
+    <ion-input [(ngModel)]="password"></ion-input>
+    <div style="margin: 0 auto; display: block">
+      <ion-button (click)="onConfirm()"> Register </ion-button>
     </div>
   </ion-card-content>
 </ion-card>

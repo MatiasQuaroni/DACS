@@ -12,12 +12,7 @@ import { TabButtonComponent } from './tab-button/tab-button.component';
 import { TabBarComponent } from './tab-bar/tab-bar.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    TabsPageRoutingModule
-  ],
-  declarations: [TabsPage, TabsComponent, TabButtonComponent, TabBarComponent]
+  imports: [CommonModule, FormsModule, IonicModule, TabsPageRoutingModule],
+  declarations: [TabsPage, TabsComponent, TabButtonComponent, TabBarComponent],
 })
 export class TabsPageModule {}

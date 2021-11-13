@@ -7,14 +7,9 @@ import { TabButtonComponent } from './tabs/tab-button/tab-button.component';
 import { MainContentComponent } from './main-content/main-content.component';
 import { TabsComponent } from './tabs/tabs-component/tabs.component';
 
-
-
 @NgModule({
   declarations: [HeaderComponent, MainContentComponent],
-  imports: [
-    CommonModule,
-    IonicModule
-  ],
-  exports: [MainContentComponent, HeaderComponent]
+  imports: [CommonModule, IonicModule],
+  exports: [MainContentComponent, HeaderComponent],
 })
-export class LayoutModule { }
+export class LayoutModule {}

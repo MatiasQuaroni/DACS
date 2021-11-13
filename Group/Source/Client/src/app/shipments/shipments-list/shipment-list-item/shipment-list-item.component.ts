@@ -7,7 +7,7 @@ import { Shipment } from '../../+state/model';
   styleUrls: ['./shipment-list-item.component.scss'],
 })
 export class ShipmentListItemComponent implements OnInit {
-  constructor() { }
+  constructor() {}
 
   @Input()
   public shipment: Shipment;
@@ -16,5 +16,4 @@ export class ShipmentListItemComponent implements OnInit {
   public selected: boolean;
 
   ngOnInit() {}
-
 }

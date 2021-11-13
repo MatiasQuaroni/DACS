@@ -1,30 +1,28 @@
-<main-content>
-</main-content>
+<main-content> </main-content>
 <ion-content>
-<ion-item-divider>
-  <ion-list-header>
-    <p>Notifications</p>
-  </ion-list-header>
-</ion-item-divider>
   <ion-item-divider>
-    <div style="display: block;">
-    <notification-list [notifications]="notifications$"></notification-list>
-</div>
-</ion-item-divider>
-<ion-fab horizontal="start" vertical="bottom" slot="fixed">
-  <ion-fab-button>
-    <ion-icon name="chevron-forward-outline"></ion-icon>  </ion-fab-button>
-  <ion-fab-list side="end">
-    <ion-fab-button color="light">
-      <ion-icon name="qr-code-outline"></ion-icon>
+    <ion-list-header>
+      <p>Notifications</p>
+    </ion-list-header>
+  </ion-item-divider>
+  <ion-item-divider>
+    <div style="display: block">
+      <notification-list [notifications]="notifications$"></notification-list>
+    </div>
+  </ion-item-divider>
+  <ion-fab horizontal="start" vertical="bottom" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="chevron-forward-outline"></ion-icon>
     </ion-fab-button>
-    <ion-fab-button color="light" (click)="onTrackingToolClicked()">
-      <ion-icon name="analytics-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab-list>
-</ion-fab>
+    <ion-fab-list side="end">
+      <ion-fab-button color="light">
+        <ion-icon name="qr-code-outline"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="light" (click)="onTrackingToolClicked()">
+        <ion-icon name="analytics-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>
 
-<ion-footer>
-
-</ion-footer>
+<ion-footer> </ion-footer>

@@ -4,7 +4,7 @@
       <ng-template matStepLabel>Insert your shipment Tracking ID</ng-template>
       <mat-form-field appearance="fill">
         <mat-label>Number</mat-label>
-        <input matInput placeholder="" formControlName="trackingID" required>
+        <input matInput placeholder="" formControlName="trackingID" required />
       </mat-form-field>
       <div>
         <button mat-button matStepperNext>Next</button>
@@ -14,15 +14,15 @@
 
   <div *ngFor="let shipmentState of shipmentStates$">
     <mat-step>
-      <ng-template matStepLabel>{{shipmentState.currentState}}</ng-template>
-      <p>Arrival date: {{shipmentState.fromDate | date}}</p>
-      <p>Departure Date: {{shipmentState.toDate | date}}</p>
+      <ng-template matStepLabel>{{ shipmentState.currentState }}</ng-template>
+      <p>Arrival date: {{ shipmentState.fromDate | date }}</p>
+      <p>Departure Date: {{ shipmentState.toDate | date }}</p>
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button matStepperNext>Next</button>
       </div>
-  </mat-step>
-</div>
+    </mat-step>
+  </div>
 
   <mat-step>
     <ng-template matStepLabel>Done</ng-template>

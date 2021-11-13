@@ -22,6 +22,6 @@ import { NotificationsModule } from '../notifications/notifications.module';
     NotificationsModule,
   ],
   declarations: [HomePage, HomeComponent],
-  exports: [HomeComponent]
+  exports: [HomeComponent],
 })
 export class HomePageModule {}

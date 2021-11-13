@@ -10,31 +10,33 @@ import { FirebaseAuthService } from '../../services/firebase.auth.service';
   styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit {
-  constructor(private authService: FirebaseAuthService, private router: Router) { }
+  constructor(
+    private authService: FirebaseAuthService,
+    private router: Router
+  ) {}
 
   public email: string;
   public password: string;
 
-  onConfirm()
-  {
-    this.authService.signUp(this.email, this.password).then(res => {
-      if(res.user.uid){
+  onConfirm() {
+    this.authService.signUp(this.email, this.password).then((res) => {
+      if (res.user.uid) {
         let data = {
           id: res.user.uid,
           email: this.email,
-          password: this.password
-        }
-        this.authService.saveUser(data).then(() => {
-          this.router.navigate(['login'])
-        }, error => {
-          console.log(error);
-        });
-
+          password: this.password,
+        };
+        this.authService.saveUser(data).then(
+          () => {
+            this.router.navigate(['login']);
+          },
+          (error) => {
+            console.log(error);
+          }
+        );
       }
-    })
-
+    });
   }
 
   ngOnInit() {}
-
 }

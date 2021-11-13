@@ -17,13 +17,14 @@ import { environment } from '../environments/environment';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-    BrowserModule, IonicModule.forRoot(),
+    BrowserModule,
+    IonicModule.forRoot(),
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
     LayoutModule,
     HomePageModule,
     NoopAnimationsModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

@@ -1,5 +1,5 @@
-import { createEntityAdapter, EntityState } from "@ngrx/entity";
-import { Action, createReducer } from "@ngrx/store";
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { Action, createReducer } from '@ngrx/store';
 import * as model from './model';
 
 export const shipmentsFeatureKey = 'shipments';
@@ -21,19 +21,19 @@ interface State {
 }
 
 const shipmentsAdapter = createEntityAdapter<model.Shipment>({
-  selectId: (shipment) => shipment.id
+  selectId: (shipment) => shipment.id,
 });
 const locationsAdapter = createEntityAdapter<model.Location>({
-  selectId: (location) => location.id
+  selectId: (location) => location.id,
 });
 const customersAdapter = createEntityAdapter<model.CustomerInfo>({
-  selectId: (customer) => customer.id
+  selectId: (customer) => customer.id,
 });
 const itinerariesAdapter = createEntityAdapter<model.Itinerary>({
-  selectId: (itinerary) => itinerary.id
+  selectId: (itinerary) => itinerary.id,
 });
 const legsAdapter = createEntityAdapter<model.Leg>({
-  selectId: (leg) => leg.id
+  selectId: (leg) => leg.id,
 });
 
 const shipmentsInitialState = shipmentsAdapter.getInitialState();
@@ -48,12 +48,11 @@ const initialState: State = {
   customers: customersInitialState,
   itineraries: itinerariesInitialState,
   legs: legsInitialState,
-  loading: false
-}
+  loading: false,
+};
 
 const shipmentsReducer = createReducer(initialState);
 
-
 export function reducer(state: State | undefined, action: Action) {
-    return shipmentsReducer(state,action)
-};
+  return shipmentsReducer(state, action);
+}
