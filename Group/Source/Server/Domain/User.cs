@@ -12,20 +12,19 @@ namespace Server.Domain
         public string Password { get; set; }
         public Guid UserStateId { get; set; }
         public Guid ProfileInfoId { get; set; }
-        public virtual UserState UserState { get; set; }
+        public ICollection<UserState> States { get; set; }
         public virtual ProfileInfo ProfileInfo { get; set; }
 
         public User()
         {
             this.Id = Guid.NewGuid();
-            this.UserState = new UserState();
+            this.States = new List<UserState>();
             this.ProfileInfo = new ProfileInfo();
         }
         public void addState(int newUserStatus)
         {
-            this.UserState.Status = (UserStatus)newUserStatus;
-            this.UserState.Date = DateTime.Now;
-            this.UserState.UserId = this.Id;
+            var newState = new UserState(newUserStatus);
+            this.States.Add(newState);
         }
 
     }

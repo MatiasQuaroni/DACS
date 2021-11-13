@@ -13,9 +13,11 @@ namespace Server.Domain
         public User User { get; set; }
         public Guid UserId { get; set; }
 
-        public UserState()
+        public UserState(int newUserStatus)
         {
             this.Id = Guid.NewGuid();
+            this.Status = (UserStatus)newUserStatus;
+            this.Date = DateTime.Now; 
         }
     }
 }
