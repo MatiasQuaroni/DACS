@@ -12,7 +12,6 @@ namespace Server.Persistence.ClassMappings
             builder.HasKey(us => us.Id);
             builder.Property(us => us.Date);
             builder.Property(us => us.Status);
-            builder.HasOne<User>(us => us.User).WithOne(u => u.UserState).HasForeignKey<User>(u => u.UserStateId);
         }
     }
 }
