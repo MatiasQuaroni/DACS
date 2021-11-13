@@ -2,23 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Server.Domain;
-using Server.Persistence;
 using Server.Persistence.Repositories;
+using Server.Domain.Repositories;
+using Server.Domain;
 
-namespace Server.Services
+namespace Server.Persistence.UnitOfWork
 {
     public class UnitOfWork: IUnitOfWork 
     {
-        public RoadsDbContext Context { get; private set; }
+        public RoadsDbContext Context { get; set; }
         public IShipmentRepository ShipmentRepository { get; }
-            public IUserRepository UserRepository { get; }
+        public IUserRepository UserRepository { get; }
+        public IRepository<Location> LocationRepository { get; }
+        public IRepository<CustomerInfo> CustomerInfoRepository { get; }
+        public IRepository<Itinerary> ItineraryRepository { get; }
 
         public UnitOfWork(RoadsDbContext context)
         {
             this.Context = context;
             this.ShipmentRepository = new ShipmentRepository(Context);
             this.UserRepository = new UserRepository(Context);
+            this.LocationRepository = new LocationRepository(Context);
+            this.CustomerInfoRepository = new CustomerInfoRepository(Context);
+            this.ItineraryRepository = new ItineraryRepository(Context);
         }
 
         public void Complete()
@@ -30,9 +36,6 @@ namespace Server.Services
             Context.Dispose();
         }
 
-        IShipmentRepository IUnitOfWork.ShipmentRepository => throw new NotImplementedException();
-
-        IUserRepository IUnitOfWork.UserRepository => throw new NotImplementedException();
         }
     }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Server.Persistence
+namespace Server.Domain.Repositories
 {
     public interface IRepository<TEntity> where TEntity : class
     {
@@ -12,5 +12,6 @@ namespace Server.Persistence
         TEntity Get(int pId);
         TEntity Get(Guid pId);
         IEnumerable<TEntity> GetAll();
+        void Update(TEntity pEntity);
     }
 }

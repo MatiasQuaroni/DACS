@@ -9,10 +9,11 @@ namespace Server.Persistence.ClassMappings
     {
         public void Configure(EntityTypeBuilder<ProfileInfo> builder)
         {
-            builder.HasNoKey();
+            builder.HasKey(p => p.Id);
             builder.Property(p => p.DisplayName);
             builder.Property(p => p.EmailAddress);
             builder.Property(p => p.PhoneNumber);
+            builder.HasOne<User>(p => p.User).WithOne(u => u.ProfileInfo).HasForeignKey<User>(u => u.ProfileInfoId);
 
         }
     }

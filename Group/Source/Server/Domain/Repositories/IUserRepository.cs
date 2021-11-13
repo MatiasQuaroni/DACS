@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Server.Domain;
 
-namespace Server.Persistence
+namespace Server.Domain.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {
-        IEnumerable<User> GetByFilter();
+        public IEnumerable<User> GetAllUsers();
+        public IEnumerable<User> GetByStatus(int status);
     }
 }

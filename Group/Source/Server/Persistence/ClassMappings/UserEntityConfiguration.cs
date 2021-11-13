@@ -8,13 +8,9 @@ namespace Server.Persistence.ClassMappings
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            
-            builder.ToTable("UserInfo");                                     
             builder.HasKey(u => u.Id);
             builder.Property(u => u.UserName);
             builder.Property(p => p.Password);
-            builder.Ignore(p => p.UserState);
-            builder.Ignore(p => p.ProfileInfo);
         }
     }
-    }
+}

@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Server.Domain;
-using Server.Persistence;
+using Server.Application.Services.DataTransfer;
 using Server.Application.Services;
-using Server.Services;
+using AutoMapper;
 
 namespace Server.Application.Controllers
 {
@@ -16,107 +14,108 @@ namespace Server.Application.Controllers
     [ApiController]
     public class ShipmentsController : ControllerBase
     {
-        private UnitOfWork _unit;
-        public ShipmentsController(RoadsDbContext context)
-        {
-            _unit = new UnitOfWork(context);
+        private readonly IShipmentsServices _shipmentsServices;
+        private readonly IMapper _mapper;
+        public ShipmentsController(IShipmentsServices shipmentsServices, IMapper mapper) 
+        { 
+            _shipmentsServices = shipmentsServices;
+            _mapper = mapper;
         }
-
         [HttpGet("all")]
-        public IEnumerable<ShipmentDTO> GetShipment()
+        public IList<ShipmentData> GetAllShipments()
         {
-            var shipments = from s in _unit.ShipmentRepository.GetAll()
-                            select new ShipmentDTO()
-                            {
-                                Id = s.Id,
-                                Weight = s.Weight,
-                                Precautions = s.Precautions,
-                                EstimatedArrivalDate = s.EstimatedArrivalDate
-                            };
-            return shipments;
-          
+            IList<ShipmentData> shipmentsDTOs = new List<ShipmentData>();
+            var shipments = _shipmentsServices.GetAllShipments();
+            foreach (Shipment s in shipments) 
+            {
+             shipmentsDTOs.Add(_mapper.Map<ShipmentData>(s));
+            }
+            return shipmentsDTOs;
         }
 
         [HttpGet("/byId/{id}")]
-        public ActionResult<ShipmentDTO> GetShipment(Guid id)
+        public ShipmentData GetShipment(Guid id)
         {
-            var s = _unit.ShipmentRepository.Get(id);
+           return _mapper.Map<ShipmentData>(_shipmentsServices.GetShipment(id));
+        }
 
-            if (s == null)
+        [HttpGet("/track/{trackingNumber}")]
+        public ShipmentData Track(Guid trackingNumber)
+        {
+            return _mapper.Map<ShipmentData>(_shipmentsServices.GetShipmentByTrackingNumber(trackingNumber));
+        }
+
+        [HttpGet("/byFilter/{filter}")]
+        public IList<ShipmentData> GetByFilter(string filter, string searchTerm)
+        {
+            IList<ShipmentData> shipmentsDTOs = new List<ShipmentData>();
+            IEnumerable<Shipment> shipments = new List<Shipment>();
+            if (filter == "withArrivalDate")
             {
-                return NotFound();
+                shipments = _shipmentsServices.GetShipmentByArrivalDate(searchTerm);
             }
-            ShipmentDTO shipmentDTO = new ShipmentDTO {Id = s.Id,
-                                Weight = s.Weight,
-                                Precautions = s.Precautions,
-                                EstimatedArrivalDate = s.EstimatedArrivalDate };
-
-            return shipmentDTO;
+            if (filter == "withStatus")
+            {
+                shipments = _shipmentsServices.GetShipmentByStatus(searchTerm);
+            }
+            if (filter == "withPostalCode")
+            {
+                shipments = _shipmentsServices.GetShipmentByPostalCode(searchTerm);
+            }
+            foreach (Shipment s in shipments)
+            {
+                shipmentsDTOs.Add(_mapper.Map<ShipmentData>(s));
+            }
+            return shipmentsDTOs;
         }
 
         [HttpPut("update/{id}")]
-        public IActionResult PutShipment(Guid id, ShipmentDTO shipmentDTO)
+        public void UpdateShipment(Guid id, ShipmentUpdateData shipmentDTO)
         {
-            if (id != shipmentDTO.Id)
-            {
-                return BadRequest();
-            }
-            Shipment s = _unit.ShipmentRepository.Get(id);
-            s.ArrivalDate = shipmentDTO.ArrivalDate;
-            s.Weight = shipmentDTO.Weight;
-            s.Precautions = shipmentDTO.Precautions;
-            s.States = shipmentDTO.States;
-            _unit.Context.Entry(s).State = EntityState.Modified;
-            try
-            {
-                _unit.Complete();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ShipmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return NoContent();
+            _shipmentsServices.UpdateShipment(id, shipmentDTO);
         }
 
         [HttpPost("create")]
-        public ActionResult<Shipment> PostShipment(ShipmentDTO shipmentDTO)
+        public void CreateShipment(ShipmentData shipmentDTO)
         {
-            Shipment s = new Shipment
-            {
-                Id = Guid.NewGuid(),
-                EstimatedArrivalDate = shipmentDTO.EstimatedArrivalDate,
-                Precautions = shipmentDTO.Precautions,
-                Weight = shipmentDTO.Weight,
-            };
-            _unit.ShipmentRepository.Add(s);
-            _unit.Complete();
-
-            return CreatedAtAction("GetShipment", new { id = s.Id }, s);
+            _shipmentsServices.CreateShipment(shipmentDTO);
         }
 
         [HttpDelete("delete/{id}")]
-        public IActionResult DeleteShipment(Guid id)
+        public void DeleteShipment(Guid id)
         {
-            var shipment = _unit.ShipmentRepository.Get(id);
-            if (shipment == null)
-            {
-                return NotFound();
-            }
-
-            _unit.ShipmentRepository.Remove(shipment);
-            _unit.Complete();
-
-            return NoContent();
+            _shipmentsServices.DeleteShipment(id);
         }
 
-        private bool ShipmentExists(Guid id) =>
-             _unit.ShipmentRepository.GetAll().Any(s => s.Id == id);
+        [HttpPost("itineraries/create")]
+        public void CreateItinerary(IList<Guid> shipmentsIDs)
+        {
+            _shipmentsServices.CreateItinerary(shipmentsIDs);
+        }
+
+        [HttpDelete("itineraries/delete/{id}")]
+        public void DeleteItinerary(Guid id)
+        {
+            _shipmentsServices.DeleteItinerary(id);
+        }
+
+        [HttpGet("itineraries/byId/{itineraryId}")]
+        public ItineraryData GetItinerary(Guid id)
+        {
+            return _mapper.Map<ItineraryData>(_shipmentsServices.GetItinerary(id));
+        }
+
+        [HttpGet("itineraries/all")]
+        public IList<ItineraryData> GetAllItineraries()
+        {
+            IList<ItineraryData> itinerariesDTOs = new List<ItineraryData>();
+            var itineraries = _shipmentsServices.GetAllItineraries();
+            foreach (Itinerary s in itineraries)
+            {
+                itinerariesDTOs.Add(_mapper.Map<ItineraryData>(s));
+            }
+            return itinerariesDTOs;
+        }
+
     }
 }

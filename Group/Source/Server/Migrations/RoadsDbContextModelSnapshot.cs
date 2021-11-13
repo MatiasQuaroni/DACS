@@ -59,7 +59,7 @@ namespace Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ItineraryInfo");
+                    b.ToTable("Itinerary");
                 });
 
             modelBuilder.Entity("Server.Domain.Leg", b =>
@@ -68,12 +68,22 @@ namespace Server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ItineraryId")
+                    b.Property<Guid?>("EndLocationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("ItineraryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("StartLocationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EndLocationId");
+
                     b.HasIndex("ItineraryId");
+
+                    b.HasIndex("StartLocationId");
 
                     b.ToTable("Leg");
                 });
@@ -109,6 +119,10 @@ namespace Server.Migrations
 
             modelBuilder.Entity("Server.Domain.ProfileInfo", b =>
                 {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("DisplayName")
                         .HasColumnType("nvarchar(max)");
 
@@ -117,6 +131,8 @@ namespace Server.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("ProfileInfo");
                 });
@@ -130,10 +146,10 @@ namespace Server.Migrations
                     b.Property<DateTime>("ArrivalDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("CustomerId")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("DestinationAddressId")
+                    b.Property<Guid>("DestinationAddressId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("EstimatedArrivalDate")
@@ -145,21 +161,48 @@ namespace Server.Migrations
                     b.Property<string>("Precautions")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TrackingNumber")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TrackingNumber")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Weight")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("CustomerId")
+                        .IsUnique();
 
-                    b.HasIndex("DestinationAddressId");
+                    b.HasIndex("DestinationAddressId")
+                        .IsUnique();
 
                     b.HasIndex("ItineraryId");
 
-                    b.ToTable("ShipmentInfo");
+                    b.ToTable("Shipment");
+                });
+
+            modelBuilder.Entity("Server.Domain.ShipmentState", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("CurrentState")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FromDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("ShipmentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ToDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ShipmentId");
+
+                    b.ToTable("ShipmentState");
                 });
 
             modelBuilder.Entity("Server.Domain.User", b =>
@@ -171,44 +214,82 @@ namespace Server.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("ProfileInfoId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("UserStateId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.ToTable("UserInfo");
+                    b.HasIndex("ProfileInfoId")
+                        .IsUnique();
+
+                    b.HasIndex("UserStateId")
+                        .IsUnique();
+
+                    b.ToTable("User");
                 });
 
-            modelBuilder.Entity("Server.ShipmentState", b =>
+            modelBuilder.Entity("Server.Domain.UserState", b =>
                 {
-                    b.Property<int>("CurrentState")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FromDate")
-                        .HasColumnType("datetime2");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ToDate")
-                        .HasColumnType("datetime2");
+                    b.HasKey("Id");
 
-                    b.ToTable("ShipmentState");
+                    b.ToTable("UserState");
                 });
 
             modelBuilder.Entity("Server.Domain.Leg", b =>
                 {
-                    b.HasOne("Server.Domain.Itinerary", null)
+                    b.HasOne("Server.Domain.Location", "EndLocation")
+                        .WithMany()
+                        .HasForeignKey("EndLocationId");
+
+                    b.HasOne("Server.Domain.Itinerary", "Itinerary")
                         .WithMany("Legs")
-                        .HasForeignKey("ItineraryId");
+                        .HasForeignKey("ItineraryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Server.Domain.Location", "StartLocation")
+                        .WithMany()
+                        .HasForeignKey("StartLocationId");
+
+                    b.Navigation("EndLocation");
+
+                    b.Navigation("Itinerary");
+
+                    b.Navigation("StartLocation");
                 });
 
             modelBuilder.Entity("Server.Domain.Shipment", b =>
                 {
                     b.HasOne("Server.Domain.CustomerInfo", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .WithOne("Shipment")
+                        .HasForeignKey("Server.Domain.Shipment", "CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Server.Domain.Location", "DestinationAddress")
-                        .WithMany()
-                        .HasForeignKey("DestinationAddressId");
+                        .WithOne("Shipment")
+                        .HasForeignKey("Server.Domain.Shipment", "DestinationAddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Server.Domain.Itinerary", null)
                         .WithMany("Shipments")
@@ -219,11 +300,66 @@ namespace Server.Migrations
                     b.Navigation("DestinationAddress");
                 });
 
+            modelBuilder.Entity("Server.Domain.ShipmentState", b =>
+                {
+                    b.HasOne("Server.Domain.Shipment", "Shipment")
+                        .WithMany("States")
+                        .HasForeignKey("ShipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Shipment");
+                });
+
+            modelBuilder.Entity("Server.Domain.User", b =>
+                {
+                    b.HasOne("Server.Domain.ProfileInfo", "ProfileInfo")
+                        .WithOne("User")
+                        .HasForeignKey("Server.Domain.User", "ProfileInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Server.Domain.UserState", "UserState")
+                        .WithOne("User")
+                        .HasForeignKey("Server.Domain.User", "UserStateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ProfileInfo");
+
+                    b.Navigation("UserState");
+                });
+
+            modelBuilder.Entity("Server.Domain.CustomerInfo", b =>
+                {
+                    b.Navigation("Shipment");
+                });
+
             modelBuilder.Entity("Server.Domain.Itinerary", b =>
                 {
                     b.Navigation("Legs");
 
                     b.Navigation("Shipments");
+                });
+
+            modelBuilder.Entity("Server.Domain.Location", b =>
+                {
+                    b.Navigation("Shipment");
+                });
+
+            modelBuilder.Entity("Server.Domain.ProfileInfo", b =>
+                {
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Server.Domain.Shipment", b =>
+                {
+                    b.Navigation("States");
+                });
+
+            modelBuilder.Entity("Server.Domain.UserState", b =>
+                {
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

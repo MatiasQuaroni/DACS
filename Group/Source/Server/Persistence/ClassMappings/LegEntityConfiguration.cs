@@ -8,8 +8,6 @@ namespace Server.Persistence.ClassMappings
     {
         public void Configure(EntityTypeBuilder<Leg> builder)
         {
-            builder.Ignore(l => l.StartLocation);
-            builder.Ignore(l => l.EndLocation);
             builder.HasKey(l => l.Id);
             //builder.Property(l => l.StartLocation);
             //builder.Property(l => l.EndLocation);

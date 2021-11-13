@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Server.Domain;
+using Server.Domain.Repositories;
 
 namespace Server.Persistence.Repositories
 {
@@ -31,11 +31,11 @@ namespace Server.Persistence.Repositories
             this.iDbContext.Set<TEntity>().Add(pEntity);
         }
 
-        public TEntity Get(int pId)
+        public virtual TEntity Get(int pId)
         {
             return this.iDbContext.Set<TEntity>().Find(pId);
         }
-        public TEntity Get(Guid pId)
+        public virtual TEntity Get(Guid pId)
         {
             return this.iDbContext.Set<TEntity>().Find(pId);
         }
