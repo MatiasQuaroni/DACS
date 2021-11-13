@@ -152,12 +152,12 @@ namespace Server.Application.Services
             var itineraries = this._unit.ItineraryRepository.GetAll();
             return itineraries;
         }
-        protected bool ShipmentExists(Guid id)
+        private bool ShipmentExists(Guid id)
         {
             return _unit.ShipmentRepository.GetAll().Any(s => s.Id == id);
         }
 
-        public Itinerary SetItineraryLegs(IList<List<double>> distances, IList<Shipment> shipments, Itinerary itinerary, int matrixLength, int realLength, int fromLocation, Guid baseLocation)
+        private Itinerary SetItineraryLegs(IList<List<double>> distances, IList<Shipment> shipments, Itinerary itinerary, int matrixLength, int realLength, int fromLocation, Guid baseLocation)
         {
             if (realLength == 1)
             { return itinerary; }
