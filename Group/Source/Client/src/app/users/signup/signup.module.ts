@@ -15,8 +15,8 @@ import { SignupComponent } from './signup/signup.component';
     FormsModule,
     IonicModule,
     SignupPageRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  declarations: [SignupPage, SignupComponent]
+  declarations: [SignupPage, SignupComponent],
 })
 export class SignupPageModule {}

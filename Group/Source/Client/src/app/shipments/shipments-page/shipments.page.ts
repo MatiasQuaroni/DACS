@@ -33,8 +33,8 @@ const shipments: Shipment[] = [
     destinationAddressId: '4',
     trackingNumber: '4',
     estimatedArrivalDate: new Date(),
-  }
-]
+  },
+];
 
 @Component({
   selector: 'app-shipments',
@@ -42,11 +42,9 @@ const shipments: Shipment[] = [
   styleUrls: ['./shipments.page.scss'],
 })
 export class ShipmentsPage implements OnInit {
-  constructor() { }
+  constructor() {}
 
   public shipments$ = shipments; // Note: this should be retrieved from the store and typed as Observable<Shipment[]>, using dummy placeholder for the moment.
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

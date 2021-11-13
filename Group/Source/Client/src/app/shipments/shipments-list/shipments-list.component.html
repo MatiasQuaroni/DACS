@@ -1,26 +1,20 @@
 <div>
   <ion-list>
     <ion-list-header lines="full">
-      <ion-label>
-        Id
-      </ion-label>
-      <ion-label>
-        Weight
-      </ion-label>
-      <ion-label>
-        EAD
-      </ion-label>
+      <ion-label> Id </ion-label>
+      <ion-label> Weight </ion-label>
+      <ion-label> EAD </ion-label>
     </ion-list-header>
     <ng-container *ngFor="let shipment of shipments">
       <shipment-list-item [shipment]="shipment"></shipment-list-item>
     </ng-container>
   </ion-list>
-<div class="shipment-list-buttons">
-  <ion-fab-button class="shipment-button">
-    <ion-icon name="calendar-outline"></ion-icon>
-  </ion-fab-button>
-  <ion-fab-button class="shipment-button">
-    <ion-icon name="add-outline"></ion-icon>
-  </ion-fab-button>
+  <div class="shipment-list-buttons">
+    <ion-fab-button class="shipment-button">
+      <ion-icon name="calendar-outline"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button class="shipment-button">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
   </div>
 </div>

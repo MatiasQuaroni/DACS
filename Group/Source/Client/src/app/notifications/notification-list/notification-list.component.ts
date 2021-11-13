@@ -7,15 +7,12 @@ import { Notification } from '../+state/model';
   styleUrls: ['./notification-list.component.scss'],
 })
 export class NotificationListComponent implements OnInit {
-
-  constructor() { }
+  constructor() {}
 
   @Input()
   public notifications: Notification[];
 
   public selectedNotifications: string[];
-  
 
   ngOnInit() {}
-
 }

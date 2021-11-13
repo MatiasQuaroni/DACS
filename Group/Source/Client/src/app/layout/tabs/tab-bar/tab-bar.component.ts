@@ -7,12 +7,10 @@ import { TabDefinition } from '../models';
   styleUrls: ['./tab-bar.component.scss'],
 })
 export class TabBarComponent implements OnInit {
+  @Input()
+  public tabs: TabDefinition[];
 
-@Input()
-public tabs: TabDefinition[];
-
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {}
-
 }

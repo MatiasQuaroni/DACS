@@ -7,9 +7,8 @@ import { TabDefinition } from '../models';
   styleUrls: ['./tabs.component.scss'],
 })
 export class TabsComponent implements OnInit {
-
-  public tabs: TabDefinition[]
-  constructor() { }
+  public tabs: TabDefinition[];
+  constructor() {}
 
   ngOnInit() {
     this.tabs = [
@@ -19,13 +18,12 @@ export class TabsComponent implements OnInit {
       },
       {
         icon: 'list-outline',
-        tabName: 'shipments'
+        tabName: 'shipments',
       },
       {
         icon: 'person-outline',
-        tabName: 'login'
-      }
-    ]
+        tabName: 'login',
+      },
+    ];
   }
-
 }

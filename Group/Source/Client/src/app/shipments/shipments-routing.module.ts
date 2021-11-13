@@ -7,12 +7,12 @@ import { TrackingToolComponent } from './tracking-tool/tracking-tool.component';
 const routes: Routes = [
   {
     path: '',
-    component: ShipmentsPage
+    component: ShipmentsPage,
   },
   {
-    path:'tracking-tool',
-    component: TrackingToolComponent
-  }
+    path: 'tracking-tool',
+    component: TrackingToolComponent,
+  },
 ];
 
 @NgModule({
