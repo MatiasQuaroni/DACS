@@ -84,20 +84,22 @@ namespace Server.Application.Services
         }
         public void CreateShipment(ShipmentData shipmentDTO)
         {
-            Shipment s = new Shipment();
+            CustomerInfo customer = new CustomerInfo();
+            customer.Dni = shipmentDTO.Customer.Dni;
+            customer.Email = shipmentDTO.Customer.Email;
+            customer.Name = shipmentDTO.Customer.Name;
+            customer.PhoneNumber = shipmentDTO.Customer.PhoneNumber;
+
+            Location location = new Location();
+            location.Address = shipmentDTO.DestinationAddress.Address;
+            location.Number = shipmentDTO.DestinationAddress.Number;
+            location.PostalCode = shipmentDTO.DestinationAddress.PostalCode;
+            location.Floor = shipmentDTO.DestinationAddress.Floor;
+
+            Shipment s = new Shipment(customer, location);
             s.EstimatedArrivalDate = shipmentDTO.EstimatedArrivalDate;
             s.Precautions = shipmentDTO.Precautions;
             s.Weight = shipmentDTO.Weight;
-
-            s.Customer.Dni = shipmentDTO.Customer.Dni;
-            s.Customer.Email = shipmentDTO.Customer.Email;
-            s.Customer.Name = shipmentDTO.Customer.Name;
-            s.Customer.PhoneNumber = shipmentDTO.Customer.PhoneNumber;
-
-            s.DestinationAddress.Address = shipmentDTO.DestinationAddress.Address;
-            s.DestinationAddress.Number = shipmentDTO.DestinationAddress.Number;
-            s.DestinationAddress.PostalCode = shipmentDTO.DestinationAddress.PostalCode;
-            s.DestinationAddress.Floor = shipmentDTO.DestinationAddress.Floor;
 
             var rootObject = NominatimCoordinatesAPI.
                 GetCoordinates(s.DestinationAddress.Address + " " + s.DestinationAddress.PostalCode.ToString());
