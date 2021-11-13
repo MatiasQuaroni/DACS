@@ -64,21 +64,18 @@ namespace Server
         }
         public void SeedInitialData(IUnitOfWork localScoped)
         {
-
-            if (localScoped.LocationRepository.GetAll().Count() == 0)
+            
+            if (localScoped.LocationRepository.GetAll().Count() == 0 && localScoped.ShipmentRepository.GetAll().Count() == 0)
             {
-                double[] baseCoordinates = { -58.2308008, -32.4962985 };
-                localScoped.LocationRepository.Add(new Location
+                DataSeed seed = new DataSeed();
+                localScoped.LocationRepository.Add(seed.baseLocation);
+                for (int i = 0; i < seed.shipments.Count(); i++)
                 {
-                    Id = _baseLocationId,
-                    Address = "676 Ingeniero Pereyra",
-                    PostalCode = 3260,
-                    Type = 0,
-                    Coordinates = baseCoordinates
+                    localScoped.ShipmentRepository.Add(seed.shipments[i]);
                 }
-                ); ; ;
+                localScoped.Complete();
             }
-            localScoped.Complete();
+          
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
