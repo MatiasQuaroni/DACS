@@ -1,14 +1,25 @@
-import { createEntityAdapter, EntityState } from '@ngrx/entity';
-import { Action, createReducer } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 import * as model from './model';
+import * as shipmentActions from './actions';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 
 export const shipmentsFeatureKey = 'shipments';
 
-type ShipmentState = EntityState<model.Shipment>;
-type LocationState = EntityState<model.Location>;
-type CustomerState = EntityState<model.CustomerInfo>;
-type ItineraryState = EntityState<model.Itinerary>;
-type LegState = EntityState<model.Leg>;
+interface ShipmentState extends EntityState<model.Shipment> {
+  loading?: boolean;
+}
+interface LocationState extends EntityState<model.Location> {
+  loading?: boolean;
+}
+interface CustomerState extends EntityState<model.CustomerInfo> {
+  loading?: boolean;
+}
+interface ItineraryState extends EntityState<model.Itinerary> {
+  loading?: boolean;
+}
+interface LegState extends EntityState<model.Leg> {
+  loading?: boolean;
+}
 
 interface State {
   shipments: ShipmentState;
@@ -16,7 +27,6 @@ interface State {
   customers: CustomerState;
   itineraries: ItineraryState;
   legs: LegState;
-  loading: boolean;
   error?: any;
 }
 
@@ -48,10 +58,64 @@ const initialState: State = {
   customers: customersInitialState,
   itineraries: itinerariesInitialState,
   legs: legsInitialState,
-  loading: false,
 };
 
-const shipmentsReducer = createReducer(initialState);
+const shipmentsReducer = createReducer(
+  initialState,
+  on(shipmentActions.loadItinerariesRequested, (state, action) => ({
+    ...state,
+    itineraries: {
+      ...state.itineraries,
+      loading: true,
+    },
+  })),
+  on(shipmentActions.loadShipmentsSucceeded, (state, action) => ({
+    ...state,
+    shipments: {
+      ...shipmentsAdapter.addMany(action.shipments, state.shipments),
+      loading: false,
+    },
+  })),
+  on(shipmentActions.loadLocationsSucceeded, (state, action) => ({
+    ...state,
+    locations: {
+      ...locationsAdapter.addMany(action.locations, state.locations),
+      loading: false,
+    },
+  })),
+  on(shipmentActions.loadLegsSucceeded, (state, action) => ({
+    ...state,
+    legs: {
+      ...legsAdapter.addMany(action.legs, state.legs),
+      loading: false,
+    },
+  })),
+  on(shipmentActions.loadItinerariesSucceeded, (state, action) => ({
+    ...state,
+    itineraries: {
+      ...itinerariesAdapter.addMany(action.itineraries, state.itineraries),
+      loading: false,
+    },
+  })),
+  on(shipmentActions.loadCustomersSucceeded, (state, action) => ({
+    ...state,
+    customers: {
+      ...customersAdapter.addMany(action.customers, state.customers),
+      loading: false,
+    },
+  })),
+  on(
+    shipmentActions.loadShipmentsFailed,
+    shipmentActions.loadLocationsFailed,
+    shipmentActions.loadItinerariesFailed,
+    shipmentActions.loadLegsFailed,
+    shipmentActions.loadCustomersFailed,
+    (state, action) => ({
+      ...state,
+      error: action.error,
+    })
+  )
+);
 
 export function reducer(state: State | undefined, action: Action) {
   return shipmentsReducer(state, action);
