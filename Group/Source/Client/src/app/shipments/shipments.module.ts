@@ -12,6 +12,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { StoreModule } from '@ngrx/store';
+import * as fromShipments from './+state/reducer';
+import { ShipmentsEffects } from './+state/effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   imports: [
@@ -24,6 +28,11 @@ import { MatInputModule } from '@angular/material/input';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
+    StoreModule.forFeature(
+      fromShipments.shipmentsFeatureKey,
+      fromShipments.reducer
+    ),
+    EffectsModule.forFeature([ShipmentsEffects]),
   ],
   declarations: [
     ShipmentsPage,
