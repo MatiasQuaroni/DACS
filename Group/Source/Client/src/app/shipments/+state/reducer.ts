@@ -97,6 +97,20 @@ const shipmentsReducer = createReducer(
       loading: false,
     },
   })),
+  on(shipmentActions.itineraryCreationRequested, (state) => ({
+    ...state,
+    itineraries: {
+      ...state.itineraries,
+      loading: true,
+    }
+  })),
+  on(shipmentActions.itineraryCreationSucceeded, (state, action) => ({
+    ...state,
+    itineraries: {
+      ...itinerariesAdapter.addOne(action.itinerary, state.itineraries),
+      loading: false,
+    }
+  })),
   on(shipmentActions.loadCustomersSucceeded, (state, action) => ({
     ...state,
     customers: {
