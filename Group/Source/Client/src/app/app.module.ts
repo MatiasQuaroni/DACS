@@ -12,6 +12,7 @@ import { HomePageModule } from './home/home.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +26,7 @@ import { environment } from '../environments/environment';
     HomePageModule,
     NoopAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
+    EffectsModule.forRoot([]),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

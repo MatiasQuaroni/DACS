@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Server.Persistence.ClassMappings;
+
 namespace Server.Persistence
 {
     public class RoadsDbContext : DbContext
@@ -11,8 +12,8 @@ namespace Server.Persistence
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB; Database=RoadsDB; User Id=sa; Password=dacs2021!");
-            optionsBuilder.UseInMemoryDatabase("Roads");
+            optionsBuilder.UseSqlServer(@"Server=localhost, 1433; Database=RoadsDB; User Id=sa; Password=dacs2021!;");
+            //optionsBuilder.UseInMemoryDatabase("Roads");
         } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,7 @@ namespace Server.Persistence
             modelBuilder.ApplyConfiguration(new LocationEntityConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerInfoEntityConfiguration());
             modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new UserStateEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ProfileInfoEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ShipmentStateEntityConfiguration());
         }

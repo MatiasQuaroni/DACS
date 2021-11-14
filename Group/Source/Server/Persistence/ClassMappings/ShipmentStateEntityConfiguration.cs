@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using Server.Domain;
 
 namespace Server.Persistence.ClassMappings
 {
@@ -7,10 +8,10 @@ namespace Server.Persistence.ClassMappings
     {
         public void Configure(EntityTypeBuilder<ShipmentState> builder)
         {
+            builder.HasKey(ss => ss.Id);
             builder.Property(ss => ss.CurrentState);
             builder.Property(ss => ss.FromDate);
             builder.Property(ss => ss.ToDate);
-            builder.HasNoKey();
         }
     }
 }

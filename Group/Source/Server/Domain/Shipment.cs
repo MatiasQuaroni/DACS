@@ -8,13 +8,31 @@ namespace Server.Domain
     public class Shipment
     {
         public Guid Id { get; set; }
-        public int TrackingNumber { get; set; }
+        public Guid TrackingNumber { get; set; }
         public int Weight { get; set; }
         public string Precautions { get; set; }
         public DateTime ArrivalDate { get; set; }
         public DateTime EstimatedArrivalDate { get; set; }
-        public IEnumerable<ShipmentState> States { get; set; }
-        public Location DestinationAddress { get; set; }
-        public CustomerInfo Customer { get; set; }
+        public ICollection<ShipmentState> States { get; set; }
+        public Guid DestinationAddressId { get; set; }
+        public Guid CustomerId { get; set; }
+        public virtual Location DestinationAddress { get; set; }
+        public virtual CustomerInfo Customer { get; set; }
+
+        public Shipment(CustomerInfo customer, Location location)
+        {
+            this.Id = Guid.NewGuid();
+            this.TrackingNumber = Guid.NewGuid();
+            this.Customer = customer;
+            this.DestinationAddress = location;
+            this.States = new List<ShipmentState>();
+            this.addNewState(0);
+        }
+        public void addNewState(int newStateEnum) 
+        { ShipmentState newState = new ShipmentState { CurrentState = (ShipmentStateEnum)newStateEnum,
+                                                        FromDate = DateTime.Now,
+                                                        ShipmentId=this.Id};
+            this.States.Add(newState);
+        }
     }
 }
