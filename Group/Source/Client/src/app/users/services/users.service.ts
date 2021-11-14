@@ -6,7 +6,7 @@ import { LoginModel, UserModel } from '../login/models';
 @Injectable({
   providedIn: 'root',
 })
-export class FirebaseAuthService {
+export class UsersService {
   constructor(
     private fireAuth: AngularFireAuth,
     private fireStore: AngularFirestore
