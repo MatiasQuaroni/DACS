@@ -1,32 +1,36 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CustomerInfo, Itinerary, Shipment, Leg, Location } from '../+state/model';
+import {
+  CustomerInfo,
+  Itinerary,
+  Shipment,
+  Leg,
+  Location,
+} from '../+state/model';
 
-export const ROADS_SERVER_URL = ''
+export const ROADS_SERVER_URL = '';
 @Injectable({
   providedIn: 'root',
 })
 export class ShipmentsService {
   createItinerary(shipmentIds: string[]): Observable<Itinerary> {
-    this.client.post(ROADS_SERVER_URL, shipmentIds).subscribe((itinerary) =>{
-      return itinerary
-    }
+    return this.client.post<Itinerary>(ROADS_SERVER_URL, shipmentIds);
   }
   getAllLegs(): Observable<Leg[]> {
-    throw new Error('Method not implemented.');
+    return this.client.get<Leg[]>(ROADS_SERVER_URL);
   }
   getAllCustomers(): Observable<CustomerInfo[]> {
-    throw new Error('Method not implemented.');
+    return this.client.get<CustomerInfo[]>(ROADS_SERVER_URL);
   }
   getAllItineraries(): Observable<Itinerary[]> {
-    throw new Error('Method not implemented.');
+    return this.client.get<Itinerary[]>(ROADS_SERVER_URL);
   }
   getAllLocations(): Observable<Location[]> {
-    throw new Error('Method not implemented.');
+    return this.client.get<Location[]>(ROADS_SERVER_URL);
   }
   getAllShipments(): Observable<Shipment[]> {
-    throw new Error('Method not implemented.');
+    return this.client.get<Shipment[]>(ROADS_SERVER_URL);
   }
   constructor(private client: HttpClient) {}
 }

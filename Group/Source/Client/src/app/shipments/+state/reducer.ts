@@ -21,7 +21,7 @@ interface LegState extends EntityState<model.Leg> {
   loading?: boolean;
 }
 
-interface State {
+export interface State {
   shipments: ShipmentState;
   locations: LocationState;
   customers: CustomerState;
@@ -30,19 +30,19 @@ interface State {
   error?: any;
 }
 
-const shipmentsAdapter = createEntityAdapter<model.Shipment>({
+export const shipmentsAdapter = createEntityAdapter<model.Shipment>({
   selectId: (shipment) => shipment.id,
 });
-const locationsAdapter = createEntityAdapter<model.Location>({
+export const locationsAdapter = createEntityAdapter<model.Location>({
   selectId: (location) => location.id,
 });
-const customersAdapter = createEntityAdapter<model.CustomerInfo>({
+export const customersAdapter = createEntityAdapter<model.CustomerInfo>({
   selectId: (customer) => customer.id,
 });
-const itinerariesAdapter = createEntityAdapter<model.Itinerary>({
+export const itinerariesAdapter = createEntityAdapter<model.Itinerary>({
   selectId: (itinerary) => itinerary.id,
 });
-const legsAdapter = createEntityAdapter<model.Leg>({
+export const legsAdapter = createEntityAdapter<model.Leg>({
   selectId: (leg) => leg.id,
 });
 
@@ -102,14 +102,14 @@ const shipmentsReducer = createReducer(
     itineraries: {
       ...state.itineraries,
       loading: true,
-    }
+    },
   })),
   on(shipmentActions.itineraryCreationSucceeded, (state, action) => ({
     ...state,
     itineraries: {
       ...itinerariesAdapter.addOne(action.itinerary, state.itineraries),
       loading: false,
-    }
+    },
   })),
   on(shipmentActions.loadCustomersSucceeded, (state, action) => ({
     ...state,
