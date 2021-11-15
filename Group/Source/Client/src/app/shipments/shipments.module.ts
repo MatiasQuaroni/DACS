@@ -16,6 +16,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromShipments from './+state/reducer';
 import { ShipmentsEffects } from './+state/effects';
 import { EffectsModule } from '@ngrx/effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -33,6 +34,7 @@ import { EffectsModule } from '@ngrx/effects';
       fromShipments.reducer
     ),
     EffectsModule.forFeature([ShipmentsEffects]),
+    HttpClientModule,
   ],
   declarations: [
     ShipmentsPage,

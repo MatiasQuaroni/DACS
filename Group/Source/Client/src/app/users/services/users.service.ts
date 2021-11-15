@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { LoginModel, UserModel } from '../login/models';
+import { Action, Store } from '@ngrx/store';
+import { LoginModel, User } from '../+state/model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,8 @@ import { LoginModel, UserModel } from '../login/models';
 export class UsersService {
   constructor(
     private fireAuth: AngularFireAuth,
-    private fireStore: AngularFirestore
+    private fireStore: AngularFirestore,
+    private store$: Store
   ) {}
 
   public signIn(loginModel: LoginModel) {
@@ -23,7 +25,11 @@ export class UsersService {
     return this.fireAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  public saveUser(userModel: UserModel) {
+  public saveUser(userModel: User) {
     return this.fireStore.collection('users').doc(userModel.id).set(userModel);
+  }
+
+  public isAuthenticated() {
+    return true;
   }
 }

@@ -21,7 +21,7 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({}),
     LayoutModule,
     HomePageModule,
     NoopAnimationsModule,

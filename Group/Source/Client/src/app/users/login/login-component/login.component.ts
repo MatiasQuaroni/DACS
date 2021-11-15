@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoginModel } from '../../+state/model';
 import { UsersService } from '../../services/users.service';
 
 @Component({
@@ -12,21 +13,25 @@ export class LoginComponent implements OnInit {
   public email: string;
   public password: string;
 
+  @Output()
+  public loginClicked = new EventEmitter<LoginModel>();
+
   onSignUpClicked() {
     this.router.navigate(['/signup']);
   }
 
   onLogin() {
-    this.usersService
-      .signIn({ email: this.email, password: this.password })
-      .then(
-        () => {
-          this.router.navigate(['home']);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    // this.usersService
+    //   .signIn({ email: this.email, password: this.password })
+    //   .then(
+    //     () => {
+    //       this.router.navigate(['home']);
+    //     },
+    //     (err) => {
+    //       console.log(err);
+    //     }
+    //   );
+    this.loginClicked.emit({ email: this.email, password: this.password });
   }
 
   ngOnInit() {}
