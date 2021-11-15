@@ -1,16 +1,13 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthenticatedGuard } from './users/services/authenticated.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'roads',
+    canActivate: [AuthenticatedGuard],
     loadChildren: () =>
       import('./layout/tabs/tabs.module').then((m) => m.TabsPageModule),
-  },
-  {
-    path: 'shipments',
-    loadChildren: () =>
-      import('./shipments/shipments.module').then((m) => m.ShipmentsPageModule),
   },
   {
     path: 'login',
@@ -21,6 +18,11 @@ const routes: Routes = [
     path: 'signup',
     loadChildren: () =>
       import('./users/signup/signup.module').then((m) => m.SignupPageModule),
+  },
+  {
+    path: '',
+    redirectTo: 'roads',
+    pathMatch: 'full',
   },
 ];
 

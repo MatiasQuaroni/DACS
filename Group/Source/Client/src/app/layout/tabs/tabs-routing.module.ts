@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePage } from 'src/app/home/home-page/home.page';
+import { AuthenticatedGuard } from 'src/app/users/services/authenticated.guard';
 
 import { TabsPage } from './tabs.page';
 
