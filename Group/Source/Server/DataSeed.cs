@@ -82,7 +82,7 @@ namespace Server
 
             var location5 = new Location();
             location5.Address = "472 San Martin";
-            location5.Coordinates = new double[] { -32.2221508, -58.1412408 };
+            location5.Coordinates = new double[] { -58.1412408, -32.2221508 };
             location5.PostalCode = 3280;
             var customer5 = new CustomerInfo();
             customer5.Dni = "41045782";
