@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Action, Store } from '@ngrx/store';
 import { LoginModel, User } from '../+state/model';
+import { UsersFacadeService } from './users-facade.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class UsersService {
   constructor(
     private fireAuth: AngularFireAuth,
     private fireStore: AngularFirestore,
-    private store$: Store
+    private usersFacade: UsersFacadeService
   ) {}
 
   public signIn(loginModel: LoginModel) {
@@ -29,7 +30,7 @@ export class UsersService {
     return this.fireStore.collection('users').doc(userModel.id).set(userModel);
   }
 
-  public isAuthenticated() {
-    return true;
+  public signOut() {
+    return this.fireAuth.signOut();
   }
 }
