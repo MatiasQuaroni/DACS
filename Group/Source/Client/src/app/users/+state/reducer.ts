@@ -23,6 +23,15 @@ const usersReducer = createReducer(
     ...state,
     currentUser: action.userData,
     loading: false,
+  })),
+  on(UserActions.signOutRequested, (state) => ({
+    ...state,
+    loading: true,
+  })),
+  on(UserActions.signOutRequestSucceeded, (state) => ({
+    ...state,
+    currentUser: null,
+    loading: false,
   }))
 );
 
