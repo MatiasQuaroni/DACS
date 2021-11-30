@@ -28,20 +28,40 @@ namespace Server.Application.Controllers
         }
 
         [HttpPost("create")]
-        public void Register(UserData userDTO)
+        public async Task Register(UserData userDTO)
         {
-            /*UserRecordArgs args = new UserRecordArgs()
+            UserRecordArgs args = new UserRecordArgs()
             {
                 Uid = userDTO.Id.ToString(),
-                Email = userDTO.Email,
+                Email = userDTO.ProfileInfo.Email,
                 EmailVerified = false,
-                PhoneNumber = "+"+userDTO.PhoneNumber,
+                PhoneNumber = "+"+userDTO.ProfileInfo.PhoneNumber,
                 Password = userDTO.Password,
-                DisplayName = userDTO.DisplayName,
+                DisplayName = userDTO.ProfileInfo.DisplayName,
                 PhotoUrl = "http://www.example.com/12345678/photo.png",
                 Disabled = false,
             };
-            UserRecord userRecord = await FirebaseAuth.DefaultInstance.CreateUserAsync(args);*/
+            await FirebaseAuth.DefaultInstance.CreateUserAsync(args);
+            var additionalClaims = new Dictionary<string, object>();
+            if (userDTO.UserState == 0)
+            {
+                additionalClaims.Add("admin",true);
+                additionalClaims.Add("transportist", true);
+                additionalClaims.Add("baseUser", true);
+            }
+            else if(userDTO.UserState == 1)
+            {
+                additionalClaims.Add("admin", false);
+                additionalClaims.Add("transportist", true);
+                additionalClaims.Add("baseUser", true);
+            }
+            else
+            {
+                additionalClaims.Add("admin", false);
+                additionalClaims.Add("transportist", false);
+                additionalClaims.Add("baseUser", true);
+            }      
+            await FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(userDTO.Id.ToString(), additionalClaims);
             _userServices.CreateUser(userDTO);
         }
 
@@ -69,19 +89,6 @@ namespace Server.Application.Controllers
             //await FirebaseAuth.DefaultInstance.DeleteUserAsync(id.ToString());
             _userServices.DeleteUser(id);
         }
-        /*
-        [HttpPost("logIn")]
-        public async void LogIn(string email, string password)
-        {
-
-        }
-
-        [HttpGet("logOut")]
-        public void LogOut()
-        {
-            HttpContext.Session.Remove("_UserToken");
-            RedirectToAction("LogIn");
-        }*/
 
         [HttpGet("byId")]
         public UserData GetUser(Guid id)

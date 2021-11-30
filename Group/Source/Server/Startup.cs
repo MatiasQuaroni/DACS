@@ -91,7 +91,7 @@ namespace Server
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseMiddleware<AuthorizationMiddleware>();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
