@@ -16,21 +16,14 @@ export class LoginComponent implements OnInit {
   @Output()
   public loginClicked = new EventEmitter<LoginModel>();
 
+  @Output()
+  public signUpClicked = new EventEmitter();
+
   onSignUpClicked() {
-    this.router.navigate(['/signup']);
+    this.signUpClicked.emit();
   }
 
   onLogin() {
-    // this.usersService
-    //   .signIn({ email: this.email, password: this.password })
-    //   .then(
-    //     () => {
-    //       this.router.navigate(['home']);
-    //     },
-    //     (err) => {
-    //       console.log(err);
-    //     }
-    //   );
     this.loginClicked.emit({ email: this.email, password: this.password });
   }
 
