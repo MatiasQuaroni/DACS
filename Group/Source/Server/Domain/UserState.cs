@@ -13,6 +13,10 @@ namespace Server.Domain
         public User User { get; set; }
         public Guid UserId { get; set; }
 
+        public UserState()
+        {
+                
+        }
         public UserState(int newUserStatus)
         {
             this.Id = Guid.NewGuid();

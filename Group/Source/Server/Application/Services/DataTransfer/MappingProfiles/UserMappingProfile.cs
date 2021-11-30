@@ -15,7 +15,7 @@ namespace Server.Application.Services.DataTransfer.MappingProfiles
             CreateMap<User, UserData>().ForMember(dto => dto.Username, src => src.MapFrom(src => src.UserName));
             CreateMap<User, UserData>().ForMember(dto => dto.Password, src => src.MapFrom(src => src.Password));
             CreateMap<User, UserData>().ForMember(dto => dto.ProfileInfo, src => src.MapFrom(src => src.ProfileInfo));
-            CreateMap<User, UserData>().ForMember(dto => dto.UserState, src => src.MapFrom(src => src.UserState));
+            CreateMap<User, UserData>().ForMember(dto => dto.UserState, src => src.MapFrom(src => src.UserStates));
         }
     }
 }

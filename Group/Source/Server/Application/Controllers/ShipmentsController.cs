@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Domain;
 using Server.Application.Services.DataTransfer;
@@ -24,12 +22,9 @@ namespace Server.Application.Controllers
         [HttpGet("all")]
         public IList<ShipmentData> GetAllShipments()
         {
-            IList<ShipmentData> shipmentsDTOs = new List<ShipmentData>();
+            IList<ShipmentData> shipmentsDTOs;
             var shipments = _shipmentsServices.GetAllShipments();
-            foreach (Shipment s in shipments) 
-            {
-             shipmentsDTOs.Add(_mapper.Map<ShipmentData>(s));
-            }
+            shipmentsDTOs = _mapper.Map<List<ShipmentData>>(shipments);
             return shipmentsDTOs;
         }
 
@@ -62,10 +57,7 @@ namespace Server.Application.Controllers
             {
                 shipments = _shipmentsServices.GetShipmentByPostalCode(searchTerm);
             }
-            foreach (Shipment s in shipments)
-            {
-                shipmentsDTOs.Add(_mapper.Map<ShipmentData>(s));
-            }
+            shipmentsDTOs = _mapper.Map<List<ShipmentData>>(shipments);
             return shipmentsDTOs;
         }
 
@@ -108,13 +100,40 @@ namespace Server.Application.Controllers
         [HttpGet("itineraries/all")]
         public IList<ItineraryData> GetAllItineraries()
         {
-            IList<ItineraryData> itinerariesDTOs = new List<ItineraryData>();
+            IList<ItineraryData> itinerariesDTOs;
             var itineraries = _shipmentsServices.GetAllItineraries();
-            foreach (Itinerary s in itineraries)
-            {
-                itinerariesDTOs.Add(_mapper.Map<ItineraryData>(s));
-            }
+            itinerariesDTOs = _mapper.Map<List<ItineraryData>>(itineraries);
             return itinerariesDTOs;
+        }
+
+        [HttpGet("locations/byId/{locationId}")]
+        public LocationData GetLocation(Guid id)
+        {
+            return _mapper.Map<LocationData>(_shipmentsServices.GetLocation(id));
+        }
+
+        [HttpGet("locations/all")]
+        public IList<LocationData> GetAllLocations()
+        {
+            IList<LocationData> locationsDTOs;
+            var locations = _shipmentsServices.GetAllLocations();
+            locationsDTOs = _mapper.Map<List<LocationData>>(locations);
+            return locationsDTOs;
+        }
+
+        [HttpGet("customers/byId/{locationId}")]
+        public CustomerData GetCustomer(Guid id)
+        {
+            return _mapper.Map<CustomerData>(_shipmentsServices.GetCustomer(id));
+        }
+
+        [HttpGet("customers/all")]
+        public IList<CustomerData> GetAllCustomers()
+        {
+            IList<CustomerData> customersDTOs;
+            var customers = _shipmentsServices.GetAllCustomers();
+            customersDTOs = _mapper.Map<List<CustomerData>>(customers);
+            return customersDTOs;
         }
 
     }

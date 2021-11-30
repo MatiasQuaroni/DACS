@@ -11,6 +11,6 @@ namespace Server.Application.Services.DataTransfer
         public string Username { get; set; }
         public string Password { get; set; }
         public ProfileInfoData ProfileInfo { get; set; }
-        public UserStateData UserState { get; set; }
+        public int UserState { get; set; }
     }
 }

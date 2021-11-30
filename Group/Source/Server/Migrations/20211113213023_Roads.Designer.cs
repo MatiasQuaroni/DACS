@@ -10,8 +10,8 @@ using Server.Persistence;
 namespace Server.Migrations
 {
     [DbContext(typeof(RoadsDbContext))]
-    [Migration("20211111152333_RoadsDB")]
-    partial class RoadsDB
+    [Migration("20211113213023_Roads")]
+    partial class Roads
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -230,9 +230,6 @@ namespace Server.Migrations
                     b.HasIndex("ProfileInfoId")
                         .IsUnique();
 
-                    b.HasIndex("UserStateId")
-                        .IsUnique();
-
                     b.ToTable("User");
                 });
 
@@ -252,6 +249,8 @@ namespace Server.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserState");
                 });
@@ -321,15 +320,18 @@ namespace Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Server.Domain.UserState", "UserState")
-                        .WithOne("User")
-                        .HasForeignKey("Server.Domain.User", "UserStateId")
+                    b.Navigation("ProfileInfo");
+                });
+
+            modelBuilder.Entity("Server.Domain.UserState", b =>
+                {
+                    b.HasOne("Server.Domain.User", "User")
+                        .WithMany("UserStates")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ProfileInfo");
-
-                    b.Navigation("UserState");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Server.Domain.CustomerInfo", b =>
@@ -359,9 +361,9 @@ namespace Server.Migrations
                     b.Navigation("States");
                 });
 
-            modelBuilder.Entity("Server.Domain.UserState", b =>
+            modelBuilder.Entity("Server.Domain.User", b =>
                 {
-                    b.Navigation("User");
+                    b.Navigation("UserStates");
                 });
 #pragma warning restore 612, 618
         }

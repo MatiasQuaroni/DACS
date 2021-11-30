@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Server.Migrations
 {
-    public partial class RoadsDB : Migration
+    public partial class Roads : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -65,20 +65,6 @@ namespace Server.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProfileInfo", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserState",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserState", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -169,12 +155,6 @@ namespace Server.Migrations
                         principalTable: "ProfileInfo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_User_UserState_UserStateId",
-                        column: x => x.UserStateId,
-                        principalTable: "UserState",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -194,6 +174,26 @@ namespace Server.Migrations
                         name: "FK_ShipmentState_Shipment_ShipmentId",
                         column: x => x.ShipmentId,
                         principalTable: "Shipment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserState",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserState", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserState_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -242,10 +242,9 @@ namespace Server.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_User_UserStateId",
-                table: "User",
-                column: "UserStateId",
-                unique: true);
+                name: "IX_UserState_UserId",
+                table: "UserState",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -257,16 +256,13 @@ namespace Server.Migrations
                 name: "ShipmentState");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "UserState");
 
             migrationBuilder.DropTable(
                 name: "Shipment");
 
             migrationBuilder.DropTable(
-                name: "ProfileInfo");
-
-            migrationBuilder.DropTable(
-                name: "UserState");
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "CustomerInfo");
@@ -276,6 +272,9 @@ namespace Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "Location");
+
+            migrationBuilder.DropTable(
+                name: "ProfileInfo");
         }
     }
 }

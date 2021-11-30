@@ -19,12 +19,17 @@ namespace Server.Domain
         public virtual Location DestinationAddress { get; set; }
         public virtual CustomerInfo Customer { get; set; }
 
-        public Shipment(CustomerInfo customer, Location location)
+
+        public Shipment()
+        {
+                
+        }
+        public Shipment(CustomerInfo pCustomer, Location pLocation)
         {
             this.Id = Guid.NewGuid();
             this.TrackingNumber = Guid.NewGuid();
-            this.Customer = customer;
-            this.DestinationAddress = location;
+            this.Customer = pCustomer;
+            this.DestinationAddress = pLocation;
             this.States = new List<ShipmentState>();
             this.addNewState(0);
         }

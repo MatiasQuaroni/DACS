@@ -18,13 +18,13 @@ namespace Server.Persistence.Repositories
         public IEnumerable<User> GetAllUsers()
         {
             List<User> users;
-            users = this.iDbContext.Set<User>().Include(u => u.ProfileInfo).Include(u => u.UserState).ToList();
+            users = this.iDbContext.Set<User>().Include(u => u.ProfileInfo).Include(u => u.UserStates).ToList();
             return users;
         }
         public override User Get(Guid pId)
         {
             var user = iDbContext.Set<User>().Where
-                (u => u.Id == pId).Include(u => u.ProfileInfo).Include(u => u.UserState).FirstOrDefault();
+                (u => u.Id == pId).Include(u => u.ProfileInfo).Include(u => u.UserStates).FirstOrDefault();
             return user;
         }
         public IEnumerable<User> GetByStatus(int status)
@@ -32,7 +32,7 @@ namespace Server.Persistence.Repositories
             var users = new List<User>();
             foreach (var item in this.iDbContext.Set<User>())
             {
-                if (item.UserState.Status == (UserStatus)status)
+                if (item.UserStates.Last<UserState>().Status == (UserStatus)status)
                 {
                     users.Add(item);
                 }
