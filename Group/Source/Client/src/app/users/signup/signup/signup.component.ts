@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginModel, User } from '../../+state/model';
 import { UsersService } from '../../services/users.service';
 
 @Component({
@@ -14,24 +15,14 @@ export class SignupComponent implements OnInit {
   public email: string;
   public password: string;
 
+  @Output()
+  public confirmClicked = new EventEmitter<LoginModel>();
+
   onConfirm() {
-    // this.usersService.signUp(this.email, this.password).then((res) => {
-    //   if (res.user.uid) {
-    //     let data = {
-    //       id: res.user.uid,
-    //       email: this.email,
-    //       password: this.password,
-    //     };
-    //     this.usersService.saveUser(data).then(
-    //       () => {
-    //         this.router.navigate(['login']);
-    //       },
-    //       (error) => {
-    //         console.log(error);
-    //       }
-    //     );
-    //   }
-    // });
+    this.confirmClicked.emit({
+      email: this.email,
+      password: this.password,
+    });
   }
 
   ngOnInit() {}
