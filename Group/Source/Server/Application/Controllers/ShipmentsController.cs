@@ -80,9 +80,10 @@ namespace Server.Application.Controllers
         }
 
         [HttpPost("itineraries/create")]
-        public void CreateItinerary(IList<Guid> shipmentsIDs)
+        public ItineraryData CreateItinerary(IList<Guid> shipmentsIDs)
         {
-            _shipmentsServices.CreateItinerary(shipmentsIDs);
+            var itinerary = _shipmentsServices.CreateItinerary(shipmentsIDs);
+            return _mapper.Map<ItineraryData>(itinerary);
         }
 
         [HttpDelete("itineraries/delete/{id}")]
