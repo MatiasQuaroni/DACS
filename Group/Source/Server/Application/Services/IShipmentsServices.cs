@@ -17,7 +17,7 @@ namespace Server.Application.Services
         public void CreateShipment(ShipmentData shipmentDTO);
         public void DeleteShipment(Guid id);
 
-        public void CreateItinerary(IList<Guid> shipmentsIDs);
+        public Itinerary CreateItinerary(IList<Guid> shipmentsIDs);
         public void DeleteItinerary(Guid id);
         public Itinerary GetItinerary(Guid id);
         public IEnumerable<Itinerary> GetAllItineraries();
