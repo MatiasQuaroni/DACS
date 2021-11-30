@@ -22,7 +22,7 @@ export class TabsComponent implements OnInit {
       },
       {
         icon: 'person-outline',
-        tabName: 'login',
+        tabName: 'account',
       },
     ];
   }

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomePage } from 'src/app/home/home-page/home.page';
-import { AuthenticatedGuard } from 'src/app/users/services/authenticated.guard';
 
 import { TabsPage } from './tabs.page';
 
@@ -23,10 +22,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'login',
+        path: 'account',
         loadChildren: () =>
-          import('../../users/login/login.module').then(
-            (m) => m.LoginPageModule
+          import('../../users/account/account.module').then(
+            (m) => m.AccountPageModule
           ),
       },
       {
