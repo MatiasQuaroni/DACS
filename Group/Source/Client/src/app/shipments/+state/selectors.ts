@@ -20,8 +20,9 @@ const selectAllShipmentEntities$ = createSelector(
   (state) => shipmentsSelectors.selectEntities(state.shipments)
 );
 
-const selectAllShipments$ = createSelector(selectShipmentState, (state) =>
-  shipmentsSelectors.selectAll(state.shipments)
+export const selectAllShipments$ = createSelector(
+  selectShipmentState,
+  (state) => shipmentsSelectors.selectAll(state.shipments)
 );
 
 const selectAllItineraryEntities$ = createSelector(
