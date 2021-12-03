@@ -12,6 +12,7 @@ export const environment = {
     messagingSenderId: '267756409092',
     appId: '1:267756409092:web:0e7ee24d0d62f3305e4051',
   },
+  baseApiUrl: 'https://localhost:5001/Shipments',
 };
 
 /*
