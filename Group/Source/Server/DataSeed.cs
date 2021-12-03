@@ -12,6 +12,12 @@ namespace Server
         public IList<Shipment> shipments = new List<Shipment>();
         public DataSeed()
         {
+            var shipmentId1 = new Guid("E0BFFF15-8D51-4EC4-B72B-6843CC443B17");
+            var shipmentId2 = new Guid("3A9A40F0-C939-45CA-991F-F95D9B266E90");
+            var shipmentId3 = new Guid("C1C6D5B9-BBD3-416D-AB90-20BE2688CC22");
+            var shipmentId4 = new Guid("EB5B0427-80DE-44FA-BE17-F818512AA56A");
+            var shipmentId5 = new Guid("C8902585-4334-4853-A03B-A52B3B329B8F");
+            
             baseLocation = new Location
             {
                 Id = new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4"),
@@ -29,7 +35,7 @@ namespace Server
             customer.Email = "santiago@roads.com";
             customer.Name = "Florez Santiago";
             customer.PhoneNumber = "3447 111222";
-            var shipment = new Shipment(customer, location);
+            var shipment = new Shipment(shipmentId1, customer, location);
             shipment.EstimatedArrivalDate = DateTime.Parse("Jan 1, 2022");
             shipment.Weight = 300;
             shipment.Precautions = "";         
@@ -44,7 +50,7 @@ namespace Server
             customer2.Email = "juan@roads.com";
             customer2.Name = "Sanchez Juan";
             customer2.PhoneNumber = "3447 111888";
-            var shipment2 = new Shipment(customer2, location2);
+            var shipment2 = new Shipment(shipmentId2,customer2, location2);
             shipment2.EstimatedArrivalDate = DateTime.Parse("Jan 1, 2022");
             shipment2.Weight = 2200;
             shipment2.Precautions = "fragile";
@@ -59,7 +65,7 @@ namespace Server
             customer3.Email = "marcos@roads.com";
             customer3.Name = "Rodriguez Marcos";
             customer3.PhoneNumber = "3442 123456";
-            var shipment3 = new Shipment(customer3, location3);
+            var shipment3 = new Shipment(shipmentId3,customer3, location3);
             shipment3.EstimatedArrivalDate = DateTime.Parse("Jan 1, 2022");
             shipment3.Weight = 50000;
             shipment3.Precautions = "";
@@ -74,7 +80,7 @@ namespace Server
             customer4.Email = "pedro@roads.com";
             customer4.Name = "Rodriguez Pedro";
             customer4.PhoneNumber = "3442 111333";
-            var shipment4 = new Shipment(customer4, location4);
+            var shipment4 = new Shipment(shipmentId4, customer4, location4);
             shipment4.EstimatedArrivalDate = DateTime.Parse("Jan 1, 2022");
             shipment4.Weight = 450;
             shipment4.Precautions = "";
@@ -88,7 +94,7 @@ namespace Server
             customer5.Dni = "41045782";
             customer5.Email = "julio@roads.com";
             customer5.Name = "Marino Julio";
-            var shipment5 = new Shipment(customer5, location5);
+            var shipment5 = new Shipment(shipmentId5,customer5, location5);
             shipment5.EstimatedArrivalDate = DateTime.Parse("Jan 1, 2022");
             shipment5.Weight = 300;
             shipment5.Precautions = "";
