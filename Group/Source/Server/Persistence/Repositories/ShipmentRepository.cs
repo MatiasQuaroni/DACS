@@ -22,7 +22,7 @@ namespace Server.Persistence.Repositories
         public override Shipment Get(Guid pId) 
         {
             var shipment = iDbContext.Set<Shipment>().Where
-                (s => s.Id == pId).Include(s => s.Customer).Include(s=> s.DestinationAddress).FirstOrDefault();
+                (s => s.Id.Equals(pId)).Include(s => s.Customer).Include(s=> s.DestinationAddress).First();
             return (Shipment) shipment;
         }
 

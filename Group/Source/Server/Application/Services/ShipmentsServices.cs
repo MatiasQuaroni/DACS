@@ -73,7 +73,7 @@ namespace Server.Application.Services
             location.PostalCode = shipmentDTO.DestinationAddress.PostalCode;
             location.Floor = shipmentDTO.DestinationAddress.Floor;
 
-            Shipment s = new Shipment(customer, location);
+            Shipment s = new Shipment(shipmentDTO.Id, customer, location);
             s.EstimatedArrivalDate = shipmentDTO.EstimatedArrivalDate;
             s.Precautions = shipmentDTO.Precautions;
             s.Weight = shipmentDTO.Weight;
