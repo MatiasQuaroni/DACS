@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/component-selector */
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { AlertController } from '@ionic/angular';
