@@ -2,6 +2,8 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { AlertController } from '@ionic/angular';
+import { Location } from '@angular/common';
+
 
 
 @Component({
@@ -12,7 +14,7 @@ import { AlertController } from '@ionic/angular';
 export class QrScannerComponent implements AfterViewInit, OnDestroy {
   scanActive = false;
   result = null;
-  constructor(private alertController: AlertController) { }
+  constructor(private alertController: AlertController, private location: Location) { }
 
   ngOnDestroy(): void {
     BarcodeScanner.stopScan();
@@ -32,6 +34,9 @@ export class QrScannerComponent implements AfterViewInit, OnDestroy {
       }
     }
   }
+  async goBack() {
+    this.location.back();
+  };
 
   async checkPermission() {
     return new Promise(async (resolve, reject) => {
