@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+/* eslint-disable no-trailing-spaces */
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -40,7 +43,7 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router,
     private modalController: ModalController
-  ) {}
+  ) { }
 
   async onTrackingToolClicked() {
     const modal = await this.modalController.create({
@@ -49,7 +52,12 @@ export class HomePage implements OnInit {
     return await modal.present();
   }
 
+  async onQrScannerClicked() {
+    this.router.navigate(['qr-scanner']);
+
+  }
+
   public notifications$ = notifications; // Note: this should be retrieved from the store and typed as Observable<Notification[]>, using dummy placeholder for the moment.
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
