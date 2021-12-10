@@ -4,7 +4,7 @@ import { AlertController } from '@ionic/angular';
 
 
 @Component({
-  selector: 'app-qr-scanner',
+  selector: 'qr-scanner',
   templateUrl: './qr-scanner.component.html',
   styleUrls: ['./qr-scanner.component.scss'],
 })
