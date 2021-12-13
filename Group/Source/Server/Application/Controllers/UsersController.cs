@@ -12,6 +12,7 @@ using Server.Persistence.UnitOfWork;
 using AutoMapper;
 using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Authorization;
+using FirebaseAdmin;
 
 namespace Server.Application.Controllers
 {
@@ -21,13 +22,30 @@ namespace Server.Application.Controllers
     {
         private readonly IUsersServices _userServices;
         private readonly IMapper _mapper;
-        private readonly Services.AuthorizationMiddleware _auth;
 
-        public UsersController(IUsersServices usersServices, IMapper mapper, Services.AuthorizationMiddleware auth)
+        public UsersController(IUsersServices usersServices, IMapper mapper)
         {
             _userServices = usersServices;
             _mapper = mapper;
-            _auth = auth;
+        }
+
+        [HttpPost("verify")]
+        public async Task<IActionResult> VerifyToken(string token)
+        {
+            var auth = FirebaseAuth.DefaultInstance;
+
+            try
+            {
+                var response = await auth.VerifyIdTokenAsync(token);
+                if (response != null)
+                    return Accepted();
+            }
+            catch (FirebaseException ex)
+            {
+                return BadRequest();
+            }
+
+            return BadRequest();
         }
 
         [HttpPost("create")]
@@ -71,9 +89,6 @@ namespace Server.Application.Controllers
         [HttpPut("update/{id}")]
         public async Task PutUser(Guid id, UserData userDTO, string idToken)
         {
-            FirebaseToken decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
-            if (_auth.IsAdmin(idToken).Result)
-            {
                 UserRecordArgs args = new UserRecordArgs()
                 {
                     Uid = id.ToString(),
@@ -87,42 +102,21 @@ namespace Server.Application.Controllers
                 };
                 UserRecord userRecord = await FirebaseAuth.DefaultInstance.UpdateUserAsync(args);
                 _userServices.UpdateUser(id, userDTO);
-            }
-            else
-            {
-                Unauthorized();
-            }
         }
 
         [HttpDelete("delete/{id}")]
         public async Task DeleteUser(Guid id, [FromHeader]string idToken)
         {
-            FirebaseToken decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
-            if (_auth.IsAdmin(idToken).Result)
-            {
+            
                 await FirebaseAuth.DefaultInstance.DeleteUserAsync(id.ToString());
                 _userServices.DeleteUser(id);
-            }
-            else
-            {
-                Unauthorized();
-            }
         }
 
         [HttpGet("byId")]
         public async Task<UserData> GetUser(Guid id, [FromHeader] string idToken)
-        {
-            FirebaseToken decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
-            if (await _auth.IsAdmin(idToken))
-            {
+        { 
                 UserRecord userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(id.ToString());
-                return _mapper.Map<UserData>(_userServices.GetUser(id));
-            }
-            else
-            {
-                Unauthorized();
-                return null;
-            }
+                return _mapper.Map<UserData>(_userServices.GetUser(id));     
         }
 
         [HttpGet("all")]

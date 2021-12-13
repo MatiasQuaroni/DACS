@@ -14,6 +14,8 @@ using Server.Persistence.UnitOfWork;
 using Server.Domain;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Server
 {
@@ -55,6 +57,19 @@ namespace Server
             {
                 Credential = GoogleCredential.FromFile("./dacs2021g2-0d70fb764546.json"),
             });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "https://securetoken.google.com/dacs2021g2";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "https://securetoken.google.com/dacs2021g2",
+                        ValidateAudience = true,
+                        ValidAudience = "dacs2021g2",
+                        ValidateLifetime = true
+                    };
+                });
             //call to the seeding data method
             using (var scope = services.BuildServiceProvider().CreateScope())
             {
