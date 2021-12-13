@@ -11,6 +11,7 @@ using Server.Application.Services;
 using Server.Persistence.UnitOfWork;
 using AutoMapper;
 using FirebaseAdmin.Auth;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Server.Application.Controllers
 {
@@ -20,15 +21,17 @@ namespace Server.Application.Controllers
     {
         private readonly IUsersServices _userServices;
         private readonly IMapper _mapper;
+        private readonly Services.AuthorizationMiddleware _auth;
 
-        public UsersController(IUsersServices usersServices, IMapper mapper)
+        public UsersController(IUsersServices usersServices, IMapper mapper, Services.AuthorizationMiddleware auth)
         {
             _userServices = usersServices;
             _mapper = mapper;
+            _auth = auth;
         }
 
         [HttpPost("create")]
-        public async Task Register(UserData userDTO)
+        public async Task Register(UserData userDTO, string idToken)
         {
             UserRecordArgs args = new UserRecordArgs()
             {
@@ -66,35 +69,60 @@ namespace Server.Application.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public void PutUser(Guid id, UserData userDTO)
+        public async Task PutUser(Guid id, UserData userDTO, string idToken)
         {
-            /*UserRecordArgs args = new UserRecordArgs()
+            FirebaseToken decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
+            if (_auth.IsAdmin(idToken).Result)
             {
-                Uid = id.ToString(),
-                Email = userDTO.Email,
-                EmailVerified = false,
-                PhoneNumber = userDTO.PhoneNumber,
-                Password = userDTO.Password,
-                DisplayName = userDTO.DisplayName,
-                PhotoUrl = "http://www.example.com/12345678/photo.png",
-                Disabled = false,
-            };
-            UserRecord userRecord = await FirebaseAuth.DefaultInstance.UpdateUserAsync(args);*/
-            _userServices.UpdateUser(id, userDTO);
+                UserRecordArgs args = new UserRecordArgs()
+                {
+                    Uid = id.ToString(),
+                    Email = userDTO.ProfileInfo.Email,
+                    EmailVerified = false,
+                    PhoneNumber = userDTO.ProfileInfo.PhoneNumber,
+                    Password = userDTO.Password,
+                    DisplayName = userDTO.ProfileInfo.DisplayName,
+                    PhotoUrl = "http://www.example.com/12345678/photo.png",
+                    Disabled = false,
+                };
+                UserRecord userRecord = await FirebaseAuth.DefaultInstance.UpdateUserAsync(args);
+                _userServices.UpdateUser(id, userDTO);
+            }
+            else
+            {
+                Unauthorized();
+            }
         }
 
         [HttpDelete("delete/{id}")]
-        public void DeleteUser(Guid id)
+        public async Task DeleteUser(Guid id, [FromHeader]string idToken)
         {
-            //await FirebaseAuth.DefaultInstance.DeleteUserAsync(id.ToString());
-            _userServices.DeleteUser(id);
+            FirebaseToken decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
+            if (_auth.IsAdmin(idToken).Result)
+            {
+                await FirebaseAuth.DefaultInstance.DeleteUserAsync(id.ToString());
+                _userServices.DeleteUser(id);
+            }
+            else
+            {
+                Unauthorized();
+            }
         }
 
         [HttpGet("byId")]
-        public UserData GetUser(Guid id)
+        public async Task<UserData> GetUser(Guid id, [FromHeader] string idToken)
         {
-            //UserRecord userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(id.ToString());
-            return _mapper.Map<UserData>(_userServices.GetUser(id));
+            FirebaseToken decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(idToken);
+            if (await _auth.IsAdmin(idToken))
+            {
+                UserRecord userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(id.ToString());
+                return _mapper.Map<UserData>(_userServices.GetUser(id));
+            }
+            else
+            {
+                Unauthorized();
+                return null;
+            }
         }
 
         [HttpGet("all")]
