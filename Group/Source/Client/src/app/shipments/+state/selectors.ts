@@ -15,6 +15,10 @@ const locationsSelectors = fromShipments.locationsAdapter.getSelectors();
 
 const legsSelectors = fromShipments.legsAdapter.getSelectors();
 
+export const selectItinerary$ = createSelector(selectShipmentState, (state) =>
+  itinerariesSelector.selectAll(state.itinerary)
+);
+
 const selectAllShipmentEntities$ = createSelector(
   selectShipmentState,
   (state) => shipmentsSelectors.selectEntities(state.shipments)
@@ -23,15 +27,6 @@ const selectAllShipmentEntities$ = createSelector(
 export const selectAllShipments$ = createSelector(
   selectShipmentState,
   (state) => shipmentsSelectors.selectAll(state.shipments)
-);
-
-const selectAllItineraryEntities$ = createSelector(
-  selectShipmentState,
-  (state) => itinerariesSelector.selectEntities(state.itineraries)
-);
-
-const selectAllItineraries$ = createSelector(selectShipmentState, (state) =>
-  itinerariesSelector.selectAll(state.itineraries)
 );
 
 const selectAllCustomerEntities$ = createSelector(
@@ -43,19 +38,11 @@ const selectAllCustomers$ = createSelector(selectShipmentState, (state) =>
   customersSelectors.selectAll(state.customers)
 );
 
-const selectAllLocationEntities$ = createSelector(
+export const selectAllLegEntities$ = createSelector(
   selectShipmentState,
-  (state) => locationsSelectors.selectEntities(state.locations)
+  (state) => legsSelectors.selectEntities(state.legs)
 );
 
-const selectAllLocations$ = createSelector(selectShipmentState, (state) =>
-  locationsSelectors.selectAll(state.locations)
-);
-
-const selectAllLegEntities$ = createSelector(selectShipmentState, (state) =>
-  legsSelectors.selectEntities(state.legs)
-);
-
-const selectAllLegs$ = createSelector(selectShipmentState, (state) =>
+export const selectAllLegs$ = createSelector(selectShipmentState, (state) =>
   legsSelectors.selectAll(state.legs)
 );
