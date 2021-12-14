@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Shipment } from '../+state/model';
 import { ShipmentsFacadeService } from '../services/shipments-facade.service';
+import * as ShipmentsActions from '../+state/actions';
 
 @Component({
   selector: 'app-shipments',
@@ -13,6 +15,12 @@ export class ShipmentsPage implements OnInit {
 
   public shipments$: Observable<Shipment[]> =
     this.shipmentsFacade.selectAllShipments$;
+
+  onItinerarySelected($event) {
+    this.shipmentsFacade.dispatch(
+      ShipmentsActions.itineraryCreationRequested({ shipmentIds: $event })
+    );
+  }
 
   ngOnInit() {}
 }

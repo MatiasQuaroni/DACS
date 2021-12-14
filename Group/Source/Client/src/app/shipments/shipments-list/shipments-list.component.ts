@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Shipment } from '../+state/model';
+import { ItemState } from './shipment-list-item/shipment-list-item.component';
 
 @Component({
   selector: 'shipments-list',
@@ -12,7 +13,22 @@ export class ShipmentsListComponent implements OnInit {
   @Input()
   public shipments: Shipment[];
 
-  public selectedItems: string[];
+  @Output()
+  public itineraryButtonClicked = new EventEmitter<string[]>();
+
+  public selectedItems: string[] = [];
+
+  onItineraryButtonClicked() {
+    this.itineraryButtonClicked.emit(this.selectedItems);
+  }
+
+  onShipmentSelected($event: ItemState) {
+    if ($event.selected) {
+      this.selectedItems = [...this.selectedItems, $event.id];
+    } else {
+      this.selectedItems.splice(this.selectedItems.indexOf($event.id, 1));
+    }
+  }
 
   ngOnInit() {}
 }

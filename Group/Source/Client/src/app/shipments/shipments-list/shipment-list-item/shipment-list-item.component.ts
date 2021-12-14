@@ -1,6 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Shipment } from '../../+state/model';
 
+export interface ItemState {
+  id: string;
+  selected: boolean;
+}
 @Component({
   selector: 'shipment-list-item',
   templateUrl: './shipment-list-item.component.html',
@@ -13,7 +17,15 @@ export class ShipmentListItemComponent implements OnInit {
   public shipment: Shipment;
 
   @Input()
-  public selected: boolean;
+  public selected: boolean = false;
+
+  @Output()
+  public itemSelected = new EventEmitter<ItemState>();
+
+  onItemSelected() {
+    this.selected = !this.selected;
+    this.itemSelected.emit({ id: this.shipment.id, selected: this.selected });
+  }
 
   ngOnInit() {}
 }
