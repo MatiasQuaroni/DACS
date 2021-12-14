@@ -1,0 +1,7 @@
+<ng-container *ngIf="itinerary">
+  <ion-label>{{ itinerary.id }}</ion-label>
+  <ion-label>{{ itinerary.startDate | date }}</ion-label>
+  <ng-container *ngFor="let leg of legs">
+    <leg [leg]="leg"></leg>
+  </ng-container>
+</ng-container>
