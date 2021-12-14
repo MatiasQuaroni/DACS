@@ -13,6 +13,11 @@ const routes: Routes = [
     path: 'tracking-tool',
     component: TrackingToolComponent,
   },
+  {
+    path: 'itinerary',
+    loadChildren: () =>
+      import('./itinerary/itinerary.module').then((m) => m.ItineraryPageModule),
+  },
 ];
 
 @NgModule({
