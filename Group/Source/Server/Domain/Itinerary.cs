@@ -20,6 +20,7 @@ namespace Server.Domain
             this.Shipments = new List<Shipment>();
             this.Legs = new List<Leg>();
             this.IsComplete = false;
+            this.StartDate = DateTime.Now;
         }
 
     }

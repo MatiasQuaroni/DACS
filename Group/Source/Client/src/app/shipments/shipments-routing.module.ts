@@ -15,6 +15,11 @@ const routes: Routes = [
     component: TrackingToolComponent,
   },
   {
+    path: 'itinerary',
+    loadChildren: () =>
+      import('./itinerary/itinerary.module').then((m) => m.ItineraryPageModule),
+  },
+  {
     path: 'qr-scanner',
     component: QrScannerComponent,
   },
@@ -24,4 +29,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ShipmentsPageRoutingModule { }
+export class ShipmentsPageRoutingModule {}

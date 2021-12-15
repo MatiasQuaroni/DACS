@@ -15,27 +15,15 @@ export const loadShipmentsFailed = createAction(
   props<{ error: any }>()
 );
 
-export const loadLocationsRequested = createAction(
-  '[Shipments] load locations requested'
+export const loadItineraryRequested = createAction(
+  '[Shipments] load itinerary requested'
 );
 
-export const loadLocationsSucceeded = createAction(
-  '[Shipments] load locations request succeeded',
-  props<{ locations: Location[] }>()
-);
-
-export const loadLocationsFailed = createAction(
-  '[Shipments] load locations request failed',
-  props<{ error: any }>()
-);
-
-export const loadItinerariesRequested = createAction(
-  '[Shipments] load itineraries requested'
-);
-
-export const loadItinerariesSucceeded = createAction(
-  '[Shipments] load itineraries request succeeded',
-  props<{ itineraries: Itinerary[] }>()
+export const loadItinerarySucceeded = createAction(
+  '[Shipments] load itinerary request succeeded',
+  props<{
+    entities: { itinerary: Itinerary; legs: Leg[]; locations: Location[] };
+  }>()
 );
 
 export const loadItinerariesFailed = createAction(
@@ -79,7 +67,18 @@ export const itineraryCreationRequested = createAction(
 
 export const itineraryCreationSucceeded = createAction(
   '[Shipments] itinerary creation request succeeded',
-  props<{ itinerary: Itinerary }>()
+  props<{
+    entities: {
+      itinerary: {};
+      legs: {};
+      locations: {};
+    };
+    ids: {
+      itineraryIds: string[];
+      legIds: string[];
+      locationIds: string[];
+    };
+  }>()
 );
 
 export const itineraryCreationRequestFailed = createAction(

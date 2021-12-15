@@ -1,9 +1,8 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>shipments</ion-title>
-  </ion-toolbar>
-</ion-header>
+<main-content> </main-content>
 
 <ion-content *ngIf="shipments$ | async as shipments">
-  <shipments-list [shipments]="shipments"></shipments-list>
+  <shipments-list
+    [shipments]="shipments"
+    (itineraryButtonClicked)="onItinerarySelected($event)"
+  ></shipments-list>
 </ion-content>
