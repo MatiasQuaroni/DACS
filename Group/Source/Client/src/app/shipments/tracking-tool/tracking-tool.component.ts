@@ -1,3 +1,8 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable max-len */
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable @angular-eslint/component-selector */
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { modalController } from '@ionic/core';
@@ -39,7 +44,7 @@ export class TrackingToolComponent implements OnInit {
   isLinear = false;
   firstFormGroup: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(private _formBuilder: FormBuilder) { }
 
   @Input()
   public shipmentStates$ = shipmentStates; // Note: this should be retrieved from the store and typed as Observable<ShipmentState[]>, using dummy placeholder for the moment.
