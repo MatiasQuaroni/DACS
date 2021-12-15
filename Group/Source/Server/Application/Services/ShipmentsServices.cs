@@ -73,7 +73,7 @@ namespace Server.Application.Services
             location.PostalCode = shipmentDTO.DestinationAddress.PostalCode;
             location.Floor = shipmentDTO.DestinationAddress.Floor;
 
-            Shipment s = new Shipment(customer, location);
+            Shipment s = new Shipment(shipmentDTO.Id, customer, location);
             s.EstimatedArrivalDate = shipmentDTO.EstimatedArrivalDate;
             s.Precautions = shipmentDTO.Precautions;
             s.Weight = shipmentDTO.Weight;
@@ -90,7 +90,7 @@ namespace Server.Application.Services
             _unit.ShipmentRepository.Remove(shipment);
             _unit.Complete();
         }
-        public void CreateItinerary(IList<Guid> shipmentsIDs)
+        public Itinerary CreateItinerary(IList<Guid> shipmentsIDs)
         {
             Guid baseLocation = new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4");
             Itinerary itinerary = new Itinerary();
@@ -109,6 +109,7 @@ namespace Server.Application.Services
             itinerary = SetItineraryLegs(distances, itinerary.Shipments, itinerary, length - 1, length, 0, baseLocation);
             _unit.ItineraryRepository.Add(itinerary);
             _unit.Complete();
+            return itinerary;
         }
 
         public void DeleteItinerary(Guid itineraryId)

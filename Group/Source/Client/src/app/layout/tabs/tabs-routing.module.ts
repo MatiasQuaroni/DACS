@@ -22,10 +22,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'login',
+        path: 'account',
         loadChildren: () =>
-          import('../../users/login/login.module').then(
-            (m) => m.LoginPageModule
+          import('../../users/account/account.module').then(
+            (m) => m.AccountPageModule
           ),
       },
       {

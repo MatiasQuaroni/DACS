@@ -4,6 +4,6 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <shipments-list [shipments]="shipments$"></shipments-list>
+<ion-content *ngIf="shipments$ | async as shipments">
+  <shipments-list [shipments]="shipments"></shipments-list>
 </ion-content>
