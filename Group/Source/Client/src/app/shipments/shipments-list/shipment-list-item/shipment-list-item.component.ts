@@ -1,3 +1,5 @@
+/* eslint-disable @angular-eslint/component-selector */
+/* eslint-disable @typescript-eslint/member-ordering */
 import { Component, Input, OnInit } from '@angular/core';
 import { Shipment } from '../../+state/model';
 
@@ -7,7 +9,7 @@ import { Shipment } from '../../+state/model';
   styleUrls: ['./shipment-list-item.component.scss'],
 })
 export class ShipmentListItemComponent implements OnInit {
-  constructor() {}
+  constructor() { }
 
   @Input()
   public shipment: Shipment;
@@ -15,5 +17,5 @@ export class ShipmentListItemComponent implements OnInit {
   @Input()
   public selected: boolean;
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

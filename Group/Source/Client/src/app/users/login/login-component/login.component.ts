@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { FirebaseAuthService } from '../../services/firebase.auth.service';
+import { LoginModel } from '../../+state/model';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'login',
@@ -8,23 +9,22 @@ import { FirebaseAuthService } from '../../services/firebase.auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router, private auth: FirebaseAuthService) {}
+  constructor(private router: Router, private usersService: UsersService) {}
   public email: string;
   public password: string;
 
+  @Output()
+  public loginClicked = new EventEmitter<LoginModel>();
+
+  @Output()
+  public signUpClicked = new EventEmitter();
+
   onSignUpClicked() {
-    this.router.navigate(['/signup']);
+    this.signUpClicked.emit();
   }
 
   onLogin() {
-    this.auth.signIn({ email: this.email, password: this.password }).then(
-      () => {
-        this.router.navigate(['home']);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    this.loginClicked.emit({ email: this.email, password: this.password });
   }
 
   ngOnInit() {}

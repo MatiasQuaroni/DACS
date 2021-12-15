@@ -13,6 +13,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { ROADS_BASE_API_URL } from './app.tokens';
 
 @NgModule({
   declarations: [AppComponent],
@@ -21,14 +23,18 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({}),
     LayoutModule,
     HomePageModule,
     NoopAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument(),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: ROADS_BASE_API_URL, useValue: environment.baseApiUrl },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

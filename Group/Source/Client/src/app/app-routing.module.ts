@@ -1,26 +1,32 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import {
+  AngularFireAuthGuard,
+  redirectUnauthorizedTo,
+} from '@angular/fire/compat/auth-guard';
+
+const redirectUnauthorizedToLogin = () =>
+  redirectUnauthorizedTo(['/users/login']);
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'roads',
+    canActivate: [AngularFireAuthGuard],
+    data: {
+      authGuardPipe: redirectUnauthorizedToLogin,
+    },
     loadChildren: () =>
       import('./layout/tabs/tabs.module').then((m) => m.TabsPageModule),
   },
   {
-    path: 'shipments',
+    path: 'users',
     loadChildren: () =>
-      import('./shipments/shipments.module').then((m) => m.ShipmentsPageModule),
+      import('./users/users.module').then((m) => m.UsersPageModule),
   },
   {
-    path: 'login',
-    loadChildren: () =>
-      import('./users/login/login.module').then((m) => m.LoginPageModule),
-  },
-  {
-    path: 'signup',
-    loadChildren: () =>
-      import('./users/signup/signup.module').then((m) => m.SignupPageModule),
+    path: '',
+    redirectTo: 'roads',
+    pathMatch: 'full',
   },
 ];
 

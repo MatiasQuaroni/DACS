@@ -1,16 +1,20 @@
+/* eslint-disable @angular-eslint/component-selector */
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { AlertController } from '@ionic/angular';
+import { Location } from '@angular/common';
+
+
 
 @Component({
-  selector: 'app-qr-scanner',
+  selector: 'qr-scanner',
   templateUrl: './qr-scanner.component.html',
   styleUrls: ['./qr-scanner.component.scss'],
 })
 export class QrScannerComponent implements AfterViewInit, OnDestroy {
   scanActive = false;
   result = null;
-  constructor(private alertController: AlertController) {}
+  constructor(private alertController: AlertController, private location: Location) { }
 
   ngOnDestroy(): void {
     BarcodeScanner.stopScan();
@@ -30,6 +34,9 @@ export class QrScannerComponent implements AfterViewInit, OnDestroy {
       }
     }
   }
+  async goBack() {
+    this.location.back();
+  };
 
   async checkPermission() {
     return new Promise(async (resolve, reject) => {
