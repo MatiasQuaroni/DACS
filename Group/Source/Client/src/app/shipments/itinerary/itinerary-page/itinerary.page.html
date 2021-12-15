@@ -1,9 +1,8 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Itinerary</ion-title>
-  </ion-toolbar>
-</ion-header>
+<main-content> </main-content>
 
 <ion-content *ngIf="itinerary$ | async as itinerary">
-  <itinerary [itinerary]="itinerary" [legs]="legs$ | async"></itinerary>
+  <itinerary
+    [itinerary]="itinerary"
+    [locations]="locations$ | async"
+  ></itinerary>
 </ion-content>

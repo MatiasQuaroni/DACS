@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Itinerary } from '../../+state/model';
+import { Itinerary, Location } from '../../+state/model';
 import { ShipmentsFacadeService } from '../../services/shipments-facade.service';
 
 @Component({
@@ -11,10 +11,11 @@ import { ShipmentsFacadeService } from '../../services/shipments-facade.service'
 export class ItineraryPage implements OnInit {
   constructor(private shipmentsFacade: ShipmentsFacadeService) {}
 
-  public itinerary$: Observable<Itinerary[]> =
+  public itinerary$: Observable<Itinerary> =
     this.shipmentsFacade.selectItinerary$;
 
-  public legs$ = this.shipmentsFacade.selectLegs$;
+  public locations$: Observable<Location[]> =
+    this.shipmentsFacade.selectLocations$;
 
   ngOnInit() {}
 }
