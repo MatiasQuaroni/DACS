@@ -4,11 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Server.Domain;
 using Server.Application.Services.DataTransfer;
 using Server.Application.Services;
-using Server.Persistence.UnitOfWork;
 using AutoMapper;
 using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Authorization;
@@ -18,6 +16,7 @@ namespace Server.Application.Controllers
 {
     [Route("Users")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUsersServices _userServices;
@@ -29,7 +28,7 @@ namespace Server.Application.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("verify")]
+       /* [HttpPost("verify")]
         public async Task<IActionResult> VerifyToken(string token)
         {
             var auth = FirebaseAuth.DefaultInstance;
@@ -46,7 +45,7 @@ namespace Server.Application.Controllers
             }
 
             return BadRequest();
-        }
+        }*/
 
         [HttpPost("create")]
         public async Task Register(UserData userDTO, string idToken)
@@ -145,7 +144,7 @@ namespace Server.Application.Controllers
         {
             IEnumerable<UserData> userDTOs = new List<UserData>();
             var users = _userServices.GetUsersByStatus(status);
-            foreach (Domain.User u in users)
+            foreach (User u in users)
             {
                 userDTOs.Append(_mapper.Map<UserData>(u));
             }
