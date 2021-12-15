@@ -5,10 +5,10 @@
 </ion-header>
 
 <ion-content [style.--background]="scanActive ? '#00000000' : '#fff'">
-  <ion-card>
-    <img [style.--background]="scanActive ? '#00000000' : '#fff'" src="assets/menu-qr.png"/>
+  <ion-card [hidden]="scanActive && result" >
+    <img src="assets/menu-qr.png" />
   </ion-card>
-    <ion-header [style.--background]="scanActive ? '#00000000' : '#fff'" class="ion-text-center"> Press "Start Scan" to start the scanning proccess</ion-header>
+    <ion-header class="ion-text-center" [hidden]="scanActive" && [hidden]="result"> Press DSA "Start Scan" to start the scanning proccess</ion-header>
 
   <ion-button expand="full" (click)="startScan()" [hidden]="scanActive">
     <ion-icon name="scan" slot="start"></ion-icon>
@@ -18,8 +18,10 @@
     <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
     Back
   </ion-button>
-  <p class="ion-text-center" *ngIf="result && !scanActive">{{ result }}</p>
 </ion-content>
+
+<p class="ion-text-center" *ngIf="result && !scanActive">{{ result }}</p>
+<p>{{result }}</p>
 
 <ion-row class="scanner-buttons" [hidden]="!scanActive">
   <ion-col class="ion-no-padding">
