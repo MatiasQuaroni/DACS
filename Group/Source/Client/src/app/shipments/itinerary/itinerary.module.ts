@@ -9,9 +9,16 @@ import { ItineraryPageRoutingModule } from './itinerary-routing.module';
 import { ItineraryPage } from './itinerary-page/itinerary.page';
 import { ItineraryComponent } from './itinerary-component/itinerary.component';
 import { LegComponent } from './leg/leg.component';
+import { LayoutModule } from 'src/app/layout/layout.module';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, ItineraryPageRoutingModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    ItineraryPageRoutingModule,
+    LayoutModule,
+  ],
   declarations: [ItineraryPage, ItineraryComponent, LegComponent],
 })
 export class ItineraryPageModule {}
