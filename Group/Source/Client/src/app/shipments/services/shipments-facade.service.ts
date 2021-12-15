@@ -16,6 +16,10 @@ export class ShipmentsFacadeService {
 
   public selectLegs$ = this.store$.select(ShipmentsSelectors.selectAllLegs$);
 
+  public selectLocations$ = this.store$.select(
+    ShipmentsSelectors.selectAllLocations$
+  );
+
   public dispatch(action: Action) {
     this.store$.dispatch(action);
   }
