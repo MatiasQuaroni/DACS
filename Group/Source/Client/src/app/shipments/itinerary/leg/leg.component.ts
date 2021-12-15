@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Leg } from '../../+state/model';
+import { Location } from '../../+state/model';
 
 @Component({
   selector: 'leg',
@@ -10,7 +10,7 @@ export class LegComponent implements OnInit {
   constructor() {}
 
   @Input()
-  public leg: Leg;
+  public location: Location;
 
   ngOnInit() {}
 }
