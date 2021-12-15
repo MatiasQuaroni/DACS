@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Itinerary, Leg } from '../../+state/model';
+import { Itinerary, Leg, Location } from '../../+state/model';
+import { LegComponent } from '../leg/leg.component';
 
 @Component({
   selector: 'itinerary',
@@ -13,7 +14,7 @@ export class ItineraryComponent implements OnInit {
   public itinerary: Itinerary;
 
   @Input()
-  public legs: Leg[];
+  public locations: Location[];
 
   ngOnInit() {}
 }
