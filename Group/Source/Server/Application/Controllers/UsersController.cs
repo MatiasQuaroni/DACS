@@ -63,7 +63,7 @@ namespace Server.Application.Controllers
                 Disabled = false,
             };
             await FirebaseAuth.DefaultInstance.CreateUserAsync(args);
-            var additionalClaims = new Dictionary<string, object>();
+            /*var additionalClaims = new Dictionary<string, object>();
             if (userDTO.UserState == 0)
             {
                 additionalClaims.Add("admin",true);
@@ -82,7 +82,7 @@ namespace Server.Application.Controllers
                 additionalClaims.Add("transportist", false);
                 additionalClaims.Add("baseUser", true);
             }      
-            await FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(userDTO.Id.ToString(), additionalClaims);
+            await FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(userDTO.Id.ToString(), additionalClaims);*/
             _userServices.CreateUser(userDTO);
         }
 
