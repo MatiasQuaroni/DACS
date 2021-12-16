@@ -12,6 +12,7 @@ import { LoginComponent } from './login-component/login.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { UsersEffects } from '../+state/effects';
+import { LayoutModule } from 'src/app/layout/layout.module';
 
 @NgModule({
   imports: [
@@ -19,8 +20,7 @@ import { UsersEffects } from '../+state/effects';
     FormsModule,
     IonicModule,
     LoginPageRoutingModule,
-    // StoreModule.forFeature(fromUsers.usersFeatureKey, fromUsers.reducer),
-    // EffectsModule.forFeature([UsersEffects]),
+    LayoutModule,
   ],
   declarations: [LoginPage, LoginComponent],
 })

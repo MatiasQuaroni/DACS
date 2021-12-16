@@ -8,6 +8,7 @@ import { SignupPageRoutingModule } from './signup-routing.module';
 
 import { SignupPage } from './signup-page/signup.page';
 import { SignupComponent } from './signup/signup.component';
+import { LayoutModule } from 'src/app/layout/layout.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { SignupComponent } from './signup/signup.component';
     IonicModule,
     SignupPageRoutingModule,
     ReactiveFormsModule,
+    LayoutModule,
   ],
   declarations: [SignupPage, SignupComponent],
 })
