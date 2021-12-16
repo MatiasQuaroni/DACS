@@ -30,8 +30,11 @@ export class UsersEffects {
   signInRequestFailed$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(UserActions.signInRequestFailed),
-        switchMap((action) => this.presentToast(action.error))
+        ofType(
+          UserActions.signInRequestFailed,
+          UserActions.signUpRequestFailed
+        ),
+        switchMap((action) => this.presentToast(action.error.message))
       ),
     { dispatch: false }
   );
@@ -69,12 +72,15 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(UserActions.signUpRequested),
       switchMap(({ emailAddress, password }) =>
-        this.usersService.signUp(emailAddress, password).then((result) => {
-          return UserActions.signUpSucceeded({
-            id: result.user.uid,
-            email: result.user.email,
-          });
-        })
+        this.usersService
+          .signUp(emailAddress, password)
+          .then((result) => {
+            return UserActions.signUpSucceeded({
+              id: result.user.uid,
+              email: result.user.email,
+            });
+          })
+          .catch((error) => UserActions.signUpRequestFailed({ error }))
       )
     )
   );
