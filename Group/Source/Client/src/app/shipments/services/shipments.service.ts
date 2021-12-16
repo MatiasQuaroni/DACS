@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, SkipSelf } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ROADS_BASE_API_URL } from 'src/app/app.tokens';
 import {
@@ -38,7 +38,7 @@ export class ShipmentsService {
   }
   constructor(
     @Inject(ROADS_BASE_API_URL) private baseApiUrl: string,
-    private client: HttpClient
+    @SkipSelf() private client: HttpClient
   ) {}
 
   public normalize(data) {
