@@ -43,7 +43,7 @@ export class UsersEffects {
     () =>
       this.actions$.pipe(
         ofType(UserActions.signInRequestSucceeded),
-        switchMap(() => this.router.navigate(['/roads/home']))
+        switchMap(() => this.router.navigate(['/roads']))
       ),
     { dispatch: false }
   );
@@ -89,7 +89,7 @@ export class UsersEffects {
     () =>
       this.actions$.pipe(
         ofType(UserActions.signUpSucceeded),
-        switchMap(() => this.router.navigate(['/roads/home']))
+        switchMap(() => this.router.navigate(['/roads']))
       ),
     { dispatch: false }
   );
