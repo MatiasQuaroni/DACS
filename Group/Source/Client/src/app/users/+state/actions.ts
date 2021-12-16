@@ -1,6 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 import { LoginModel, User } from './model';
 
+export const init = createAction('[Users] init');
+
 export const signInRequested = createAction(
   '[Users] Sign in requested',
   props<{
@@ -32,6 +34,7 @@ export const signUpSucceeded = createAction(
   props<{
     id: string;
     email: string;
+    username?: string;
   }>()
 );
 

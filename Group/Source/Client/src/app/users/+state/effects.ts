@@ -1,13 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { switchMap } from 'rxjs/operators';
+import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
+import { map, switchMap } from 'rxjs/operators';
 import { UsersService } from '../services/users.service';
 import * as UserActions from './actions';
 
 @Injectable()
-export class UsersEffects {
+export class UsersEffects implements OnInitEffects {
+  init$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(UserActions.init),
+      switchMap(() => this.usersService.getCurrentUser()),
+      map((user) =>
+        UserActions.signInRequestSucceeded({
+          userData: {
+            emailAddress: user.email,
+            id: user.uid,
+            username: user.displayName,
+          },
+        })
+      )
+    )
+  );
+
   signInRequested$ = createEffect(() =>
     this.actions$.pipe(
       ofType(UserActions.signInRequested),
@@ -30,8 +47,11 @@ export class UsersEffects {
   signInRequestFailed$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(UserActions.signInRequestFailed),
-        switchMap((action) => this.presentToast(action.error))
+        ofType(
+          UserActions.signInRequestFailed,
+          UserActions.signUpRequestFailed
+        ),
+        switchMap((action) => this.presentToast(action.error.message))
       ),
     { dispatch: false }
   );
@@ -40,7 +60,7 @@ export class UsersEffects {
     () =>
       this.actions$.pipe(
         ofType(UserActions.signInRequestSucceeded),
-        switchMap(() => this.router.navigate(['/roads/home']))
+        switchMap(() => this.router.navigate(['/roads']))
       ),
     { dispatch: false }
   );
@@ -69,12 +89,16 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(UserActions.signUpRequested),
       switchMap(({ emailAddress, password }) =>
-        this.usersService.signUp(emailAddress, password).then((result) => {
-          return UserActions.signUpSucceeded({
-            id: result.user.uid,
-            email: result.user.email,
-          });
-        })
+        this.usersService
+          .signUp(emailAddress, password)
+          .then((result) => {
+            return UserActions.signUpSucceeded({
+              id: result.user.uid,
+              email: result.user.email,
+              username: result.user.displayName,
+            });
+          })
+          .catch((error) => UserActions.signUpRequestFailed({ error }))
       )
     )
   );
@@ -83,7 +107,7 @@ export class UsersEffects {
     () =>
       this.actions$.pipe(
         ofType(UserActions.signUpSucceeded),
-        switchMap(() => this.router.navigate(['/roads/home']))
+        switchMap(() => this.router.navigate(['/roads']))
       ),
     { dispatch: false }
   );
@@ -103,4 +127,7 @@ export class UsersEffects {
     private router: Router,
     private toastController: ToastController
   ) {}
+  ngrxOnInitEffects(): Action {
+    return UserActions.init();
+  }
 }

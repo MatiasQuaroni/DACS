@@ -1,6 +1,7 @@
 <ion-title class="ion-text-left">Personal information</ion-title>
-<ion-card>
-    {{ user.username }}
-</ion-card>
+<ion-item>Id: {{ user.id }}</ion-item>
+<ion-item>Email: {{ user.emailAddress }}</ion-item>
 
-  <ion-button (click)="onSignOutClicked()">Sign Out</ion-button>
+<ion-button class="logout-button" (click)="onSignOutClicked()"
+  >Sign Out</ion-button
+>

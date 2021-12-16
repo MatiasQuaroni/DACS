@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { StoreModule } from '@ngrx/store';
 import { LayoutModule } from './layout/layout.module';
-import { HomePageModule } from './home/home.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environments/environment';
@@ -28,7 +27,6 @@ import { UsersPageModule } from './users/users.module';
     AppRoutingModule,
     StoreModule.forRoot({}),
     LayoutModule,
-    HomePageModule,
     NoopAnimationsModule,
     UsersPageModule,
     AngularFireModule.initializeApp(environment.firebase),

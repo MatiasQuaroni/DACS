@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomePage } from 'src/app/home/home-page/home.page';
-
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -9,11 +7,11 @@ const routes: Routes = [
     path: '',
     component: TabsPage,
     children: [
-      {
-        path: 'home',
-        loadChildren: () =>
-          import('../../home/home.module').then((m) => m.HomePageModule),
-      },
+      // {
+      //   path: 'home',
+      //   loadChildren: () =>
+      //     import('../../home/home.module').then((m) => m.HomePageModule),
+      // },
       {
         path: 'shipments',
         loadChildren: () =>
@@ -30,7 +28,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'home',
+        redirectTo: 'shipments',
         pathMatch: 'full',
       },
     ],

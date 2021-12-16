@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Shipment } from '../+state/model';
 import { ShipmentsFacadeService } from '../services/shipments-facade.service';
 import * as ShipmentsActions from '../+state/actions';
+import { Route } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-shipments',
@@ -12,7 +13,10 @@ import * as ShipmentsActions from '../+state/actions';
   styleUrls: ['./shipments.page.scss'],
 })
 export class ShipmentsPage implements OnInit {
-  constructor(private shipmentsFacade: ShipmentsFacadeService) {}
+  constructor(
+    private shipmentsFacade: ShipmentsFacadeService,
+    private router: Router
+  ) {}
 
   public shipments$: Observable<Shipment[]> =
     this.shipmentsFacade.selectAllShipments$;
@@ -21,6 +25,10 @@ export class ShipmentsPage implements OnInit {
     this.shipmentsFacade.dispatch(
       ShipmentsActions.itineraryCreationRequested({ shipmentIds: $event })
     );
+  }
+
+  async onQrScannerClicked() {
+    this.router.navigate(['roads/shipments/qr-scanner']);
   }
 
   ngOnInit() {}

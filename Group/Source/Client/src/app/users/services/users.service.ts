@@ -30,7 +30,7 @@ export class UsersService {
   configureAuthState(firebaseUser: firebase.User) {
     if (firebaseUser) {
       firebaseUser.getIdToken().then((newToken) => {
-        console.log(newToken);
+        console.log(`Token obtained: ${newToken}`);
         localStorage.setItem('jwt', newToken);
       });
     }
@@ -55,7 +55,12 @@ export class UsersService {
     return this.fireStore.collection('users').doc(userModel.id).set(userModel);
   }
 
+  public getCurrentUser() {
+    return this.fireAuth.user;
+  }
+
   public signOut() {
+    localStorage.removeItem('jwt');
     return this.fireAuth.signOut();
   }
 }
