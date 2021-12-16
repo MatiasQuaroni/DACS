@@ -1,5 +1,16 @@
 <main-content> </main-content>
 
+<ion-fab horizontal="start" vertical="bottom" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="chevron-forward-outline"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="end">
+    <ion-fab-button color="light" (click)="onQrScannerClicked()">
+      <ion-icon name="qr-code-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
 <ion-content *ngIf="shipments$ | async as shipments">
   <shipments-list
     [shipments]="shipments"

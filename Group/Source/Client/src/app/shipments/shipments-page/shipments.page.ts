@@ -12,7 +12,7 @@ import * as ShipmentsActions from '../+state/actions';
   styleUrls: ['./shipments.page.scss'],
 })
 export class ShipmentsPage implements OnInit {
-  constructor(private shipmentsFacade: ShipmentsFacadeService) {}
+  constructor(private shipmentsFacade: ShipmentsFacadeService, private router: Router) { }
 
   public shipments$: Observable<Shipment[]> =
     this.shipmentsFacade.selectAllShipments$;
@@ -22,6 +22,9 @@ export class ShipmentsPage implements OnInit {
       ShipmentsActions.itineraryCreationRequested({ shipmentIds: $event })
     );
   }
+  async onQrScannerClicked() {
+    this.router.navigate(['qr-scanner']);
+  }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
