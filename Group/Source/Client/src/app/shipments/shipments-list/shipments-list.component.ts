@@ -16,6 +16,9 @@ export class ShipmentsListComponent implements OnInit {
   @Output()
   public itineraryButtonClicked = new EventEmitter<string[]>();
 
+  @Output()
+  public qrButtonClicked = new EventEmitter();
+
   public selectedItems: string[] = [];
 
   onItineraryButtonClicked() {
@@ -28,6 +31,10 @@ export class ShipmentsListComponent implements OnInit {
     } else {
       this.selectedItems.splice(this.selectedItems.indexOf($event.id, 1));
     }
+  }
+
+  onQrScannerClicked() {
+    this.qrButtonClicked.emit();
   }
 
   ngOnInit() {}
