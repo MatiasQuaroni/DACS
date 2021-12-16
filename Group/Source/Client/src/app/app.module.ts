@@ -15,6 +15,9 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ROADS_BASE_API_URL } from './app.tokens';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './users/services/auth.interceptor.service';
+import { UsersPageModule } from './users/users.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,13 +30,16 @@ import { ROADS_BASE_API_URL } from './app.tokens';
     LayoutModule,
     HomePageModule,
     NoopAnimationsModule,
+    UsersPageModule,
     AngularFireModule.initializeApp(environment.firebase),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument(),
+    HttpClientModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     { provide: ROADS_BASE_API_URL, useValue: environment.baseApiUrl },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })
