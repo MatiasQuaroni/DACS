@@ -1,6 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
-using Server.Application.Services.DataTransfer;
+﻿using Server.Application.Services.DataTransfer;
 using Server.Domain;
 using Server.Persistence.UnitOfWork;
 using System;

@@ -10,7 +10,6 @@ using Server.Application.Services;
 using AutoMapper;
 using FirebaseAdmin.Auth;
 using Microsoft.AspNetCore.Authorization;
-using FirebaseAdmin;
 
 namespace Server.Application.Controllers
 {
@@ -28,25 +27,6 @@ namespace Server.Application.Controllers
             _mapper = mapper;
         }
 
-       /* [HttpPost("verify")]
-        public async Task<IActionResult> VerifyToken(string token)
-        {
-            var auth = FirebaseAuth.DefaultInstance;
-
-            try
-            {
-                var response = await auth.VerifyIdTokenAsync(token);
-                if (response != null)
-                    return Accepted();
-            }
-            catch (FirebaseException ex)
-            {
-                return BadRequest();
-            }
-
-            return BadRequest();
-        }*/
-
         [HttpPost("create")]
         public async Task Register(UserData userDTO)
         {
@@ -62,26 +42,6 @@ namespace Server.Application.Controllers
                 Disabled = false,
             };
             await FirebaseAuth.DefaultInstance.CreateUserAsync(args);
-            /*var additionalClaims = new Dictionary<string, object>();
-            if (userDTO.UserState == 0)
-            {
-                additionalClaims.Add("admin",true);
-                additionalClaims.Add("transportist", true);
-                additionalClaims.Add("baseUser", true);
-            }
-            else if(userDTO.UserState == 1)
-            {
-                additionalClaims.Add("admin", false);
-                additionalClaims.Add("transportist", true);
-                additionalClaims.Add("baseUser", true);
-            }
-            else
-            {
-                additionalClaims.Add("admin", false);
-                additionalClaims.Add("transportist", false);
-                additionalClaims.Add("baseUser", true);
-            }      
-            await FirebaseAuth.DefaultInstance.CreateCustomTokenAsync(userDTO.Id.ToString(), additionalClaims);*/
             _userServices.CreateUser(userDTO);
         }
 
@@ -121,15 +81,6 @@ namespace Server.Application.Controllers
         [HttpGet("all")]
         public IEnumerable<UserData> GetAllUsers()
         {
-            /*
-            GetUsersResult result = await FirebaseAuth.DefaultInstance.GetUsersAsync(
-                new List<UserIdentifier> {
-                    new UidIdentifier("uid1"),
-                    new EmailIdentifier("user2@example.com"),
-                    new PhoneIdentifier("+15555550003"),
-                    new ProviderIdentifier("google.com", "google_uid4"),
-                });
-            */
             IList<UserData> userDTOs = new List<UserData>();
             var users = _userServices.GetAllUsers();
             foreach (User u in users)

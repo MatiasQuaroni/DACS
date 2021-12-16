@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Server.Persistence.Repositories;
+﻿using Server.Persistence.Repositories;
 using Server.Domain.Repositories;
 using Server.Domain;
 

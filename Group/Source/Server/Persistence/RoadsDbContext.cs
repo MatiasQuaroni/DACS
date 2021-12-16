@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Server.Persistence.ClassMappings;
 
 namespace Server.Persistence
@@ -13,7 +9,6 @@ namespace Server.Persistence
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Server=localhost, 1433; Database=RoadsDB; User Id=sa; Password=dacs2021!;");
-            //optionsBuilder.UseInMemoryDatabase("Roads");
         } 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
