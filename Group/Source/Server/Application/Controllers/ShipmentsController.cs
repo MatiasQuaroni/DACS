@@ -5,11 +5,13 @@ using Server.Domain;
 using Server.Application.Services.DataTransfer;
 using Server.Application.Services;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Server.Application.Controllers
 {
     [Route("Shipments")]
     [ApiController]
+    [Authorize]
     public class ShipmentsController : ControllerBase
     {
         private readonly IShipmentsServices _shipmentsServices;
@@ -35,6 +37,7 @@ namespace Server.Application.Controllers
         }
 
         [HttpGet("/track/{trackingNumber}")]
+        [AllowAnonymous]
         public ShipmentData Track(Guid trackingNumber)
         {
             return _mapper.Map<ShipmentData>(_shipmentsServices.GetShipmentByTrackingNumber(trackingNumber));

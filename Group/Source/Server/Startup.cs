@@ -11,15 +11,15 @@ using Server.Application.Services.DataTransfer.MappingProfiles;
 using Server.Persistence;
 using Server.Application.Services;
 using Server.Persistence.UnitOfWork;
-using Server.Domain;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Server
 {
     public class Startup
     {
-        private readonly Guid _baseLocationId = new Guid("F9168C5E-CEB2-4faa-B6BF-329BF39FA1E4");
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -66,29 +66,40 @@ namespace Server
             {
                 Credential = GoogleCredential.FromFile("./dacs2021g2-0d70fb764546.json"),
             });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.Authority = "https://securetoken.google.com/dacs2021g2";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "https://securetoken.google.com/dacs2021g2",
+                        ValidateAudience = true,
+                        ValidAudience = "dacs2021g2",
+                        ValidateLifetime = true
+                    };
+                });
             //call to the seeding data method
-            using (var scope = services.BuildServiceProvider().CreateScope())
+            using (var scope = services.BuildServiceProvider()
+                .CreateScope())
             {
                 var localScoped = scope.ServiceProvider.GetService<IUnitOfWork>();
                 this.SeedInitialData(localScoped);
             }
         }
         public void SeedInitialData(IUnitOfWork localScoped)
-        {
-            
+        { 
             if (localScoped.LocationRepository.GetAll().Count() == 0 && localScoped.ShipmentRepository.GetAll().Count() == 0)
             {
                 DataSeed seed = new DataSeed();
                 localScoped.LocationRepository.Add(seed.baseLocation);
-                for (int i = 0; i < seed.shipments.Count(); i++)
+                for (int i = 0; i < seed.shipments.Count; i++)
                 {
                     localScoped.ShipmentRepository.Add(seed.shipments[i]);
                 }
                 localScoped.Complete();
-            }
-          
+            }   
         }
-
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -102,9 +113,8 @@ namespace Server
 
             app.UseRouting();
             app.UseCors();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
