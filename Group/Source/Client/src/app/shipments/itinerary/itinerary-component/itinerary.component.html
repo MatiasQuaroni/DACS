@@ -1,15 +1,26 @@
-<ng-container *ngIf="itinerary">
-  <ion-header> Itinerary info: </ion-header>
-  <p>Id: {{ itinerary.id }}</p>
-  <p>Start date: {{ itinerary.startDate | date: "dd/mm/yyyy" }}</p>
-  <ion-list-header> Itinerary steps: </ion-list-header>
-  <ion-list-header lines="full">
-    <ion-label> Postal Code </ion-label>
-    <ion-label> Address </ion-label>
-  </ion-list-header>
-  <ion-list>
-    <ng-container *ngFor="let location of locations">
-      <leg [location]="location"></leg>
-    </ng-container>
-  </ion-list>
-</ng-container>
+<ion-content>
+  <ng-container *ngIf="itinerary">
+
+    <ion-toolbar color="primary">
+      <ion-title>Itinerary information</ion-title>
+    </ion-toolbar>
+
+    <ion-card-subtitle class="ion-margin">Itinerary ID: {{itinerary.id}}</ion-card-subtitle>
+    <ion-card-subtitle class="ion-margin">Start date: {{ itinerary.startDate | date: "dd/MM/yyyy" }}</ion-card-subtitle>
+
+    <ion-toolbar color="secondary">
+      <ion-title>Itinerary steps</ion-title>
+    </ion-toolbar>
+
+    <ion-list-header lines="full">
+      <ion-label> Postal Code </ion-label>
+      <ion-label> Address </ion-label>
+    </ion-list-header>
+    <ion-list>
+      <ng-container *ngFor="let location of locations">
+        <leg [location]="location"></leg>
+      </ng-container>
+    </ion-list>
+  </ng-container>
+</ion-content>
+
