@@ -15,7 +15,6 @@ export class UsersService {
   public currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>({
     id: null,
     username: null,
-    isSignedIn: false,
     emailAddress: null,
   });
 
