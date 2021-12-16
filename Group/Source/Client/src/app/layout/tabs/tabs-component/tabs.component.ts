@@ -12,10 +12,10 @@ export class TabsComponent implements OnInit {
 
   ngOnInit() {
     this.tabs = [
-      {
-        icon: 'home-sharp',
-        tabName: 'home',
-      },
+      // {
+      //   icon: 'home-sharp',
+      //   tabName: 'home',
+      // },
       {
         icon: 'list-outline',
         tabName: 'shipments',
