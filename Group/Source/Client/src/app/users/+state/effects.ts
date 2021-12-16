@@ -16,9 +16,9 @@ export class UsersEffects implements OnInitEffects {
       map((user) =>
         UserActions.signInRequestSucceeded({
           userData: {
-            emailAddress: user.email,
-            id: user.uid,
-            username: user.displayName,
+            emailAddress: user?.email,
+            id: user?.uid,
+            username: user?.displayName,
           },
         })
       )
