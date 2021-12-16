@@ -18,7 +18,6 @@ import { NotificationsModule } from '../notifications/notifications.module';
     HomePageRoutingModule,
     LayoutModule,
     MatBadgeModule,
-    ShipmentsPageModule,
     NotificationsModule,
   ],
   declarations: [HomePage, HomeComponent],

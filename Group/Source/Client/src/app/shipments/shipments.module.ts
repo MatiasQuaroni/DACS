@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ItineraryComponent } from './itinerary/itinerary-component/itinerary.component';
 import { LegComponent } from './itinerary/leg/leg.component';
 import { LayoutModule } from '../layout/layout.module';
+import { ShipmentsService } from './services/shipments.service';
 
 @NgModule({
   imports: [
@@ -46,5 +47,6 @@ import { LayoutModule } from '../layout/layout.module';
     ShipmentListItemComponent,
     TrackingToolComponent,
   ],
+  providers: [ShipmentsService],
 })
 export class ShipmentsPageModule {}
