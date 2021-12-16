@@ -17,9 +17,13 @@ import * as fromShipments from './+state/reducer';
 import { ShipmentsEffects } from './+state/effects';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
+import { ItineraryComponent } from './itinerary/itinerary-component/itinerary.component';
+import { LegComponent } from './itinerary/leg/leg.component';
+import { LayoutModule } from '../layout/layout.module';
 
 @NgModule({
   imports: [
+    LayoutModule,
     CommonModule,
     FormsModule,
     IonicModule,

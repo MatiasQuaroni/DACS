@@ -1,0 +1,15 @@
+<ng-container *ngIf="itinerary">
+  <ion-header> Itinerary info: </ion-header>
+  <p>Id: {{ itinerary.id }}</p>
+  <p>Start date: {{ itinerary.startDate | date: "dd/mm/yyyy" }}</p>
+  <ion-list-header> Itinerary steps: </ion-list-header>
+  <ion-list-header lines="full">
+    <ion-label> Postal Code </ion-label>
+    <ion-label> Address </ion-label>
+  </ion-list-header>
+  <ion-list>
+    <ng-container *ngFor="let location of locations">
+      <leg [location]="location"></leg>
+    </ng-container>
+  </ion-list>
+</ng-container>

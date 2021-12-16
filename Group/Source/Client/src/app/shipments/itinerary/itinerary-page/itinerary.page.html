@@ -1,0 +1,8 @@
+<main-content> </main-content>
+
+<ion-content *ngIf="itinerary$ | async as itinerary">
+  <itinerary
+    [itinerary]="itinerary"
+    [locations]="locations$ | async"
+  ></itinerary>
+</ion-content>

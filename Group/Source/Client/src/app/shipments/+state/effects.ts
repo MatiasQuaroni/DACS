@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { ShipmentsService } from '../services/shipments.service';
 import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
 import * as shipmentActions from './actions';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ShipmentsEffects implements OnInitEffects {
@@ -17,40 +18,6 @@ export class ShipmentsEffects implements OnInitEffects {
           ),
           catchError(async (error) =>
             shipmentActions.loadShipmentsFailed({ error: error })
-          )
-        )
-      )
-    )
-  );
-
-  loadLocations$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(shipmentActions.loadLocationsRequested),
-      switchMap(() =>
-        this.shipmentsService.getAllLocations().pipe(
-          map((locations) =>
-            shipmentActions.loadLocationsSucceeded({ locations: locations })
-          ),
-          catchError(async (error) =>
-            shipmentActions.loadLocationsFailed({ error: error })
-          )
-        )
-      )
-    )
-  );
-
-  loadItineraries$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(shipmentActions.loadItinerariesRequested),
-      switchMap(() =>
-        this.shipmentsService.getAllItineraries().pipe(
-          map((itineraries) =>
-            shipmentActions.loadItinerariesSucceeded({
-              itineraries: itineraries,
-            })
-          ),
-          catchError(async (error) =>
-            shipmentActions.loadItinerariesFailed({ error: error })
           )
         )
       )
@@ -87,14 +54,28 @@ export class ShipmentsEffects implements OnInitEffects {
     )
   );
 
+  itineraryRequested$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(shipmentActions.itineraryCreationRequested),
+        tap(() => this.router.navigate(['/roads/shipments/itinerary']))
+      ),
+    { dispatch: false }
+  );
+
   itineraryCreation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(shipmentActions.itineraryCreationRequested),
       switchMap(({ shipmentIds }) =>
         this.shipmentsService.createItinerary(shipmentIds).pipe(
-          map((itinerary) =>
-            shipmentActions.itineraryCreationSucceeded({ itinerary: itinerary })
-          ),
+          map((itinerary) => {
+            let data = this.shipmentsService.normalize(itinerary);
+            console.log(data);
+            return shipmentActions.itineraryCreationSucceeded({
+              entities: data.entities,
+              ids: data.ids,
+            });
+          }),
           catchError(async (error) =>
             shipmentActions.itineraryCreationRequestFailed({ error: error })
           )
@@ -105,7 +86,8 @@ export class ShipmentsEffects implements OnInitEffects {
 
   constructor(
     private actions$: Actions,
-    private shipmentsService: ShipmentsService
+    private shipmentsService: ShipmentsService,
+    private router: Router
   ) {}
   ngrxOnInitEffects(): Action {
     return shipmentActions.loadShipmentsRequested();

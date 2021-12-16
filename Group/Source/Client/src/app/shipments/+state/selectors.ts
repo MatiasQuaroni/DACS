@@ -1,5 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Leg } from './model';
 import * as fromShipments from './reducer';
+
+interface LegWithLocation {
+  leg: Leg;
+  startLocation: Location;
+  endLocation: Location;
+}
 
 export const selectShipmentState = createFeatureSelector<fromShipments.State>(
   fromShipments.shipmentsFeatureKey
@@ -15,6 +22,15 @@ const locationsSelectors = fromShipments.locationsAdapter.getSelectors();
 
 const legsSelectors = fromShipments.legsAdapter.getSelectors();
 
+export const selectItineraries$ = createSelector(selectShipmentState, (state) =>
+  itinerariesSelector.selectAll(state.itinerary)
+);
+
+export const selectItinerary$ = createSelector(
+  selectItineraries$,
+  (itineraries) => itineraries[0]
+);
+
 const selectAllShipmentEntities$ = createSelector(
   selectShipmentState,
   (state) => shipmentsSelectors.selectEntities(state.shipments)
@@ -23,15 +39,6 @@ const selectAllShipmentEntities$ = createSelector(
 export const selectAllShipments$ = createSelector(
   selectShipmentState,
   (state) => shipmentsSelectors.selectAll(state.shipments)
-);
-
-const selectAllItineraryEntities$ = createSelector(
-  selectShipmentState,
-  (state) => itinerariesSelector.selectEntities(state.itineraries)
-);
-
-const selectAllItineraries$ = createSelector(selectShipmentState, (state) =>
-  itinerariesSelector.selectAll(state.itineraries)
 );
 
 const selectAllCustomerEntities$ = createSelector(
@@ -43,19 +50,33 @@ const selectAllCustomers$ = createSelector(selectShipmentState, (state) =>
   customersSelectors.selectAll(state.customers)
 );
 
-const selectAllLocationEntities$ = createSelector(
+export const selectAllLegEntities$ = createSelector(
+  selectShipmentState,
+  (state) => legsSelectors.selectEntities(state.legs)
+);
+
+export const selectAllLegs$ = createSelector(selectShipmentState, (state) =>
+  legsSelectors.selectAll(state.legs)
+);
+
+export const selectAllLocations$ = createSelector(
+  selectShipmentState,
+  (state) => locationsSelectors.selectAll(state.locations)
+);
+
+export const selectAllLocationEntities$ = createSelector(
   selectShipmentState,
   (state) => locationsSelectors.selectEntities(state.locations)
 );
 
-const selectAllLocations$ = createSelector(selectShipmentState, (state) =>
-  locationsSelectors.selectAll(state.locations)
-);
+export const selectLegById = (id: string) =>
+  createSelector(selectAllLegEntities$, (legs) => legs[id]);
 
-const selectAllLegEntities$ = createSelector(selectShipmentState, (state) =>
-  legsSelectors.selectEntities(state.legs)
-);
-
-const selectAllLegs$ = createSelector(selectShipmentState, (state) =>
-  legsSelectors.selectAll(state.legs)
-);
+export const selectLegWithLocations = (id: string) =>
+  createSelector(
+    selectLegById(id),
+    selectAllLocationEntities$,
+    (leg, locations) => {
+      locations[leg.startLocationId], locations[leg.endLocationId];
+    }
+  );

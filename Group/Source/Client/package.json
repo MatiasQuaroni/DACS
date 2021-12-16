@@ -37,6 +37,7 @@
     "@ngrx/store-devtools": "^12.5.1",
     "firebase": "^9.2.0",
     "natives": "^1.1.6",
+    "normalizr": "^3.6.1",
     "rxfire": "^6.0.0",
     "rxjs": "^6.5.3",
     "tslib": "^2.3.1",
