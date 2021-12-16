@@ -69,13 +69,13 @@ namespace Server
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = "https://securetoken.google.com/dacs2021g2";
+                    options.Authority = "https://securetoken.google.com/roads-1912e";
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidIssuer = "https://securetoken.google.com/dacs2021g2",
+                        ValidIssuer = "https://securetoken.google.com/roads-1912e",
                         ValidateAudience = true,
-                        ValidAudience = "dacs2021g2",
+                        ValidAudience = "roads-1912e",
                         ValidateLifetime = true
                     };
                 });
