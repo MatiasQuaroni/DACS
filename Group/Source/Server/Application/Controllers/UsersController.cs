@@ -48,7 +48,7 @@ namespace Server.Application.Controllers
         }*/
 
         [HttpPost("create")]
-        public async Task Register(UserData userDTO, string idToken)
+        public async Task Register(UserData userDTO)
         {
             UserRecordArgs args = new UserRecordArgs()
             {
@@ -86,7 +86,7 @@ namespace Server.Application.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public async Task PutUser(Guid id, UserData userDTO, string idToken)
+        public async Task PutUser(Guid id, UserData userDTO)
         {
                 UserRecordArgs args = new UserRecordArgs()
                 {
@@ -104,7 +104,7 @@ namespace Server.Application.Controllers
         }
 
         [HttpDelete("delete/{id}")]
-        public async Task DeleteUser(Guid id, [FromHeader]string idToken)
+        public async Task DeleteUser(Guid id)
         {
             
                 await FirebaseAuth.DefaultInstance.DeleteUserAsync(id.ToString());
@@ -112,7 +112,7 @@ namespace Server.Application.Controllers
         }
 
         [HttpGet("byId")]
-        public async Task<UserData> GetUser(Guid id, [FromHeader] string idToken)
+        public async Task<UserData> GetUser(Guid id)
         { 
                 UserRecord userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(id.ToString());
                 return _mapper.Map<UserData>(_userServices.GetUser(id));     
